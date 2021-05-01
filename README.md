@@ -26,5 +26,6 @@ L'architecture côté serveur respecte les principes de séparation des responsa
 
 ## Reste à faire 
 
-- découpler l'api du biz en mettant une interface listant les fonctions attendues par api 
-- montrer comment on gère les données persistantes avec un store en mémoire et un store dans une base de données
+- [x] découpler l'api du biz en mettant une interface listant les fonctions attendues par api 
+- [ ] montrer comment on gère les données persistantes avec un store en mémoire et un store dans une base de données
+- [ ] ajouter des tests et montrer l'intérêt des interfaces

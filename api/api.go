@@ -1,16 +1,15 @@
 package api
 
 import (
-	"app/biz"
 	"encoding/json"
 	"net/http"
 )
 
 type API struct {
-	biz biz.BIZ
+	biz business
 }
 
-func (api *API) Init(b biz.BIZ) {
+func (api API) Init(b business) {
 	api.biz = b
 	api.InitRoutes()
 }
