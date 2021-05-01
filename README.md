@@ -1,4 +1,4 @@
-# GoSvelte.draft
+# WebToolKit
 
 Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et Svelte pour la partie cliente. Il peut servir de base pour construire rapidement une application utilisant ces technologies, en recopiant simplement ces fichiers et en lançant les commandes suivantes :
 
