@@ -3,13 +3,19 @@ package main
 import (
 	"app/api"
 	"app/biz"
+	_ "embed"
 	"log"
 	"net/http"
 )
 
 const port = 8000
 
+//go:embed VERSION
+var version string
+
 func main() {
+
+	log.Printf("App version %v", version)
 
 	// on crée notre biz
 	var biz biz.BIZ
