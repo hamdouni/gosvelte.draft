@@ -18,6 +18,7 @@ Le dossier **ihm** contient le code source pour la partie cliente (Svelte). La c
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 - **biz** est en charge de votre logique métier et est censée être agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
 - **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request) et retourner les données en réponses (response au format JSON)
+- **bdd** contient les différents magasins de données possibles. Un magasin en mémoire est utilisé en exemple pour sauvegarder l'historique des demandes.
 
 ## Pré-requis
 
@@ -27,5 +28,5 @@ L'architecture côté serveur respecte les principes de séparation des responsa
 ## Reste à faire 
 
 - [x] découpler l'api du biz en mettant une interface listant les fonctions attendues par api 
-- [ ] montrer comment on gère les données persistantes avec un store en mémoire et un store dans une base de données
+- [x] montrer comment on gère les données persistantes avec un store en mémoire
 - [ ] ajouter des tests et montrer l'intérêt des interfaces
