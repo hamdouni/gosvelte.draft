@@ -14,16 +14,23 @@
 </button>
 <hr>
 <h1>{resultat}</h1>
-
+<hr>
+<ul>
+    {#each historique as evenement}
+        <li>{evenement}</li>
+    {/each}
+</ul>
 <script>
     let nom = "";
     let resultat = "";
+    let historique = [];
     function callApi(endpoint) {
         fetch("/"+endpoint+"?nom="+nom).then(function(response){
            return(response.json());
         }).then(function(data){
             resultat = data;
-        })
+        });
+        reloadHistoric();
     }
     function callBonjour() {
         callApi("hello");
@@ -34,6 +41,14 @@
     function callMin() {
         callApi("lower");
     }
+    function reloadHistoric() {
+        fetch("/historic").then(function(response){
+           return(response.json());
+        }).then(function(data){
+            historique = data;
+        })
+    }
+    reloadHistoric();
 </script>
 
 <style>
