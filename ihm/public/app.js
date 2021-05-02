@@ -1,5 +1,5 @@
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35730/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var app = (function () {
     'use strict';
 
@@ -347,12 +347,16 @@ var app = (function () {
     	let t2;
     	let input;
     	let t3;
-    	let button;
+    	let button0;
     	let t5;
-    	let hr1;
-    	let t6;
-    	let h1;
+    	let button1;
     	let t7;
+    	let button2;
+    	let t9;
+    	let hr1;
+    	let t10;
+    	let h1;
+    	let t11;
     	let mounted;
     	let dispose;
 
@@ -365,22 +369,30 @@ var app = (function () {
     			t2 = space();
     			input = element("input");
     			t3 = space();
-    			button = element("button");
-    			button.textContent = "Cliquez ici pour lancer un appel à l'api";
+    			button0 = element("button");
+    			button0.textContent = "Bonjour";
     			t5 = space();
+    			button1 = element("button");
+    			button1.textContent = "Majuscule";
+    			t7 = space();
+    			button2 = element("button");
+    			button2.textContent = "Minuscule";
+    			t9 = space();
     			hr1 = element("hr");
-    			t6 = space();
+    			t10 = space();
     			h1 = element("h1");
-    			t7 = text(/*resultat*/ ctx[1]);
+    			t11 = text(/*resultat*/ ctx[1]);
     			attr_dev(pre, "class", "toto svelte-1tj96w7");
     			add_location(pre, file, 0, 0, 0);
     			add_location(hr0, file, 3, 0, 53);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Entrer votre prénom...");
     			add_location(input, file, 4, 0, 58);
-    			add_location(button, file, 5, 0, 134);
-    			add_location(hr1, file, 8, 0, 216);
-    			add_location(h1, file, 9, 0, 221);
+    			add_location(button0, file, 5, 0, 134);
+    			add_location(button1, file, 8, 0, 190);
+    			add_location(button2, file, 11, 0, 244);
+    			add_location(hr1, file, 14, 0, 298);
+    			add_location(h1, file, 15, 0, 303);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -393,17 +405,23 @@ var app = (function () {
     			insert_dev(target, input, anchor);
     			set_input_value(input, /*nom*/ ctx[0]);
     			insert_dev(target, t3, anchor);
-    			insert_dev(target, button, anchor);
+    			insert_dev(target, button0, anchor);
     			insert_dev(target, t5, anchor);
+    			insert_dev(target, button1, anchor);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, button2, anchor);
+    			insert_dev(target, t9, anchor);
     			insert_dev(target, hr1, anchor);
-    			insert_dev(target, t6, anchor);
+    			insert_dev(target, t10, anchor);
     			insert_dev(target, h1, anchor);
-    			append_dev(h1, t7);
+    			append_dev(h1, t11);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[3]),
-    					listen_dev(button, "click", /*call*/ ctx[2], false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[5]),
+    					listen_dev(button0, "click", /*callBonjour*/ ctx[2], false, false, false),
+    					listen_dev(button1, "click", /*callMaj*/ ctx[3], false, false, false),
+    					listen_dev(button2, "click", /*callMin*/ ctx[4], false, false, false)
     				];
 
     				mounted = true;
@@ -414,7 +432,7 @@ var app = (function () {
     				set_input_value(input, /*nom*/ ctx[0]);
     			}
 
-    			if (dirty & /*resultat*/ 2) set_data_dev(t7, /*resultat*/ ctx[1]);
+    			if (dirty & /*resultat*/ 2) set_data_dev(t11, /*resultat*/ ctx[1]);
     		},
     		i: noop,
     		o: noop,
@@ -425,10 +443,14 @@ var app = (function () {
     			if (detaching) detach_dev(t2);
     			if (detaching) detach_dev(input);
     			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(button);
+    			if (detaching) detach_dev(button0);
     			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(button1);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(button2);
+    			if (detaching) detach_dev(t9);
     			if (detaching) detach_dev(hr1);
-    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(t10);
     			if (detaching) detach_dev(h1);
     			mounted = false;
     			run_all(dispose);
@@ -452,12 +474,24 @@ var app = (function () {
     	let nom = "";
     	let resultat = "";
 
-    	function call() {
-    		fetch("/hello?nom=" + nom).then(function (response) {
+    	function callApi(endpoint) {
+    		fetch("/" + endpoint + "?nom=" + nom).then(function (response) {
     			return response.json();
     		}).then(function (data) {
     			$$invalidate(1, resultat = data);
     		});
+    	}
+
+    	function callBonjour() {
+    		callApi("hello");
+    	}
+
+    	function callMaj() {
+    		callApi("upper");
+    	}
+
+    	function callMin() {
+    		callApi("lower");
     	}
 
     	const writable_props = [];
@@ -471,7 +505,14 @@ var app = (function () {
     		$$invalidate(0, nom);
     	}
 
-    	$$self.$capture_state = () => ({ nom, resultat, call });
+    	$$self.$capture_state = () => ({
+    		nom,
+    		resultat,
+    		callApi,
+    		callBonjour,
+    		callMaj,
+    		callMin
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("nom" in $$props) $$invalidate(0, nom = $$props.nom);
@@ -482,7 +523,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [nom, resultat, call, input_input_handler];
+    	return [nom, resultat, callBonjour, callMaj, callMin, input_input_handler];
     }
 
     class App extends SvelteComponentDev {

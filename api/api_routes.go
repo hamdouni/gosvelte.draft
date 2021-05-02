@@ -12,6 +12,12 @@ func (api *API) InitRoutes() {
 	http.HandleFunc("/hello", api.Hello)
 
 	/*
+		Les autres routes
+	*/
+	http.HandleFunc("/upper", api.Upper)
+	http.HandleFunc("/lower", api.Lower)
+
+	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.
 	*/
 	fs := http.FileServer(http.Dir("./ihm/public"))

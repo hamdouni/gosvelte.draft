@@ -3,8 +3,14 @@
 </pre>
 <hr>
 <input bind:value="{nom}" type="text" placeholder="Entrer votre prénom...">
-<button on:click="{call}">
-    Cliquez ici pour lancer un appel à l'api
+<button on:click="{callBonjour}">
+    Bonjour
+</button>
+<button on:click="{callMaj}">
+    Majuscule
+</button>
+<button on:click="{callMin}">
+    Minuscule
 </button>
 <hr>
 <h1>{resultat}</h1>
@@ -12,12 +18,21 @@
 <script>
     let nom = "";
     let resultat = "";
-    function call() {
-        fetch("/hello?nom="+nom).then(function(response){
+    function callApi(endpoint) {
+        fetch("/"+endpoint+"?nom="+nom).then(function(response){
            return(response.json());
         }).then(function(data){
             resultat = data;
         })
+    }
+    function callBonjour() {
+        callApi("hello");
+    }
+    function callMaj() {
+        callApi("upper");
+    }
+    function callMin() {
+        callApi("lower");
     }
 </script>
 
