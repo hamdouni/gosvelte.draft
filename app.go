@@ -2,6 +2,7 @@ package main
 
 import (
 	"app/api"
+	"app/bdd"
 	"app/biz"
 	_ "embed"
 	"log"
@@ -17,10 +18,15 @@ func main() {
 
 	log.Printf("App version %v", version)
 
-	// on crée notre biz
-	var biz biz.BIZ
+	// on crée un historique en mémoire
+	var historique bdd.RamStore
 
-	// on crée une api à laquelle on passe notre biz
+	// on crée notre biz avec notre histo
+	// biz peut modifier histo => &histo en param
+	var biz biz.BIZ
+	biz.Init(&historique)
+
+	// on crée une api avec notre biz
 	var api api.API
 	api.Init(biz)
 

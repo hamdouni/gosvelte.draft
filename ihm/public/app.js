@@ -37,6 +37,12 @@ var app = (function () {
     function detach(node) {
         node.parentNode.removeChild(node);
     }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
     function element(name) {
         return document.createElement(name);
     }
@@ -309,6 +315,15 @@ var app = (function () {
         dispatch_dev('SvelteDOMSetData', { node: text, data });
         text.data = data;
     }
+    function validate_each_argument(arg) {
+        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+            let msg = '{#each} only iterates over array-like objects.';
+            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+                msg += ' You can use a spread to convert this iterable into an array.';
+            }
+            throw new Error(msg);
+        }
+    }
     function validate_slots(name, slot, keys) {
         for (const slot_key of Object.keys(slot)) {
             if (!~keys.indexOf(slot_key)) {
@@ -340,6 +355,47 @@ var app = (function () {
 
     const file = "ihm/App.svelte";
 
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[9] = list[i];
+    	return child_ctx;
+    }
+
+    // (19:4) {#each historique as evenement}
+    function create_each_block(ctx) {
+    	let li;
+    	let t_value = /*evenement*/ ctx[9] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			t = text(t_value);
+    			add_location(li, file, 19, 8, 377);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			append_dev(li, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*historique*/ 4 && t_value !== (t_value = /*evenement*/ ctx[9] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(li);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(19:4) {#each historique as evenement}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
     function create_fragment(ctx) {
     	let pre;
     	let t1;
@@ -357,8 +413,19 @@ var app = (function () {
     	let t10;
     	let h1;
     	let t11;
+    	let t12;
+    	let hr2;
+    	let t13;
+    	let ul;
     	let mounted;
     	let dispose;
+    	let each_value = /*historique*/ ctx[2];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
 
     	const block = {
     		c: function create() {
@@ -382,6 +449,15 @@ var app = (function () {
     			t10 = space();
     			h1 = element("h1");
     			t11 = text(/*resultat*/ ctx[1]);
+    			t12 = space();
+    			hr2 = element("hr");
+    			t13 = space();
+    			ul = element("ul");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
     			attr_dev(pre, "class", "toto svelte-1tj96w7");
     			add_location(pre, file, 0, 0, 0);
     			add_location(hr0, file, 3, 0, 53);
@@ -393,6 +469,8 @@ var app = (function () {
     			add_location(button2, file, 11, 0, 244);
     			add_location(hr1, file, 14, 0, 298);
     			add_location(h1, file, 15, 0, 303);
+    			add_location(hr2, file, 16, 0, 323);
+    			add_location(ul, file, 17, 0, 328);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -415,13 +493,21 @@ var app = (function () {
     			insert_dev(target, t10, anchor);
     			insert_dev(target, h1, anchor);
     			append_dev(h1, t11);
+    			insert_dev(target, t12, anchor);
+    			insert_dev(target, hr2, anchor);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, ul, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(ul, null);
+    			}
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[5]),
-    					listen_dev(button0, "click", /*callBonjour*/ ctx[2], false, false, false),
-    					listen_dev(button1, "click", /*callMaj*/ ctx[3], false, false, false),
-    					listen_dev(button2, "click", /*callMin*/ ctx[4], false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[6]),
+    					listen_dev(button0, "click", /*callBonjour*/ ctx[3], false, false, false),
+    					listen_dev(button1, "click", /*callMaj*/ ctx[4], false, false, false),
+    					listen_dev(button2, "click", /*callMin*/ ctx[5], false, false, false)
     				];
 
     				mounted = true;
@@ -433,6 +519,30 @@ var app = (function () {
     			}
 
     			if (dirty & /*resultat*/ 2) set_data_dev(t11, /*resultat*/ ctx[1]);
+
+    			if (dirty & /*historique*/ 4) {
+    				each_value = /*historique*/ ctx[2];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(ul, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
     		},
     		i: noop,
     		o: noop,
@@ -452,6 +562,11 @@ var app = (function () {
     			if (detaching) detach_dev(hr1);
     			if (detaching) detach_dev(t10);
     			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t12);
+    			if (detaching) detach_dev(hr2);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(ul);
+    			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -473,6 +588,7 @@ var app = (function () {
     	validate_slots("App", slots, []);
     	let nom = "";
     	let resultat = "";
+    	let historique = [];
 
     	function callApi(endpoint) {
     		fetch("/" + endpoint + "?nom=" + nom).then(function (response) {
@@ -480,6 +596,8 @@ var app = (function () {
     		}).then(function (data) {
     			$$invalidate(1, resultat = data);
     		});
+
+    		reloadHistoric();
     	}
 
     	function callBonjour() {
@@ -494,6 +612,15 @@ var app = (function () {
     		callApi("lower");
     	}
 
+    	function reloadHistoric() {
+    		fetch("/historic").then(function (response) {
+    			return response.json();
+    		}).then(function (data) {
+    			$$invalidate(2, historique = data);
+    		});
+    	}
+
+    	reloadHistoric();
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -508,22 +635,25 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		nom,
     		resultat,
+    		historique,
     		callApi,
     		callBonjour,
     		callMaj,
-    		callMin
+    		callMin,
+    		reloadHistoric
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("nom" in $$props) $$invalidate(0, nom = $$props.nom);
     		if ("resultat" in $$props) $$invalidate(1, resultat = $$props.resultat);
+    		if ("historique" in $$props) $$invalidate(2, historique = $$props.historique);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [nom, resultat, callBonjour, callMaj, callMin, input_input_handler];
+    	return [nom, resultat, historique, callBonjour, callMaj, callMin, input_input_handler];
     }
 
     class App extends SvelteComponentDev {
