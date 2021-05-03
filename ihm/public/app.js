@@ -361,7 +361,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (19:4) {#each historique as evenement}
+    // (50:4) {#each historique as evenement}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*evenement*/ ctx[9] + "";
@@ -371,7 +371,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file, 19, 8, 377);
+    			add_location(li, file, 50, 8, 1116);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -389,7 +389,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(19:4) {#each historique as evenement}",
+    		source: "(50:4) {#each historique as evenement}",
     		ctx
     	});
 
@@ -459,18 +459,18 @@ var app = (function () {
     			}
 
     			attr_dev(pre, "class", "toto svelte-1tj96w7");
-    			add_location(pre, file, 0, 0, 0);
-    			add_location(hr0, file, 3, 0, 53);
+    			add_location(pre, file, 31, 0, 739);
+    			add_location(hr0, file, 34, 0, 792);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Entrer votre prénom...");
-    			add_location(input, file, 4, 0, 58);
-    			add_location(button0, file, 5, 0, 134);
-    			add_location(button1, file, 8, 0, 190);
-    			add_location(button2, file, 11, 0, 244);
-    			add_location(hr1, file, 14, 0, 298);
-    			add_location(h1, file, 15, 0, 303);
-    			add_location(hr2, file, 16, 0, 323);
-    			add_location(ul, file, 17, 0, 328);
+    			add_location(input, file, 35, 0, 797);
+    			add_location(button0, file, 36, 0, 873);
+    			add_location(button1, file, 39, 0, 929);
+    			add_location(button2, file, 42, 0, 983);
+    			add_location(hr1, file, 45, 0, 1037);
+    			add_location(h1, file, 46, 0, 1042);
+    			add_location(hr2, file, 47, 0, 1062);
+    			add_location(ul, file, 48, 0, 1067);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -616,7 +616,7 @@ var app = (function () {
     		fetch("/historic").then(function (response) {
     			return response.json();
     		}).then(function (data) {
-    			$$invalidate(2, historique = data);
+    			if (data != null) $$invalidate(2, historique = data);
     		});
     	}
 
