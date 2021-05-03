@@ -1,25 +1,3 @@
-<pre class="toto">
-    Bonjour depuis Svelte.
-</pre>
-<hr>
-<input bind:value="{nom}" type="text" placeholder="Entrer votre prénom...">
-<button on:click="{callBonjour}">
-    Bonjour
-</button>
-<button on:click="{callMaj}">
-    Majuscule
-</button>
-<button on:click="{callMin}">
-    Minuscule
-</button>
-<hr>
-<h1>{resultat}</h1>
-<hr>
-<ul>
-    {#each historique as evenement}
-        <li>{evenement}</li>
-    {/each}
-</ul>
 <script>
     let nom = "";
     let resultat = "";
@@ -45,11 +23,34 @@
         fetch("/historic").then(function(response){
            return(response.json());
         }).then(function(data){
-            historique = data;
+            if(data != null) historique = data;
         })
     }
     reloadHistoric();
 </script>
+
+<pre class="toto">
+    Bonjour depuis Svelte.
+</pre>
+<hr>
+<input bind:value="{nom}" type="text" placeholder="Entrer votre prénom...">
+<button on:click="{callBonjour}">
+    Bonjour
+</button>
+<button on:click="{callMaj}">
+    Majuscule
+</button>
+<button on:click="{callMin}">
+    Minuscule
+</button>
+<hr>
+<h1>{resultat}</h1>
+<hr>
+<ul>
+    {#each historique as evenement}
+        <li>{evenement}</li>
+    {/each}
+</ul>
 
 <style>
     pre {
