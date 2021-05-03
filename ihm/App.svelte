@@ -2,29 +2,37 @@
     let nom = "";
     let resultat = "";
     let historique = [];
-    function callApi(endpoint) {
-        fetch("/"+endpoint+"?nom="+nom).then(function(response){
-           return(response.json());
-        }).then(function(data){
-            resultat = data;
-        });
+    async function callApi(endpoint) {
+        let url = endpoint;
+        try {
+            let response = await fetch(url);
+            if(response.ok) {
+                return response.json();
+            } else {
+                console.log("Erreur http " + response.status + " sur url " + url);
+            }
+        } catch (error) {
+            console.log("Erreur réseau " + error);
+        }
+    }
+    async function callBonjour() {
+        let res = await callApi("/hello?nom="+nom);
+        if(res != null) resultat = res;
         reloadHistoric();
     }
-    function callBonjour() {
-        callApi("hello");
+    async function callMaj() {
+        let res = await callApi("/upper?nom="+nom);
+        if(res != null) resultat = res;
+        reloadHistoric();
     }
-    function callMaj() {
-        callApi("upper");
+    async function callMin() {
+        let res = await callApi("/lower?nom="+nom);
+        if(res != null) resultat = res;
+        reloadHistoric();
     }
-    function callMin() {
-        callApi("lower");
-    }
-    function reloadHistoric() {
-        fetch("/historic").then(function(response){
-           return(response.json());
-        }).then(function(data){
-            if(data != null) historique = data;
-        })
+    async function reloadHistoric() {
+        let res = await callApi("/historic");
+        if(res != null) historique = res;
     }
     reloadHistoric();
 </script>
