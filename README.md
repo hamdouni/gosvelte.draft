@@ -31,3 +31,4 @@ L'architecture côté serveur respecte les principes de séparation des responsa
 - [x] montrer comment on gère les données persistantes avec un store en mémoire
 - [x] ajoute un middleware côté client pour centraliser tous les accès résseaux et pouvoir catcher les erreurs et les déconnexions
 - [ ] ajouter des tests et montrer l'intérêt des interfaces
+- [ ] gérer la connexion/déconnexion et les zones publiques/privées
