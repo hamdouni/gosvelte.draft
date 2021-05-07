@@ -1,6 +1,8 @@
 package biz
 
-type historicStore interface {
-	Stock(string)
-	Liste() []string
+type store interface {
+	StockHistorique(string)
+	ListeHistorique() []string
+	AddUser(string, string)
+	GetPasswordUser(string) string
 }

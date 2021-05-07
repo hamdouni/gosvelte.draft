@@ -7,6 +7,6 @@ import "strings"
 */
 func (b BIZ) Maj(s string) string {
 	res := strings.ToUpper(s)
-	b.histo.Stock(res)
+	b.store.StockHistorique(res)
 	return res
 }
