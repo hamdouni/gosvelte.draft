@@ -19,11 +19,15 @@ func main() {
 	log.Printf("App version %v", version)
 
 	// on crée un historique en mémoire
-	var historique bdd.RamStore
+	var storage bdd.RamStore
+	storage.Init()
 
-	// on crée notre biz avec notre histo
+	// on crée notre biz avec notre store
 	var biz biz.BIZ
-	biz.Init(&historique)
+	biz.Init(&storage)
+	if err := biz.CreateUser("maximilien", "motdepasse"); err != nil {
+		log.Fatalf("Cant't create user : %v", err)
+	}
 
 	// on crée une api avec notre biz
 	var api api.API
