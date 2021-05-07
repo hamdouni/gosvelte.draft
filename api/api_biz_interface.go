@@ -5,4 +5,5 @@ type business interface {
 	Maj(string) string
 	Min(string) string
 	Historic() []string
+	Login(string, string) bool
 }
