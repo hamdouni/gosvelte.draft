@@ -2,6 +2,8 @@
     let nom = "";
     let resultat = "";
     let historique = [];
+    let user = "", pass = "";
+
     async function callApi(endpoint) {
         let url = endpoint;
         try {
@@ -35,6 +37,10 @@
         if(res != null) historique = res;
     }
     reloadHistoric();
+
+    async function login() {
+        let res = await callApi("login?utilisateur="+user+"&pass="+pass);
+    }
 </script>
 
 <pre class="toto">
@@ -59,6 +65,11 @@
         <li>{evenement}</li>
     {/each}
 </ul>
+<form on:submit|preventDefault="{login}">
+    <input bind:value="{user}" type="text" name="utilisateur" placeholder="Utilisateur">
+    <input bind:value="{pass}" type="password" name="passe" placeholder="Mot de passe">
+    <button type="submit">Connecter</button>
+</form>
 
 <style>
     pre {
