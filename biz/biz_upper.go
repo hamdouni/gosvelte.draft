@@ -7,6 +7,6 @@ import "strings"
 */
 func (b BIZ) Min(s string) string {
 	res := strings.ToLower(s)
-	b.histo.Stock(res)
+	b.store.StockHistorique(res)
 	return res
 }

@@ -1,9 +1,9 @@
 package biz
 
 type BIZ struct {
-	histo historicStore
+	store store
 }
 
-func (b *BIZ) Init(h historicStore) {
-	b.histo = h
+func (b *BIZ) Init(h store) {
+	b.store = h
 }
