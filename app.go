@@ -22,7 +22,6 @@ func main() {
 	var historique bdd.RamStore
 
 	// on crée notre biz avec notre histo
-	// biz peut modifier histo => &histo en param
 	var biz biz.BIZ
 	biz.Init(&historique)
 
