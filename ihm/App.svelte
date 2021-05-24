@@ -1,8 +1,10 @@
 <script>
+    import Login from "./Login.svelte";
+
     let nom = "";
     let resultat = "";
     let historique = [];
-    let user = "", pass = "";
+    let isConnected = false;
 
     async function callApi(endpoint) {
         let url = endpoint;
@@ -38,8 +40,12 @@
     }
     reloadHistoric();
 
-    async function login() {
-        let res = await callApi("login?utilisateur="+user+"&pass="+pass);
+    async function checkConnexion() {
+        let response = await fetch("check");
+        if(response.ok) {
+            isConnected = true;
+            console.log("HOURA");
+        }
     }
 </script>
 
@@ -65,11 +71,13 @@
         <li>{evenement}</li>
     {/each}
 </ul>
-<form on:submit|preventDefault="{login}">
-    <input bind:value="{user}" type="text" name="utilisateur" placeholder="Utilisateur">
-    <input bind:value="{pass}" type="password" name="passe" placeholder="Mot de passe">
-    <button type="submit">Connecter</button>
-</form>
+<Login/>
+<hr>
+<a href="/logout">Logout</a>
+<hr>
+Connexion : {isConnected}
+<hr>
+<a href="#check" on:click={checkConnexion}>Check</a>
 
 <style>
     pre {

@@ -16,8 +16,10 @@ func (api *API) InitRoutes() {
 	*/
 	http.HandleFunc("/upper", api.Upper)
 	http.HandleFunc("/lower", api.Lower)
-	http.HandleFunc("/historic", api.Historic)
 	http.HandleFunc("/login", api.Login)
+	http.HandleFunc("/logout", api.Logout)
+	http.HandleFunc("/check", api.LogCheck)
+	http.HandleFunc("/historic", api.auth(api.Historic))
 
 	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.

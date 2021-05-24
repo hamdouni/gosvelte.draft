@@ -32,3 +32,7 @@ L'architecture côté serveur respecte les principes de séparation des responsa
 - [x] ajoute un middleware côté client pour centraliser tous les accès résseaux et pouvoir catcher les erreurs et les déconnexions
 - [ ] ajouter des tests et montrer l'intérêt des interfaces
 - [ ] gérer la connexion/déconnexion et les zones publiques/privées
+    - [x] étoffer le storage pour stocker les users
+    - [x] implémenter une 1ère vérification d'identifiant/mot de passe
+    - [x] créer un package séparé pour la sécurité (par ex. "sec")
+    - [/] gérer la connexion côté IHM [en cours...]

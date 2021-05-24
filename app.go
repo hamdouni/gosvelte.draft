@@ -4,6 +4,7 @@ import (
 	"app/api"
 	"app/bdd"
 	"app/biz"
+	"app/sec"
 	_ "embed"
 	"log"
 	"net/http"
@@ -26,12 +27,18 @@ func main() {
 	var biz biz.BIZ
 	biz.Init(&storage)
 	if err := biz.CreateUser("maximilien", "motdepasse"); err != nil {
-		log.Fatalf("Cant't create user : %v", err)
+		log.Fatalf("Impossible de créer un utilisateur de test : %v", err)
 	}
 
-	// on crée une api avec notre biz
+	// on crée notre sécurité
+	var sec sec.Secure
+	if err := sec.Init(); err != nil {
+		log.Fatalf("Impossible d'initialiser la sécurité de l'application : %v", err)
+	}
+
+	// on crée une api avec notre biz et notre sec
 	var api api.API
-	api.Init(biz)
+	api.Init(biz, sec)
 
 	log.Printf("Le service démarre sur le port %v \n", port)
 	err := http.ListenAndServe(":8000", nil)
