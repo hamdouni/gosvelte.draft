@@ -4,21 +4,26 @@ Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et S
 
 ```
 # installation des éléments javascript
-npm i
+cd ihm && npm i
 ```
 
-Pour développer, il faut lancer en parallèle les commandes pour chaque partie, par exemple dans 2 terminaux séparées, ou en tâche de fond comme suit :
+Pour développer, il faut lancer en parallèle les commandes pour la partie serveur et la partie cliente :
 
 ```
-npm run dev & go run .
+# ici on lance le serveur
+go run . &
+
+# et ici le client
+cd ihm && npm run dev & 
 ```
 
 Le dossier **ihm** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "public".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
-- **biz** est en charge de votre logique métier et est censée être agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
+- **biz** est en charge de la logique métier et est censée être agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
 - **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request) et retourner les données en réponses (response au format JSON)
 - **bdd** contient les différents magasins de données possibles. Un magasin en mémoire est utilisé en exemple pour sauvegarder l'historique des demandes.
+- **sec** centralise la stratégie d'encryption.
 
 ## Pré-requis
 
