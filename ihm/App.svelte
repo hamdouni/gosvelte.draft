@@ -1,52 +1,41 @@
 <script>
     import Login from "./Login.svelte";
+    import * as net from "./network.js";
 
     let nom = "";
     let resultat = "";
     let historique = [];
     let isConnected = false;
 
-    async function callApi(endpoint) {
-        let url = endpoint;
-        try {
-            let response = await fetch(url);
-            if(response.ok) {
-                return response.json();
-            } else {
-                console.log("Erreur http " + response.status + " sur url " + url);
-            }
-        } catch (error) {
-            console.log("Erreur réseau " + error);
-        }
-    }
-    async function callBonjour() {
-        let res = await callApi("/hello?nom="+nom);
+    async function bonjour() {
+        let res = await net.callBonjour(nom);
         if(res != null) resultat = res;
         reloadHistoric();
     }
-    async function callMaj() {
-        let res = await callApi("/upper?nom="+nom);
+    async function maj() {
+        let res = await net.callMaj(nom);
         if(res != null) resultat = res;
         reloadHistoric();
     }
-    async function callMin() {
-        let res = await callApi("/lower?nom="+nom);
+    async function min() {
+        let res = await net.callMin(nom);
         if(res != null) resultat = res;
         reloadHistoric();
     }
     async function reloadHistoric() {
-        let res = await callApi("/historic");
+        let res = await net.callHistoric();
         if(res != null) historique = res;
     }
     reloadHistoric();
 
     async function checkConnexion() {
-        let response = await fetch("check");
-        if(response.ok) {
+        let res = await net.callCheckConnexion();
+        if(res) {
             isConnected = true;
             console.log("HOURA");
         }
     }
+
 </script>
 
 <pre class="toto">
@@ -54,13 +43,13 @@
 </pre>
 <hr>
 <input bind:value="{nom}" type="text" placeholder="Entrer votre prénom...">
-<button on:click="{callBonjour}">
+<button on:click="{bonjour}">
     Bonjour
 </button>
-<button on:click="{callMaj}">
+<button on:click="{maj}">
     Majuscule
 </button>
-<button on:click="{callMin}">
+<button on:click="{min}">
     Minuscule
 </button>
 <hr>

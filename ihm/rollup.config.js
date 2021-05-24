@@ -6,11 +6,11 @@ import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
 /*
-	Les fichiers générés iront dans ihm/public
+	Les fichiers générés iront dans ./public
 	- app.js le bundle javascript
 	- app.css le sylesheet
 */
-const svelteRootFolder = "ihm";
+const svelteRootFolder = ".";
 
 const production = !process.env.ROLLUP_WATCH;
 

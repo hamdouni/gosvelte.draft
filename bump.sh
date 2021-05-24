@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Bump Version Number
+#
 # Works with a semver file VERSION in current directory,
 # Display current version, automatically suggest a "patch" 
 # version update, ask for input to use suggestion, 
