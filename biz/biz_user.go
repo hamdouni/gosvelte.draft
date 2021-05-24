@@ -6,13 +6,17 @@ func (b BIZ) CreateUser(us, pw string) error {
 	if len(us) < 8 || len(pw) < 8 {
 		return errors.New("username or password too short")
 	}
-	b.store.AddUser(us, pw)
+	encryptedPassword, err := b.encryptPassword(pw)
+	if err != nil {
+		return errors.New("error encrypting password in CreateUser " + err.Error())
+	}
+	b.store.AddUser(us, encryptedPassword)
 	return nil
 }
 
-func (b BIZ) Login(us, pw string) bool {
+func (b BIZ) CheckPassword(us, pw string) bool {
 	if len(us) < 8 || len(pw) < 8 {
 		return false
 	}
-	return pw == b.store.GetPasswordUser(us)
+	return doPasswordMatch(b.store.GetPasswordUser(us), pw)
 }
