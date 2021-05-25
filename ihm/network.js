@@ -3,11 +3,12 @@ export async function callApi(url) {
         let response = await fetch(url);
         if(response.ok) {
             return response.json();
-        } else {
-            console.log("Erreur http " + response.status + " sur url " + url);
         }
+        console.log("Erreur http " + response.status + " sur url " + url);
+        return null;
     } catch (error) {
         console.log("Erreur réseau " + error);
+        return null;
     }
 }
 
