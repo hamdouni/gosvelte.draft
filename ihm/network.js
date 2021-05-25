@@ -1,5 +1,4 @@
-export async function callApi(endpoint) {
-    let url = endpoint;
+export async function callApi(url) {
     try {
         let response = await fetch(url);
         if(response.ok) {

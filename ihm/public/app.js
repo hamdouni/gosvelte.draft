@@ -56,6 +56,13 @@ var app = (function () {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
     }
+    function prevent_default(fn) {
+        return function (event) {
+            event.preventDefault();
+            // @ts-ignore
+            return fn.call(this, event);
+        };
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -388,6 +395,8 @@ var app = (function () {
     	let input1;
     	let t1;
     	let button;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -401,16 +410,16 @@ var app = (function () {
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "name", "username");
     			attr_dev(input0, "placeholder", "Utilisateur");
-    			add_location(input0, file$1, 1, 4, 41);
+    			add_location(input0, file$1, 13, 4, 352);
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "name", "password");
     			attr_dev(input1, "placeholder", "Mot de passe");
-    			add_location(input1, file$1, 2, 4, 107);
+    			add_location(input1, file$1, 14, 4, 440);
     			attr_dev(button, "type", "submit");
-    			add_location(button, file$1, 3, 4, 178);
+    			add_location(button, file$1, 15, 4, 533);
     			attr_dev(form, "action", "/login");
     			attr_dev(form, "method", "post");
-    			add_location(form, file$1, 0, 0, 0);
+    			add_location(form, file$1, 12, 0, 278);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -418,16 +427,38 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, form, anchor);
     			append_dev(form, input0);
+    			set_input_value(input0, /*username*/ ctx[0]);
     			append_dev(form, t0);
     			append_dev(form, input1);
+    			set_input_value(input1, /*password*/ ctx[1]);
     			append_dev(form, t1);
     			append_dev(form, button);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[3]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[4]),
+    					listen_dev(form, "submit", prevent_default(/*login*/ ctx[2]), false, true, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*username*/ 1 && input0.value !== /*username*/ ctx[0]) {
+    				set_input_value(input0, /*username*/ ctx[0]);
+    			}
+
+    			if (dirty & /*password*/ 2 && input1.value !== /*password*/ ctx[1]) {
+    				set_input_value(input1, /*password*/ ctx[1]);
+    			}
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(form);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -442,16 +473,50 @@ var app = (function () {
     	return block;
     }
 
-    function instance$1($$self, $$props) {
+    function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Login", slots, []);
+    	let username;
+    	let password;
+
+    	async function login() {
+    		await fetch("/login", {
+    			method: "POST",
+    			body: "username=" + username + "&password=" + password,
+    			headers: {
+    				"Content-Type": "application/x-www-form-urlencoded"
+    			}
+    		});
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Login> was created with unknown prop '${key}'`);
     	});
 
-    	return [];
+    	function input0_input_handler() {
+    		username = this.value;
+    		$$invalidate(0, username);
+    	}
+
+    	function input1_input_handler() {
+    		password = this.value;
+    		$$invalidate(1, password);
+    	}
+
+    	$$self.$capture_state = () => ({ username, password, login });
+
+    	$$self.$inject_state = $$props => {
+    		if ("username" in $$props) $$invalidate(0, username = $$props.username);
+    		if ("password" in $$props) $$invalidate(1, password = $$props.password);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [username, password, login, input0_input_handler, input1_input_handler];
     }
 
     class Login extends SvelteComponentDev {
@@ -468,8 +533,7 @@ var app = (function () {
     	}
     }
 
-    async function callApi(endpoint) {
-        let url = endpoint;
+    async function callApi(url) {
         try {
             let response = await fetch(url);
             if(response.ok) {
