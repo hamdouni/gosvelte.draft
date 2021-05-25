@@ -1,12 +1,19 @@
 <script>
+import { createEventDispatcher } from 'svelte';
+const dispatch = createEventDispatcher();
+
 let username;
 let password;
+
 async function login() {
     let response = await fetch("/login",{
         method: "POST",
         body: 'username='+username+'&password='+password,
         headers: {"Content-Type": "application/x-www-form-urlencoded"}
     });
+    if(response.ok) {
+        dispatch('connected');
+    }
 }
 </script>
 
