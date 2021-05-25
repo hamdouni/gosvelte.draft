@@ -35,6 +35,9 @@
         if(res) {
             isConnected = true;
             console.log("HOURA");
+        } else {
+            isConnected = false;
+            console.log("BOUHOU");
         }
     }
 
@@ -45,14 +48,14 @@
 </pre>
 
 <hr>
+    |
+    Connexion : {isConnected} (<a href="#check" on:click={checkConnexion}>Check</a>)
 
 {#if !isConnected}
     <Login on:connected={function(){isConnected=true}}/>
 {:else}
     <a href="/logout">Logout</a>
     <hr>
-    Connexion : {isConnected} (<a href="#check" on:click={checkConnexion}>Check</a>)
-
     <input bind:value="{nom}" type="text" placeholder="Entrer votre prénom...">
     <button on:click="{bonjour}">
         Bonjour XXX

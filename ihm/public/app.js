@@ -583,11 +583,12 @@ var app = (function () {
             let response = await fetch(url);
             if(response.ok) {
                 return response.json();
-            } else {
-                console.log("Erreur http " + response.status + " sur url " + url);
             }
+            console.log("Erreur http " + response.status + " sur url " + url);
+            return null;
         } catch (error) {
             console.log("Erreur réseau " + error);
+            return null;
         }
     }
 
@@ -630,31 +631,27 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (51:0) {:else}
+    // (56:0) {:else}
     function create_else_block(ctx) {
-    	let a0;
+    	let a;
     	let t1;
     	let hr0;
     	let t2;
-    	let t3;
-    	let t4;
-    	let a1;
-    	let t6;
     	let input;
-    	let t7;
+    	let t3;
     	let button0;
-    	let t9;
+    	let t5;
     	let button1;
-    	let t11;
+    	let t7;
     	let button2;
-    	let t13;
+    	let t9;
     	let hr1;
-    	let t14;
+    	let t10;
     	let h1;
-    	let t15;
-    	let t16;
+    	let t11;
+    	let t12;
     	let hr2;
-    	let t17;
+    	let t13;
     	let ul;
     	let mounted;
     	let dispose;
@@ -668,81 +665,70 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			a0 = element("a");
-    			a0.textContent = "Logout";
+    			a = element("a");
+    			a.textContent = "Logout";
     			t1 = space();
     			hr0 = element("hr");
-    			t2 = text("\n    Connexion : ");
-    			t3 = text(/*isConnected*/ ctx[3]);
-    			t4 = text(" (");
-    			a1 = element("a");
-    			a1.textContent = "Check";
-    			t6 = text(")\n\n    ");
+    			t2 = space();
     			input = element("input");
-    			t7 = space();
+    			t3 = space();
     			button0 = element("button");
     			button0.textContent = "Bonjour XXX";
-    			t9 = space();
+    			t5 = space();
     			button1 = element("button");
     			button1.textContent = "Majuscule";
-    			t11 = space();
+    			t7 = space();
     			button2 = element("button");
     			button2.textContent = "Minuscule";
-    			t13 = space();
+    			t9 = space();
     			hr1 = element("hr");
-    			t14 = space();
+    			t10 = space();
     			h1 = element("h1");
-    			t15 = text(/*resultat*/ ctx[1]);
-    			t16 = space();
+    			t11 = text(/*resultat*/ ctx[1]);
+    			t12 = space();
     			hr2 = element("hr");
-    			t17 = space();
+    			t13 = space();
     			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(a0, "href", "/logout");
-    			add_location(a0, file, 51, 4, 1163);
-    			add_location(hr0, file, 52, 4, 1196);
-    			attr_dev(a1, "href", "#check");
-    			add_location(a1, file, 53, 31, 1232);
+    			attr_dev(a, "href", "/logout");
+    			add_location(a, file, 56, 4, 1339);
+    			add_location(hr0, file, 57, 4, 1372);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Entrer votre prénom...");
-    			add_location(input, file, 55, 4, 1291);
-    			add_location(button0, file, 56, 4, 1371);
-    			add_location(button1, file, 59, 4, 1439);
-    			add_location(button2, file, 62, 4, 1501);
-    			add_location(hr1, file, 65, 4, 1563);
-    			add_location(h1, file, 66, 4, 1572);
-    			add_location(hr2, file, 67, 4, 1596);
-    			add_location(ul, file, 68, 4, 1605);
+    			add_location(input, file, 58, 4, 1381);
+    			add_location(button0, file, 59, 4, 1461);
+    			add_location(button1, file, 62, 4, 1529);
+    			add_location(button2, file, 65, 4, 1591);
+    			add_location(hr1, file, 68, 4, 1653);
+    			add_location(h1, file, 69, 4, 1662);
+    			add_location(hr2, file, 70, 4, 1686);
+    			add_location(ul, file, 71, 4, 1695);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, a0, anchor);
+    			insert_dev(target, a, anchor);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, hr0, anchor);
     			insert_dev(target, t2, anchor);
-    			insert_dev(target, t3, anchor);
-    			insert_dev(target, t4, anchor);
-    			insert_dev(target, a1, anchor);
-    			insert_dev(target, t6, anchor);
     			insert_dev(target, input, anchor);
     			set_input_value(input, /*nom*/ ctx[0]);
-    			insert_dev(target, t7, anchor);
+    			insert_dev(target, t3, anchor);
     			insert_dev(target, button0, anchor);
-    			insert_dev(target, t9, anchor);
+    			insert_dev(target, t5, anchor);
     			insert_dev(target, button1, anchor);
-    			insert_dev(target, t11, anchor);
+    			insert_dev(target, t7, anchor);
     			insert_dev(target, button2, anchor);
-    			insert_dev(target, t13, anchor);
+    			insert_dev(target, t9, anchor);
     			insert_dev(target, hr1, anchor);
-    			insert_dev(target, t14, anchor);
+    			insert_dev(target, t10, anchor);
     			insert_dev(target, h1, anchor);
-    			append_dev(h1, t15);
-    			insert_dev(target, t16, anchor);
+    			append_dev(h1, t11);
+    			insert_dev(target, t12, anchor);
     			insert_dev(target, hr2, anchor);
-    			insert_dev(target, t17, anchor);
+    			insert_dev(target, t13, anchor);
     			insert_dev(target, ul, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -751,7 +737,6 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(a1, "click", /*checkConnexion*/ ctx[7], false, false, false),
     					listen_dev(input, "input", /*input_input_handler*/ ctx[9]),
     					listen_dev(button0, "click", /*bonjour*/ ctx[4], false, false, false),
     					listen_dev(button1, "click", /*maj*/ ctx[5], false, false, false),
@@ -762,13 +747,11 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*isConnected*/ 8) set_data_dev(t3, /*isConnected*/ ctx[3]);
-
     			if (dirty & /*nom*/ 1 && input.value !== /*nom*/ ctx[0]) {
     				set_input_value(input, /*nom*/ ctx[0]);
     			}
 
-    			if (dirty & /*resultat*/ 2) set_data_dev(t15, /*resultat*/ ctx[1]);
+    			if (dirty & /*resultat*/ 2) set_data_dev(t11, /*resultat*/ ctx[1]);
 
     			if (dirty & /*historique*/ 4) {
     				each_value = /*historique*/ ctx[2];
@@ -797,28 +780,24 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(a0);
+    			if (detaching) detach_dev(a);
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(hr0);
     			if (detaching) detach_dev(t2);
-    			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(t4);
-    			if (detaching) detach_dev(a1);
-    			if (detaching) detach_dev(t6);
     			if (detaching) detach_dev(input);
-    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(button0);
-    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(t5);
     			if (detaching) detach_dev(button1);
-    			if (detaching) detach_dev(t11);
+    			if (detaching) detach_dev(t7);
     			if (detaching) detach_dev(button2);
-    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(t9);
     			if (detaching) detach_dev(hr1);
-    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(t10);
     			if (detaching) detach_dev(h1);
-    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(t12);
     			if (detaching) detach_dev(hr2);
-    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(t13);
     			if (detaching) detach_dev(ul);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
@@ -830,14 +809,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(51:0) {:else}",
+    		source: "(56:0) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (49:0) {#if !isConnected}
+    // (54:0) {#if !isConnected}
     function create_if_block(ctx) {
     	let login;
     	let current;
@@ -871,14 +850,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(49:0) {#if !isConnected}",
+    		source: "(54:0) {#if !isConnected}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (70:8) {#each historique as evenement}
+    // (73:8) {#each historique as evenement}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*evenement*/ ctx[11] + "";
@@ -888,7 +867,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file, 70, 12, 1662);
+    			add_location(li, file, 73, 12, 1752);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -906,7 +885,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(70:8) {#each historique as evenement}",
+    		source: "(73:8) {#each historique as evenement}",
     		ctx
     	});
 
@@ -918,10 +897,16 @@ var app = (function () {
     	let t1;
     	let hr;
     	let t2;
+    	let t3;
+    	let t4;
+    	let a;
+    	let t6;
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
     	let current;
+    	let mounted;
+    	let dispose;
     	const if_block_creators = [create_if_block, create_else_block];
     	const if_blocks = [];
 
@@ -939,12 +924,19 @@ var app = (function () {
     			pre.textContent = "Bonjour depuis Svelte.";
     			t1 = space();
     			hr = element("hr");
-    			t2 = space();
+    			t2 = text("\n    |\n    Connexion : ");
+    			t3 = text(/*isConnected*/ ctx[3]);
+    			t4 = text(" (");
+    			a = element("a");
+    			a.textContent = "Check";
+    			t6 = text(")\n\n");
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(pre, "class", "toto svelte-1tj96w7");
-    			add_location(pre, file, 42, 0, 1015);
-    			add_location(hr, file, 46, 0, 1069);
+    			add_location(pre, file, 45, 0, 1100);
+    			add_location(hr, file, 49, 0, 1154);
+    			attr_dev(a, "href", "#check");
+    			add_location(a, file, 51, 31, 1196);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -954,11 +946,21 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     			insert_dev(target, hr, anchor);
     			insert_dev(target, t2, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, t4, anchor);
+    			insert_dev(target, a, anchor);
+    			insert_dev(target, t6, anchor);
     			if_blocks[current_block_type_index].m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(a, "click", /*checkConnexion*/ ctx[7], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
+    			if (!current || dirty & /*isConnected*/ 8) set_data_dev(t3, /*isConnected*/ ctx[3]);
     			let previous_block_index = current_block_type_index;
     			current_block_type_index = select_block_type(ctx);
 
@@ -999,8 +1001,14 @@ var app = (function () {
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(hr);
     			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(a);
+    			if (detaching) detach_dev(t6);
     			if_blocks[current_block_type_index].d(detaching);
     			if (detaching) detach_dev(if_block_anchor);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -1056,6 +1064,9 @@ var app = (function () {
     		if (res) {
     			$$invalidate(3, isConnected = true);
     			console.log("HOURA");
+    		} else {
+    			$$invalidate(3, isConnected = false);
+    			console.log("BOUHOU");
     		}
     	}
 
