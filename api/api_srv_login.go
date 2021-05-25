@@ -27,7 +27,7 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	encoded := base64.StdEncoding.EncodeToString(val)
-	cookie := http.Cookie{Name: "id", Value: string(encoded)}
+	cookie := http.Cookie{Name: "id", Value: string(encoded), SameSite: http.SameSiteLaxMode}
 	http.SetCookie(w, &cookie)
 	w.WriteHeader(http.StatusOK)
 }
