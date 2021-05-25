@@ -1,27 +1,27 @@
 package biz
 
-import (
-	"encoding/base64"
+import "golang.org/x/crypto/bcrypt"
 
-	"golang.org/x/crypto/bcrypt"
-)
+func (b BIZ) CheckPassword(us, pw string) bool {
+	if len(us) < 8 || len(pw) < 8 {
+		return false
+	}
+	return doPasswordMatch(b.store.GetPasswordUser(us), pw)
+}
 
-// Encrypt password using bcrypt
-func (b BIZ) encryptPassword(pw string) (ep string, err error) {
+// Encrypt password using Bcrypt
+func (b BIZ) encryptPassword(pw string) (encryptedPassword string, err error) {
 	// Hash password with Bcrypt's min cost
 	hashedPasswordBytes, err := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.MinCost)
 	if err != nil {
 		return "", err
 	}
-	// Convert the hashed password to a base64 encoded string
-	ep = base64.URLEncoding.EncodeToString(hashedPasswordBytes)
-	return ep, nil
+	return string(hashedPasswordBytes), nil
 }
 
 // Check if two passwords match using Bcrypt's CompareHashAndPassword
-// which return nil on success and an error on failure.
 func doPasswordMatch(hashedPassword, currPassword string) bool {
-	err := bcrypt.CompareHashAndPassword(
-		[]byte(hashedPassword), []byte(currPassword))
-	return err != nil
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(currPassword))
+	// CompareHashAndPassword return nil on success and an error on failure.
+	return err == nil
 }
