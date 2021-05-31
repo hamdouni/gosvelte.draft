@@ -41,3 +41,10 @@ L'architecture côté serveur respecte les principes de séparation des responsa
     - [x] implémenter une 1ère vérification d'identifiant/mot de passe
     - [x] créer un package séparé pour la sécurité (par ex. "sec")
     - [/] gérer la connexion côté IHM [en cours...]
+## Docker
+
+Docker va nous servir à la fois de simulateur d'infrastructure de production et de stratégie de déploiement. 
+
+Nous utilisons Docker pour simuler une architecture avec un reverse-proxy (Traefik) ce qui nous permet de tester la mécanique de récupération de l'adresse IP de l'utilisateur.
+
+Plus tard, nous utiliserons Docker (et Docker Compose) pour organiser notre infrastructure et l'envoyer sur un serveur de production.

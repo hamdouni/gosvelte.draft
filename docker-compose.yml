@@ -1,0 +1,24 @@
+version: '3'
+services:
+    web:
+        build:
+            dockerfile: Dockerfile
+            context: ./
+        volumes:
+            - ./ihm:/ihm
+        command:
+            - "/program"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.web.rule=PathPrefix(`/`)"
+            - "traefik.http.routers.web.entrypoints=web"
+    proxy:
+        image: traefik:v2.4
+        command:
+            - "--providers.docker=true"
+            - "--providers.docker.exposedbydefault=false"
+            - "--entrypoints.web.address=:80"
+        ports:
+            - 80:80
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
