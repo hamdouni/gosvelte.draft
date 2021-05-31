@@ -20,7 +20,7 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jeton, err := api.getToken(user, r)
+	jeton, err := api.getAuthToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Login error : %v", err)
@@ -28,7 +28,7 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cookie := http.Cookie{
-		Name:     cookieTokenName,
+		Name:     tokenCookieName,
 		Value:    string(jeton),
 		SameSite: http.SameSiteLaxMode,
 	}

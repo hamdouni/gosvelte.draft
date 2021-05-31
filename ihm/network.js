@@ -2,6 +2,8 @@ export async function callApi(url) {
     try {
         let response = await fetch(url);
         if(response.ok) {
+            console.log("debug");
+            console.log(response);
             return response.json();
         }
         console.log("Erreur http " + response.status + " sur url " + url);

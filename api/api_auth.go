@@ -2,14 +2,59 @@ package api
 
 import (
 	"encoding/base64"
+	"log"
 	"net"
 	"net/http"
 	"strings"
 	"time"
 )
 
-func (api *API) getToken(user string, r *http.Request) (token string, err error) {
-	timestamp := time.Now().Format("20060102150405")
+func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		cookie, err := r.Cookie(tokenCookieName)
+		if err != nil {
+			api.Login(w, r)
+			return
+		}
+		if api.isAuth(cookie.Value, r) {
+			next(w, r)
+		} else {
+			api.Logout(w, r)
+		}
+	}
+}
+
+func (api *API) isAuth(cookie string, r *http.Request) bool {
+	decoded, err := base64.StdEncoding.DecodeString(cookie)
+	if err != nil {
+		return false
+	}
+	decoded, err = api.secret.Decrypt(decoded)
+	if err != nil {
+		return false
+	}
+	code := string(decoded)
+	log.Printf("Check decrypting cookie to : %s", code)
+	parts := strings.Split(code, "|")
+
+	curTime := time.Now()
+	loginTime, err := time.Parse(tokenTimeLayout, parts[2])
+	if err != nil {
+		return false
+	}
+	dur := curTime.Sub(loginTime)
+	log.Printf("Last login %v %v diff %v", curTime, loginTime, dur)
+	if dur > tokenDuration {
+		return false
+	}
+
+	userIP := parts[1]
+	reqIP := getIPAddress(r)
+	return userIP == reqIP
+}
+
+func (api *API) getAuthToken(user string, r *http.Request) (token string, err error) {
+	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
 	val, err := api.secret.Encrypt([]byte(phrase))
 	if err != nil {
