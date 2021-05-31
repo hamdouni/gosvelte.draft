@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/base64"
 	"log"
 	"net/http"
 )
@@ -20,14 +19,19 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
-	val, err := api.secret.Encrypt([]byte(user))
+
+	jeton, err := api.getToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Login error : %v", err)
 		return
 	}
-	encoded := base64.StdEncoding.EncodeToString(val)
-	cookie := http.Cookie{Name: "id", Value: string(encoded), SameSite: http.SameSiteLaxMode}
+
+	cookie := http.Cookie{
+		Name:     cookieTokenName,
+		Value:    string(jeton),
+		SameSite: http.SameSiteLaxMode,
+	}
 	http.SetCookie(w, &cookie)
 	w.WriteHeader(http.StatusOK)
 }

@@ -41,6 +41,27 @@ L'architecture côté serveur respecte les principes de séparation des responsa
     - [x] implémenter une 1ère vérification d'identifiant/mot de passe
     - [x] créer un package séparé pour la sécurité (par ex. "sec")
     - [/] gérer la connexion côté IHM [en cours...]
+        - [x] connexion
+        - [x] déconnexion
+        - [ ] détection déconnexion backend ?
+    - [/] implémenter la stratégie d'authentification avec jeton (cf plus bas)
+        - [x] enregistrer les infos dans le cookie
+        - [ ] contrôler à chaque requête sa validité
+
+## Stratégie d'authentification avec jeton (token)
+
+Pour gérer l'authentification des utilisateurs, on leur demande un identifiant et un mot de passe, dont on contrôle la validité. Si les données sont correctes, on génère un jeton crypté qui contient la structure suivante :
+
+```
+identifiant|adresse IP|horodatage
+```
+
+Le jeton est envoyé au navigateur de l'utilisateur sous la forme d'un 'cookie' : le navigateur va donc nous renvoyer ce 'cookie' à chaque requête. On pourra alors contrôler l'accès légitime de cette requête :
+
+1. on décrypte le contenu du 'cookie'
+2. on vérifie que l'adresse IP est toujours celle de connexion
+3. on vérifie que cela ne fait pas trop longtemps que la connexion a eu lieu
+
 ## Docker
 
 Docker va nous servir à la fois de simulateur d'infrastructure de production et de stratégie de déploiement. 

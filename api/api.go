@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+const cookieTokenName = "jeton"
+
 type API struct {
 	biz    business
 	secret secure
@@ -19,16 +21,16 @@ func (api API) Init(b business, s secure) {
 	api.InitRoutes()
 }
 
-func (api *API) auth(f http.HandlerFunc) http.HandlerFunc {
+func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("id")
+		cookie, err := r.Cookie(cookieTokenName)
 		if err != nil {
 			api.Login(w, r)
 			return
 		}
 		fmt.Println(cookie.Value)
 		if api.isValid(cookie.Value) {
-			f(w, r)
+			next(w, r)
 		} else {
 			api.Logout(w, r)
 		}
