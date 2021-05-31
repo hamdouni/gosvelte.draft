@@ -1,14 +1,14 @@
 package api
 
 import (
-	"encoding/base64"
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
+	"time"
 )
 
-const cookieTokenName = "jeton"
+const tokenCookieName = "jeton"
+const tokenTimeLayout = time.RFC3339
+const tokenDuration = time.Duration(10) * time.Second
 
 type API struct {
 	biz    business
@@ -19,35 +19,6 @@ func (api API) Init(b business, s secure) {
 	api.biz = b
 	api.secret = s
 	api.InitRoutes()
-}
-
-func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie(cookieTokenName)
-		if err != nil {
-			api.Login(w, r)
-			return
-		}
-		fmt.Println(cookie.Value)
-		if api.isValid(cookie.Value) {
-			next(w, r)
-		} else {
-			api.Logout(w, r)
-		}
-	}
-}
-
-func (api *API) isValid(cookie string) bool {
-	decoded, err := base64.StdEncoding.DecodeString(cookie)
-	if err != nil {
-		return false
-	}
-	code, err := api.secret.Decrypt(decoded)
-	if err != nil {
-		return false
-	}
-	log.Printf("Check decrypting cookie to : %s", string(code))
-	return true
 }
 
 // respondJSON retourne une reponse json avec le statut et le contenu passés en paramètre
