@@ -444,16 +444,16 @@ var app = (function () {
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "name", "username");
     			attr_dev(input0, "placeholder", "Utilisateur");
-    			add_location(input0, file$1, 20, 4, 503);
+    			add_location(input0, file$1, 22, 4, 549);
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "name", "password");
     			attr_dev(input1, "placeholder", "Mot de passe");
-    			add_location(input1, file$1, 21, 4, 591);
+    			add_location(input1, file$1, 23, 4, 637);
     			attr_dev(button, "type", "submit");
-    			add_location(button, file$1, 22, 4, 684);
+    			add_location(button, file$1, 24, 4, 730);
     			attr_dev(form, "action", "/login");
     			attr_dev(form, "method", "post");
-    			add_location(form, file$1, 19, 0, 429);
+    			add_location(form, file$1, 21, 0, 475);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -525,6 +525,8 @@ var app = (function () {
 
     		if (response.ok) {
     			dispatch("connected");
+    		} else {
+    			dispatch("notconnected");
     		}
     	}
 
@@ -629,11 +631,11 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
+    	child_ctx[12] = list[i];
     	return child_ctx;
     }
 
-    // (56:0) {:else}
+    // (63:0) {:else}
     function create_else_block(ctx) {
     	let a;
     	let t1;
@@ -697,18 +699,18 @@ var app = (function () {
     			}
 
     			attr_dev(a, "href", "/logout");
-    			add_location(a, file, 56, 4, 1339);
-    			add_location(hr0, file, 57, 4, 1372);
+    			add_location(a, file, 63, 4, 1471);
+    			add_location(hr0, file, 64, 4, 1504);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Entrer votre prénom...");
-    			add_location(input, file, 58, 4, 1381);
-    			add_location(button0, file, 59, 4, 1461);
-    			add_location(button1, file, 62, 4, 1529);
-    			add_location(button2, file, 65, 4, 1591);
-    			add_location(hr1, file, 68, 4, 1653);
-    			add_location(h1, file, 69, 4, 1662);
-    			add_location(hr2, file, 70, 4, 1686);
-    			add_location(ul, file, 71, 4, 1695);
+    			add_location(input, file, 65, 4, 1513);
+    			add_location(button0, file, 66, 4, 1593);
+    			add_location(button1, file, 69, 4, 1661);
+    			add_location(button2, file, 72, 4, 1723);
+    			add_location(hr1, file, 75, 4, 1785);
+    			add_location(h1, file, 76, 4, 1794);
+    			add_location(hr2, file, 77, 4, 1818);
+    			add_location(ul, file, 78, 4, 1827);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
@@ -739,7 +741,7 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[9]),
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[10]),
     					listen_dev(button0, "click", /*bonjour*/ ctx[4], false, false, false),
     					listen_dev(button1, "click", /*maj*/ ctx[5], false, false, false),
     					listen_dev(button2, "click", /*min*/ ctx[6], false, false, false)
@@ -811,7 +813,7 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(56:0) {:else}",
+    		source: "(63:0) {:else}",
     		ctx
     	});
 
@@ -824,6 +826,7 @@ var app = (function () {
     	let current;
     	login = new Login({ $$inline: true });
     	login.$on("connected", /*connected_handler*/ ctx[8]);
+    	login.$on("notconnected", /*notconnected_handler*/ ctx[9]);
 
     	const block = {
     		c: function create() {
@@ -859,24 +862,24 @@ var app = (function () {
     	return block;
     }
 
-    // (73:8) {#each historique as evenement}
+    // (80:8) {#each historique as evenement}
     function create_each_block(ctx) {
     	let li;
-    	let t_value = /*evenement*/ ctx[11] + "";
+    	let t_value = /*evenement*/ ctx[12] + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file, 73, 12, 1752);
+    			add_location(li, file, 80, 12, 1884);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
     			append_dev(li, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*historique*/ 4 && t_value !== (t_value = /*evenement*/ ctx[11] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*historique*/ 4 && t_value !== (t_value = /*evenement*/ ctx[12] + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -887,7 +890,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(73:8) {#each historique as evenement}",
+    		source: "(80:8) {#each historique as evenement}",
     		ctx
     	});
 
@@ -1082,6 +1085,10 @@ var app = (function () {
     		$$invalidate(3, isConnected = true);
     	};
 
+    	const notconnected_handler = function () {
+    		alert("Votre connexion a échoué");
+    	};
+
     	function input_input_handler() {
     		nom = this.value;
     		$$invalidate(0, nom);
@@ -1122,6 +1129,7 @@ var app = (function () {
     		min,
     		checkConnexion,
     		connected_handler,
+    		notconnected_handler,
     		input_input_handler
     	];
     }
