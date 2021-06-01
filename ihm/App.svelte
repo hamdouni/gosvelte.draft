@@ -52,7 +52,14 @@
     Connexion : {isConnected} (<a href="#check" on:click={checkConnexion}>Check</a>)
 
 {#if !isConnected}
-    <Login on:connected={function(){isConnected=true}}/>
+    <Login 
+        on:connected={function(){
+            isConnected=true;
+        }}
+        on:notconnected={function(){
+            alert("Votre connexion a échoué");
+        }}
+    />
 {:else}
     <a href="/logout">Logout</a>
     <hr>

@@ -13,6 +13,8 @@ async function login() {
     });
     if(response.ok) {
         dispatch('connected');
+    } else {
+        dispatch('notconnected')
     }
 }
 </script>
