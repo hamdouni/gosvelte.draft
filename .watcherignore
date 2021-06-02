@@ -1,2 +1,8 @@
+.watcherignore
 .git
 ihm
+*.md
+*.yml
+*.sh
+*.mod
+*.sum
