@@ -10,7 +10,8 @@
 </script>
 
 <div>
-    <input bind:value="{nom}" type="text" placeholder="Entrer un prénom..."
+    <h1 class="title is-2">Entrer un prénom</h1>
+    <input bind:value="{nom}" name="name" type="text" placeholder="Entrer un prénom..."
         class="input">
     <button on:click="{bonjour}">
         Bonjour
