@@ -1,8 +1,8 @@
 <script>
-	import Bonjour  from './functions/Bonjour.svelte';
-	import Maj      from './functions/Maj.svelte';
-	import Min      from './functions/Min.svelte';
-	import Historic from './functions/Historic.svelte';
+	import Bonjour  from './Bonjour.svelte';
+	import Maj      from './Maj.svelte';
+	import Min      from './Min.svelte';
+	import Historic from './Historic.svelte';
 
 	let Menu = [
 		{id: "bonjour",  component: Bonjour,  icon: "fa-home",          label: "Bonjour"},
