@@ -19,9 +19,9 @@
 	}
 </script>
 
-<nav class="navbar is-fixed-top is-wrapped has-shadow is-light">
+<nav class="navbar is-fixed-top has-shadow is-light has-background-warning">
 	<div class="navbar-brand">
-		<div class="navbar-item is-size-5">
+		<div class="navbar-item">
 			<span class="icon is-medium">
 				<i class="fas fa-gem"></i>
 			</span>
@@ -51,9 +51,20 @@
 		</div>
 	</div>
 </nav>
-
-<main class="content is-wrapped">
-	
-	<svelte:component this={actualMenu.component}/>
-
+<main class="columns">
+	<aside class="menu column is-2 has-background-primary">
+		<ul class="menu-list">
+			{#each Menu as item (item.id)}
+				<li>
+				<a href="#{item.id}" class="navbar-item" on:click="{()=>activate(item.id)}">
+					<span class="icon is-medium"> <i class="fas {item.icon}"></i> </span>
+					<span>{item.label}</span>
+				</a>
+				</li>
+			{/each}
+		</ul>
+	</aside>
+	<section class="column is-10">
+		<svelte:component this={actualMenu.component}/>
+	</section>
 </main>
