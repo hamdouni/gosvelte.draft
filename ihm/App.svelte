@@ -5,13 +5,13 @@
 {/if}
 
 <script>
-	import Login from './Login.svelte';
-	import Dashboard from './Dashboard.svelte';
-	import Cookie from './lib/cookie.js';
+	import Login from './functions/Login.svelte';
+	import Dashboard from './functions/Dashboard.svelte';
+	import * as cookie from './lib/cookie.js';
 	import * as net from "./lib/network.js";
 
 	let connectedStatus = false;
-	let idCookieValue = new Cookie().get("jeton");
+	let idCookieValue = cookie.get("jeton");
 
 	if(idCookieValue === "") {
 		// pas de jeton => l'utilisateur n'est pas connecté
