@@ -5,7 +5,7 @@ import (
 )
 
 // LogCheck check the login connexion
-// If a cookie name "id" exists and is valid return OK status.
+// If a cookie exists and is valid return OK status.
 // Return Forbidden if not.
 func (api *API) LogCheck(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie(tokenCookieName)
