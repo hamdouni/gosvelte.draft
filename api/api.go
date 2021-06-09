@@ -8,7 +8,7 @@ import (
 
 const tokenCookieName = "jeton"
 const tokenTimeLayout = time.RFC3339
-const tokenDuration = time.Duration(10) * time.Second
+const tokenDuration = time.Duration(24) * time.Hour
 
 type API struct {
 	biz    business
