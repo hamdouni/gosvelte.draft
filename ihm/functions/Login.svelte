@@ -21,14 +21,17 @@
   }
 </script>
 
-<style>
-  .title {
-    font-family: 'Oleo Script Swash Caps', cursive;
-    font-size: 3rem;
-  }
-</style>
-
-<section class="hero is-primary is-fullheight">
+<nav class="navbar is-fixed-top has-shadow is-light">
+	<div class="navbar-brand">
+		<div class="navbar-item">
+			<span class="icon is-medium">
+				<i class="fas fa-gem"></i>
+			</span>
+			<span>Webtoolkit</span>
+		</div>
+  </div>
+</nav>
+<section class="hero is-primary is-fullheight-with-navbar">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
@@ -48,7 +51,7 @@
                   type="text"
                   name="username"
                   bind:value={username}
-                  autofocus />
+                  autofocus="autofocus" />
                 <span class="icon is-small is-left">
                   <i class="fas fa-user" />
                 </span>
@@ -87,3 +90,10 @@
     </div>
   </div>
 </section>
+
+<style>
+  .title {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 3rem;
+  }
+</style>

@@ -502,7 +502,7 @@ var app = (function () {
 
     const file$5 = "functions/Login.svelte";
 
-    // (76:14) {#if err}
+    // (79:14) {#if err}
     function create_if_block$4(ctx) {
     	let article;
     	let div;
@@ -515,11 +515,11 @@ var app = (function () {
     			div = element("div");
     			strong = element("strong");
     			t = text(/*err*/ ctx[2]);
-    			add_location(strong, file$5, 78, 20, 2521);
+    			add_location(strong, file$5, 81, 20, 2676);
     			attr_dev(div, "class", "message-body");
-    			add_location(div, file$5, 77, 18, 2474);
+    			add_location(div, file$5, 80, 18, 2629);
     			attr_dev(article, "class", "message is-danger");
-    			add_location(article, file$5, 76, 16, 2420);
+    			add_location(article, file$5, 79, 16, 2575);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, article, anchor);
@@ -539,7 +539,7 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(76:14) {#if err}",
+    		source: "(79:14) {#if err}",
     		ctx
     	});
 
@@ -547,168 +547,203 @@ var app = (function () {
     }
 
     function create_fragment$6(ctx) {
-    	let section;
-    	let div9;
-    	let div8;
-    	let div7;
-    	let div6;
-    	let p;
-    	let t1;
-    	let form;
+    	let nav;
     	let div1;
-    	let label0;
-    	let t3;
     	let div0;
-    	let input0;
-    	let t4;
     	let span0;
     	let i0;
-    	let t5;
-    	let div3;
-    	let label1;
-    	let t7;
-    	let div2;
-    	let input1;
-    	let t8;
+    	let t0;
     	let span1;
+    	let t2;
+    	let section;
+    	let div11;
+    	let div10;
+    	let div9;
+    	let div8;
+    	let p;
+    	let t4;
+    	let form;
+    	let div3;
+    	let label0;
+    	let t6;
+    	let div2;
+    	let input0;
+    	let t7;
+    	let span2;
     	let i1;
-    	let t9;
-    	let div4;
-    	let button;
-    	let t11;
+    	let t8;
     	let div5;
+    	let label1;
+    	let t10;
+    	let div4;
+    	let input1;
+    	let t11;
+    	let span3;
+    	let i2;
+    	let t12;
+    	let div6;
+    	let button;
+    	let t14;
+    	let div7;
     	let mounted;
     	let dispose;
     	let if_block = /*err*/ ctx[2] && create_if_block$4(ctx);
 
     	const block = {
     		c: function create() {
-    			section = element("section");
-    			div9 = element("div");
-    			div8 = element("div");
-    			div7 = element("div");
-    			div6 = element("div");
-    			p = element("p");
-    			p.textContent = "Web Tool Kit";
-    			t1 = space();
-    			form = element("form");
+    			nav = element("nav");
     			div1 = element("div");
-    			label0 = element("label");
-    			label0.textContent = "Identifiant";
-    			t3 = space();
     			div0 = element("div");
-    			input0 = element("input");
-    			t4 = space();
     			span0 = element("span");
     			i0 = element("i");
-    			t5 = space();
+    			t0 = space();
+    			span1 = element("span");
+    			span1.textContent = "Webtoolkit";
+    			t2 = space();
+    			section = element("section");
+    			div11 = element("div");
+    			div10 = element("div");
+    			div9 = element("div");
+    			div8 = element("div");
+    			p = element("p");
+    			p.textContent = "Web Tool Kit";
+    			t4 = space();
+    			form = element("form");
     			div3 = element("div");
+    			label0 = element("label");
+    			label0.textContent = "Identifiant";
+    			t6 = space();
+    			div2 = element("div");
+    			input0 = element("input");
+    			t7 = space();
+    			span2 = element("span");
+    			i1 = element("i");
+    			t8 = space();
+    			div5 = element("div");
     			label1 = element("label");
     			label1.textContent = "Mot de passe";
-    			t7 = space();
-    			div2 = element("div");
-    			input1 = element("input");
-    			t8 = space();
-    			span1 = element("span");
-    			i1 = element("i");
-    			t9 = space();
+    			t10 = space();
     			div4 = element("div");
+    			input1 = element("input");
+    			t11 = space();
+    			span3 = element("span");
+    			i2 = element("i");
+    			t12 = space();
+    			div6 = element("div");
     			button = element("button");
     			button.textContent = "Connecter";
-    			t11 = space();
-    			div5 = element("div");
+    			t14 = space();
+    			div7 = element("div");
     			if (if_block) if_block.c();
+    			attr_dev(i0, "class", "fas fa-gem");
+    			add_location(i0, file$5, 27, 4, 754);
+    			attr_dev(span0, "class", "icon is-medium");
+    			add_location(span0, file$5, 26, 3, 720);
+    			add_location(span1, file$5, 29, 3, 795);
+    			attr_dev(div0, "class", "navbar-item");
+    			add_location(div0, file$5, 25, 2, 691);
+    			attr_dev(div1, "class", "navbar-brand");
+    			add_location(div1, file$5, 24, 1, 662);
+    			attr_dev(nav, "class", "navbar is-fixed-top has-shadow is-light");
+    			add_location(nav, file$5, 23, 0, 607);
     			attr_dev(p, "class", "title svelte-v1s4k5");
-    			add_location(p, file$5, 35, 10, 935);
+    			add_location(p, file$5, 38, 10, 1078);
     			attr_dev(label0, "for", "username");
     			attr_dev(label0, "class", "label");
-    			add_location(label0, file$5, 43, 14, 1203);
+    			add_location(label0, file$5, 46, 14, 1346);
     			attr_dev(input0, "class", "input");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "name", "username");
-    			input0.autofocus = true;
-    			add_location(input0, file$5, 45, 16, 1342);
-    			attr_dev(i0, "class", "fas fa-user");
-    			add_location(i0, file$5, 52, 18, 1587);
-    			attr_dev(span0, "class", "icon is-small is-left");
-    			add_location(span0, file$5, 51, 16, 1532);
-    			attr_dev(div0, "class", "control has-icons-left has-icons-right");
-    			add_location(div0, file$5, 44, 14, 1273);
-    			attr_dev(div1, "class", "field");
-    			add_location(div1, file$5, 42, 12, 1169);
+    			input0.autofocus = "autofocus";
+    			add_location(input0, file$5, 48, 16, 1485);
+    			attr_dev(i1, "class", "fas fa-user");
+    			add_location(i1, file$5, 55, 18, 1742);
+    			attr_dev(span2, "class", "icon is-small is-left");
+    			add_location(span2, file$5, 54, 16, 1687);
+    			attr_dev(div2, "class", "control has-icons-left has-icons-right");
+    			add_location(div2, file$5, 47, 14, 1416);
+    			attr_dev(div3, "class", "field");
+    			add_location(div3, file$5, 45, 12, 1312);
     			attr_dev(label1, "for", "password");
     			attr_dev(label1, "class", "label");
-    			add_location(label1, file$5, 57, 14, 1723);
+    			add_location(label1, file$5, 60, 14, 1878);
     			attr_dev(input1, "class", "input");
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "name", "password");
-    			add_location(input1, file$5, 59, 16, 1863);
-    			attr_dev(i1, "class", "fas fa-unlock-alt");
-    			add_location(i1, file$5, 65, 18, 2084);
-    			attr_dev(span1, "class", "icon is-small is-left");
-    			add_location(span1, file$5, 64, 16, 2029);
-    			attr_dev(div2, "class", "control has-icons-left has-icons-right");
-    			add_location(div2, file$5, 58, 14, 1794);
-    			attr_dev(div3, "class", "field");
-    			add_location(div3, file$5, 56, 12, 1689);
+    			add_location(input1, file$5, 62, 16, 2018);
+    			attr_dev(i2, "class", "fas fa-unlock-alt");
+    			add_location(i2, file$5, 68, 18, 2239);
+    			attr_dev(span3, "class", "icon is-small is-left");
+    			add_location(span3, file$5, 67, 16, 2184);
+    			attr_dev(div4, "class", "control has-icons-left has-icons-right");
+    			add_location(div4, file$5, 61, 14, 1949);
+    			attr_dev(div5, "class", "field");
+    			add_location(div5, file$5, 59, 12, 1844);
     			attr_dev(button, "class", "button is-success");
-    			add_location(button, file$5, 70, 14, 2226);
-    			attr_dev(div4, "class", "field");
-    			add_location(div4, file$5, 69, 12, 2192);
-    			add_location(div5, file$5, 74, 12, 2374);
+    			add_location(button, file$5, 73, 14, 2381);
+    			attr_dev(div6, "class", "field");
+    			add_location(div6, file$5, 72, 12, 2347);
+    			add_location(div7, file$5, 77, 12, 2529);
     			attr_dev(form, "action", "/login");
     			attr_dev(form, "method", "post");
     			attr_dev(form, "class", "box ");
-    			add_location(form, file$5, 37, 10, 1026);
-    			attr_dev(div6, "class", "column is-5-tablet is-4-desktop is-3-widescreen");
-    			add_location(div6, file$5, 34, 8, 863);
-    			attr_dev(div7, "class", "columns is-centered");
-    			add_location(div7, file$5, 33, 6, 821);
-    			attr_dev(div8, "class", "container");
-    			add_location(div8, file$5, 32, 4, 791);
-    			attr_dev(div9, "class", "hero-body");
-    			add_location(div9, file$5, 31, 2, 763);
-    			attr_dev(section, "class", "hero is-primary is-fullheight");
-    			add_location(section, file$5, 30, 0, 713);
+    			add_location(form, file$5, 40, 10, 1169);
+    			attr_dev(div8, "class", "column is-5-tablet is-4-desktop is-3-widescreen");
+    			add_location(div8, file$5, 37, 8, 1006);
+    			attr_dev(div9, "class", "columns is-centered");
+    			add_location(div9, file$5, 36, 6, 964);
+    			attr_dev(div10, "class", "container");
+    			add_location(div10, file$5, 35, 4, 934);
+    			attr_dev(div11, "class", "hero-body");
+    			add_location(div11, file$5, 34, 2, 906);
+    			attr_dev(section, "class", "hero is-primary is-fullheight-with-navbar");
+    			add_location(section, file$5, 33, 0, 844);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, section, anchor);
-    			append_dev(section, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, div6);
-    			append_dev(div6, p);
-    			append_dev(div6, t1);
-    			append_dev(div6, form);
-    			append_dev(form, div1);
-    			append_dev(div1, label0);
-    			append_dev(div1, t3);
+    			insert_dev(target, nav, anchor);
+    			append_dev(nav, div1);
     			append_dev(div1, div0);
-    			append_dev(div0, input0);
-    			set_input_value(input0, /*username*/ ctx[0]);
-    			append_dev(div0, t4);
     			append_dev(div0, span0);
     			append_dev(span0, i0);
-    			append_dev(form, t5);
+    			append_dev(div0, t0);
+    			append_dev(div0, span1);
+    			insert_dev(target, t2, anchor);
+    			insert_dev(target, section, anchor);
+    			append_dev(section, div11);
+    			append_dev(div11, div10);
+    			append_dev(div10, div9);
+    			append_dev(div9, div8);
+    			append_dev(div8, p);
+    			append_dev(div8, t4);
+    			append_dev(div8, form);
     			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(div3, t7);
+    			append_dev(div3, label0);
+    			append_dev(div3, t6);
     			append_dev(div3, div2);
-    			append_dev(div2, input1);
-    			set_input_value(input1, /*password*/ ctx[1]);
-    			append_dev(div2, t8);
-    			append_dev(div2, span1);
-    			append_dev(span1, i1);
-    			append_dev(form, t9);
-    			append_dev(form, div4);
-    			append_dev(div4, button);
-    			append_dev(form, t11);
+    			append_dev(div2, input0);
+    			set_input_value(input0, /*username*/ ctx[0]);
+    			append_dev(div2, t7);
+    			append_dev(div2, span2);
+    			append_dev(span2, i1);
+    			append_dev(form, t8);
     			append_dev(form, div5);
-    			if (if_block) if_block.m(div5, null);
-    			input0.focus();
+    			append_dev(div5, label1);
+    			append_dev(div5, t10);
+    			append_dev(div5, div4);
+    			append_dev(div4, input1);
+    			set_input_value(input1, /*password*/ ctx[1]);
+    			append_dev(div4, t11);
+    			append_dev(div4, span3);
+    			append_dev(span3, i2);
+    			append_dev(form, t12);
+    			append_dev(form, div6);
+    			append_dev(div6, button);
+    			append_dev(form, t14);
+    			append_dev(form, div7);
+    			if (if_block) if_block.m(div7, null);
 
     			if (!mounted) {
     				dispose = [
@@ -736,7 +771,7 @@ var app = (function () {
     				} else {
     					if_block = create_if_block$4(ctx);
     					if_block.c();
-    					if_block.m(div5, null);
+    					if_block.m(div7, null);
     				}
     			} else if (if_block) {
     				if_block.d(1);
@@ -746,6 +781,8 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(nav);
+    			if (detaching) detach_dev(t2);
     			if (detaching) detach_dev(section);
     			if (if_block) if_block.d();
     			mounted = false;
