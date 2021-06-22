@@ -11,7 +11,7 @@
 </script>
 
 <div>
-    <h1 class="title is-2">Historique</h1>
+    <h1 class="title">Historique</h1>
     <ul>
         {#each historique as evenement}
             <li>{evenement}</li>

@@ -1,23 +1,37 @@
 <script>
-    import * as net from "../lib/network.js";
-    let nom;
-    let resultat;
+  import * as net from "../lib/network.js";
+  let nom;
+  let resultat;
 
-    async function maj() {
-        let res = await net.callMaj(nom);
-        if (res != null) resultat = res;
-    }
+  async function maj() {
+    let res = await net.callMaj(nom);
+    if (res != null) resultat = res;
+  }
 </script>
 
 <div>
-    <h1 class="title is-2">Entrer le mot ou la phrase à mettre en majuscule</h1>
-    <input bind:value="{nom}" type="text" placeholder="Entrer le mot ou la phrase à mettre en majuscule..."
-        class="input">
-    <button on:click="{maj}">
-        Majuscule
-    </button>
-    <hr>
-    {#if resultat}
+  <h1 class="title">Majuscule</h1>
+  <div class="field">
+    <label class="label" for="name">
+      Entrer le mot ou la phrase à mettre en majuscule
+    </label>
+    <div class="control has-icons-left">
+      <input
+        bind:value={nom}
+        name="name"
+        type="text"
+        placeholder="Mot ou phrase..."
+        class="input" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-keyboard" />
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <button on:click={maj} class="button is-success">Majuscule</button>
+  </div>
+  {#if resultat}
+    <hr />
     {resultat}
-    {/if}
+  {/if}
 </div>

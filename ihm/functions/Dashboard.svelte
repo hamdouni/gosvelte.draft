@@ -16,10 +16,11 @@
 
 	function activate(menuID) {
 		actualMenu = Menu.find(elem => elem.id === menuID);
+		showNavbarMenu = !showNavbarMenu;
 	}
 </script>
 
-<nav class="navbar is-fixed-top has-shadow is-light has-background-warning">
+<nav class="navbar is-fixed-top has-shadow is-light">
 	<div class="navbar-brand">
 		<div class="navbar-item">
 			<span class="icon is-medium">
@@ -51,20 +52,16 @@
 		</div>
 	</div>
 </nav>
-<main class="columns">
-	<aside class="menu column is-2 has-background-primary">
-		<ul class="menu-list">
-			{#each Menu as item (item.id)}
-				<li>
-				<a href="#{item.id}" class="navbar-item" on:click="{()=>activate(item.id)}">
-					<span class="icon is-medium"> <i class="fas {item.icon}"></i> </span>
-					<span>{item.label}</span>
-				</a>
-				</li>
-			{/each}
-		</ul>
-	</aside>
-	<section class="column is-10">
-		<svelte:component this={actualMenu.component}/>
-	</section>
-</main>
+<section class="section" is-main-content>
+	<svelte:component this={actualMenu.component}/>
+</section>
+
+<style>
+	@media screen and (max-width: 1023px) {
+		.navbar-menu {
+			position: absolute;
+			max-width: max-content;
+			right: 0;
+		}
+	}
+</style>
