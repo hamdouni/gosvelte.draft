@@ -13,14 +13,14 @@ func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie(tokenCookieName)
 		if err != nil {
-			api.Login(w, r)
+			respondJSON(w, http.StatusUnauthorized, "Non autorisé (pas de cookie).")
 			return
 		}
-		if api.isAuth(cookie.Value, r) {
-			next(w, r)
-		} else {
-			api.Logout(w, r)
+		if !api.isAuth(cookie.Value, r) {
+			respondJSON(w, http.StatusUnauthorized, "Non autorisé.")
+			return
 		}
+		next(w, r)
 	}
 }
 
