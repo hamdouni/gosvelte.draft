@@ -69,3 +69,18 @@ Docker va nous servir à la fois de simulateur d'infrastructure de production et
 Nous utilisons Docker pour simuler une architecture avec un reverse-proxy (Traefik) ce qui nous permet de tester la mécanique de récupération de l'adresse IP de l'utilisateur.
 
 Plus tard, nous utiliserons Docker (et Docker Compose) pour organiser notre infrastructure et l'envoyer sur un serveur de production.
+
+## Test de l'API avec curl
+
+```sh
+# On s'authentifie en POST et on sauvegarde le cookie dans un fichier
+curl -v -c /tmp/cookie.txt -d 'username=maximilien&password=motdepasse' http://localhost:8000/login
+# On peut appeler un service en POST en réutilisant le fichier cookie
+curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://localhost:8000/upper
+# Ou alors en simple GET (parametres dans l'URL)
+curl -v -b /tmp/cookie.txt http://localhost:8000/hello\?nom\=le%20monde
+curl -v -b /tmp/cookie.txt http://localhost:8000/lower\?nom\=The%20Universe
+curl -v -b /tmp/cookie.txt http://localhost:8000/historic
+# On se déconnecte en modifiant le fichier cookie
+curl -v -c /tmp/cookie.txt http://localhost:8000/logout
+```
