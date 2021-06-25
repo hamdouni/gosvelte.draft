@@ -25,7 +25,7 @@
 	<div class="navbar-brand">
 		<div class="navbar-item">
 			<span class="icon is-medium">
-				<i class="fas fa-gem"></i>
+				<i class="far fa-gem"></i>
 			</span>
 			<span>Webtoolkit</span>
 		</div>
@@ -53,7 +53,7 @@
                   bind:value={username}
                   autofocus="autofocus" />
                 <span class="icon is-small is-left">
-                  <i class="fas fa-user" />
+                  <i class="far fa-user" />
                 </span>
               </div>
             </div>
@@ -66,7 +66,7 @@
                   name="password"
                   bind:value={password} />
                 <span class="icon is-small is-left">
-                  <i class="fas fa-unlock-alt" />
+                  <i class="far fa-unlock-alt" />
                 </span>
               </div>
             </div>

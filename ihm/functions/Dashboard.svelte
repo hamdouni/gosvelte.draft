@@ -1,14 +1,14 @@
 <script>
-	import Bonjour  from './Bonjour.svelte';
-	import Maj      from './Maj.svelte';
-	import Min      from './Min.svelte';
+	import Bonjour from './Bonjour.svelte';
+	import Maj from './Maj.svelte';
+	import Min from './Min.svelte';
 	import Historic from './Historic.svelte';
 
 	let Menu = [
-		{id: "bonjour",  component: Bonjour,  icon: "fa-home",          label: "Bonjour"},
-		{id: "maj",      component: Maj,      icon: "fa-chart-bar",     label: "Majuscule"},
-		{id: "min",      component: Min,      icon: "fa-book",          label: "Minuscule"},
-		{id: "historic", component: Historic, icon: "fa-shopping-cart", label: "Historique"},
+		{ id: "bonjour", component: Bonjour, icon: "fa-handshake", label: "Bonjour" },
+		{ id: "maj", component: Maj, icon: "fa-chart-bar", label: "Majuscule" },
+		{ id: "min", component: Min, icon: "fa-compass", label: "Minuscule" },
+		{ id: "historic", component: Historic, icon: "fa-credit-card", label: "Historique" },
 	];
 
 	let showNavbarMenu = false;
@@ -23,10 +23,12 @@
 <nav class="navbar is-fixed-top has-shadow is-light">
 	<div class="navbar-brand">
 		<div class="navbar-item">
-			<span class="icon is-medium">
-				<i class="fas fa-gem"></i>
+			<span class="icon-text">
+				<span>
+					<i class="far fa-fw fa-gem"></i>
+				</span>
+				<span>Webtoolkit</span>
 			</span>
-			<span>Webtoolkit</span>
 		</div>
 		<div class="navbar-burger is-hoverable" on:click="{() => showNavbarMenu=!showNavbarMenu}">
 			<span></span>
@@ -37,23 +39,30 @@
 	<div class="navbar-menu" class:is-active="{showNavbarMenu}">
 		<div class="navbar-start">
 			{#each Menu as item (item.id)}
-				<a href="#{item.id}" class="navbar-item" on:click="{()=>activate(item.id)}">
-					<span class="icon is-medium"> <i class="fas {item.icon}"></i> </span>
-					<span>{item.label}</span>
-				</a>
+			<a href="#{item.id}" class="navbar-item" on:click="{()=>activate(item.id)}">
+				<span>
+					<i class="far fa-fw {item.icon}"></i>
+				</span>
+				<span> {item.label} </span>
+			</a>
 			{/each}
 		</div>
 		<div class="navbar-end">
-			<div class="navbar-item">
-				<div class="buttons">
-					<a href="/logout" class="button">Déconnexion</a>
+			<div class="navbar-item has-dropdown is-hoverable">
+				<span class="navbar-link is-arrowless">
+					<span class="icon"> <i class="far fa-user-circle"></i> </span>
+				</span>
+				<div class="navbar-dropdown is-right">
+					<span class="navbar-item">Maximilien</span>
+					<hr class="navbar-divider">
+					<a class="navbar-item" href="/logout">Se déconnecter</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </nav>
 <section class="section" is-main-content>
-	<svelte:component this={actualMenu.component}/>
+	<svelte:component this={actualMenu.component} />
 </section>
 
 <style>

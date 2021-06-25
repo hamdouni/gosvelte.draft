@@ -23,7 +23,7 @@
         placeholder="Prénom..."
         class="input" />
       <span class="icon is-small is-left">
-        <i class="fas fa-user" />
+        <i class="far fa-user" />
       </span>
     </div>
   </div>

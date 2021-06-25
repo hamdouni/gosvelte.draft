@@ -23,7 +23,7 @@
         placeholder="Entrer le mot ou la phrase à mettre en minuscule..."
         class="input" />
       <span class="icon is-small is-left">
-        <i class="fas fa-keyboard" />
+        <i class="far fa-keyboard" />
       </span>
     </div>
   </div>
