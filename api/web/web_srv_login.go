@@ -1,4 +1,4 @@
-package api
+package web
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 )
 
 // Login service
-func (api *API) Login(w http.ResponseWriter, r *http.Request) {
+func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -15,12 +15,12 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
-	if !api.biz.CheckPassword(user, pass) {
+	if !web.biz.CheckPassword(user, pass) {
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
 
-	jeton, err := api.getAuthToken(user, r)
+	jeton, err := web.getAuthToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Login error : %v", err)

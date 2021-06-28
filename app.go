@@ -1,10 +1,10 @@
 package main
 
 import (
-	"app/api"
-	"app/bdd"
+	"app/api/web"
 	"app/biz"
-	"app/sec"
+	"app/infra/bdd"
+	"app/infra/sec"
 	_ "embed"
 	"log"
 	"net/http"
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	// on crée une api avec notre biz et notre sec
-	var api api.API
+	var api web.WEB
 	api.Init(biz, sec)
 
 	log.Printf("Le service démarre sur le port %v \n", port)

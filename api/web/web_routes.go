@@ -1,4 +1,4 @@
-package api
+package web
 
 import (
 	"log"
@@ -8,23 +8,23 @@ import (
 /*
 	InitRoutes initialise toutes les routes (url) en spécifiant les fonctions qui les prennent en charge, soit des fonctions à nous qu'on déclare avec HandleFunc, soit la fonction qui s'occupe de servir les fichiers statiques.
 */
-func (api *API) InitRoutes() {
+func (web *WEB) InitRoutes() {
 	/*
 		Voici des exemples de déclaration de routes avec l'url pour y accéder et la fonction qui va la traiter.
 		Par exemple l'url "/hello" est prise en charge par api.Hello que l'on doit implémenter (cf fichier api_hello.go).
 	*/
-	api.logHandleFunc("/hello", api.Hello)
-	api.logHandleFunc("/login", api.Login)
-	api.logHandleFunc("/logout", api.Logout)
-	api.logHandleFunc("/check", api.LogCheck)
-	api.logHandleFunc("/historic", api.auth(api.Historic))
-	api.logHandleFunc("/upper", api.auth(api.Upper))
-	api.logHandleFunc("/lower", api.auth(api.Lower))
+	web.logHandleFunc("/hello", web.Hello)
+	web.logHandleFunc("/login", web.Login)
+	web.logHandleFunc("/logout", web.Logout)
+	web.logHandleFunc("/check", web.LogCheck)
+	web.logHandleFunc("/historic", web.auth(web.Historic))
+	web.logHandleFunc("/upper", web.auth(web.Upper))
+	web.logHandleFunc("/lower", web.auth(web.Lower))
 
 	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.
 	*/
-	fs := http.FileServer(http.Dir("./ihm/public"))
+	fs := http.FileServer(http.Dir("./api/web/ihm/public"))
 	http.Handle("/", fs)
 }
 
@@ -33,7 +33,7 @@ func (api *API) InitRoutes() {
 	- logHandleFunc sera utilisé à la place de http.HandleFunc dans la déclaration des routes
 	- logReq affiche la requête et continue le traitement sur le handler d'origine
 */
-func (api *API) logHandleFunc(pattern string, handler func(http.ResponseWriter, *http.Request)) {
+func (web *WEB) logHandleFunc(pattern string, handler func(http.ResponseWriter, *http.Request)) {
 	http.HandleFunc(pattern, logReq(handler))
 }
 func logReq(next http.HandlerFunc) http.HandlerFunc {
