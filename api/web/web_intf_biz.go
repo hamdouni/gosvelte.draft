@@ -1,4 +1,4 @@
-package api
+package web
 
 // Contrat avec le service business
 type business interface {
