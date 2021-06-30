@@ -1,7 +1,7 @@
 package biz
 
+// Contrat avec le service de sécurite
 type secure interface {
-	Init() error
 	Encrypt([]byte) ([]byte, error)
 	Decrypt([]byte) ([]byte, error)
 }

@@ -11,13 +11,11 @@ const tokenTimeLayout = time.RFC3339
 const tokenDuration = time.Duration(24) * time.Hour
 
 type WEB struct {
-	biz    business
-	secret secure
+	biz business
 }
 
-func (web WEB) Init(b business, s secure) {
+func (web WEB) Init(b business) {
 	web.biz = b
-	web.secret = s
 	web.InitRoutes()
 }
 

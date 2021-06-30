@@ -1,9 +1,11 @@
 package biz
 
 type BIZ struct {
-	store store
+	store  store
+	secret secure
 }
 
-func (b *BIZ) Init(h store) {
+func (b *BIZ) Init(h store, s secure) {
 	b.store = h
+	b.secret = s
 }
