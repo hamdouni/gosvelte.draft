@@ -3,3 +3,5 @@ package-lock.json
 tmp
 .DS_Store
 *.log
+app.js 
+app.js.map
