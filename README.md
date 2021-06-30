@@ -4,7 +4,7 @@ Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et S
 
 ```
 # installation des éléments javascript
-cd ihm && npm i
+cd api/web/ihm && npm i
 ```
 
 Pour développer, il faut lancer en parallèle les commandes pour la partie serveur et la partie cliente :
@@ -14,7 +14,7 @@ Pour développer, il faut lancer en parallèle les commandes pour la partie serv
 go run . &
 
 # et ici le client
-cd ihm && npm run dev & 
+cd api/web/ihm && npm run dev & 
 ```
 
 Le dossier **ihm** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "public".
