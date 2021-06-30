@@ -7,4 +7,6 @@ type business interface {
 	Min(string) string
 	Historic() []string
 	CheckPassword(string, string) bool
+	Encrypt([]byte) ([]byte, error)
+	Decrypt([]byte) ([]byte, error)
 }

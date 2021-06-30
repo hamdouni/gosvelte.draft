@@ -22,8 +22,7 @@ Le dossier **ihm** contient le code source pour la partie cliente (Svelte). La c
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 - **biz** est en charge de la logique métier et est agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
 - **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request) et retourner les données en réponses (response au format JSON)
-- **bdd** contient les différents magasins de données possibles. Un magasin en mémoire est utilisé en exemple pour sauvegarder l'historique des demandes.
-- **sec** centralise la stratégie d'encryption.
+- **infra** regroupe **bdd** qui contient les différents magasins de données possibles (un magasin en mémoire est utilisé en exemple)  et **sec** pour le chiffrement des données (en exemple, une version AES 256).
 
 ## Pré-requis
 

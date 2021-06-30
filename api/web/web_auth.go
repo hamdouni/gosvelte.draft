@@ -29,7 +29,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 	if err != nil {
 		return false
 	}
-	decoded, err = web.secret.Decrypt(decoded)
+	decoded, err = web.biz.Decrypt(decoded)
 	if err != nil {
 		return false
 	}
@@ -56,7 +56,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 func (web *WEB) getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := web.secret.Encrypt([]byte(phrase))
+	val, err := web.biz.Encrypt([]byte(phrase))
 	if err != nil {
 		return "", err
 	}
