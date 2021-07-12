@@ -170,7 +170,6 @@ form {
 
 .field {
     margin: 1rem 0 1.5rem 0;
-    position: relative;
 }
 
 input, select {
@@ -218,14 +217,17 @@ button:focus {
 }
 
 /* field input with icon */
+.field.icon {
+    position: relative;
+}
 .field.icon input {
     padding-left: 2rem;
     line-height: 1rem;
     font-size: 1rem;
 }
-.field.icon input ~ i {
+.field.icon i {
     position: absolute;
-    top: 2rem;
+    top: 0.5rem;
     left: 0.3rem;
     line-height: 1rem;
     font-size: 1.3rem;

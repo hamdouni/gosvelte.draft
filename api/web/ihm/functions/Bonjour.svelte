@@ -13,8 +13,8 @@
 
   <h1>Bonjour</h1>
 
+  <label for="name">Entrer un prénom</label>
   <div class="field icon">
-    <label for="name">Entrer un prénom</label>
     <input bind:value={nom} name="name" type="text" placeholder="Prénom..." class="input" />
     <i class="las la-user" />
   </div>

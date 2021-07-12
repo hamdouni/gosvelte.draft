@@ -11,10 +11,10 @@
 
 <div>
   <h1>Minuscule</h1>
+  <label for="name" class="label">
+    Entrer le mot ou la phrase à mettre en minuscule
+  </label>
   <div class="field icon">
-    <label for="name" class="label">
-      Entrer le mot ou la phrase à mettre en minuscule
-    </label>
     <input bind:value={nom} name="name" type="text" placeholder="Entrer le mot ou la phrase à mettre en minuscule..." class="input" />
     <i class="las la-keyboard" />
   </div>
