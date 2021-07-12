@@ -24,6 +24,8 @@ body {
     flex-direction: column;
 }
 
+ul { margin: 1rem;}
+
 .icon {
     font-size: 1.2rem;
     cursor: pointer;
