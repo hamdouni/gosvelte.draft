@@ -11,10 +11,10 @@
 
 <div>
   <h1>Majuscule</h1>
+  <label class="label" for="name">
+    Entrer le mot ou la phrase à mettre en majuscule
+  </label>
   <div class="field icon">
-    <label class="label" for="name">
-      Entrer le mot ou la phrase à mettre en majuscule
-    </label>
     <input bind:value={nom} name="name" type="text" placeholder="Mot ou phrase..." class="input" />
     <i class="las la-keyboard" />
   </div>

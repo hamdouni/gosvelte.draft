@@ -31,13 +31,13 @@
     </h1>
     <!-- svelte-ignore a11y-autofocus-->
     <form on:submit|preventDefault={login} action="/login" method="post" class="box">
+      <label for="username" class="label">E-mail</label>
       <div class="field icon">
-        <label for="username" class="label">E-mail</label>
         <input type="email" name="username" bind:value={username} autofocus="autofocus" />
         <i class="las la-user" />
       </div>
+      <label for="password" class="label">Mot de passe</label>
       <div class="field icon">
-        <label for="password" class="label">Mot de passe</label>
           <input type="password" name="password" bind:value={password} />
             <i class="las la-unlock" />
       </div>
