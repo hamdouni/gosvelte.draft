@@ -10,25 +10,16 @@
 </script>
 
 <div>
-  <h1 class="title">Minuscule</h1>
-  <div class="field">
+  <h1>Minuscule</h1>
+  <div class="field icon">
     <label for="name" class="label">
       Entrer le mot ou la phrase à mettre en minuscule
     </label>
-    <div class="control has-icons-left">
-      <input
-        bind:value={nom}
-        name="name"
-        type="text"
-        placeholder="Entrer le mot ou la phrase à mettre en minuscule..."
-        class="input" />
-      <span class="icon is-small is-left">
-        <i class="far fa-keyboard" />
-      </span>
-    </div>
+    <input bind:value={nom} name="name" type="text" placeholder="Entrer le mot ou la phrase à mettre en minuscule..." class="input" />
+    <i class="las la-keyboard" />
   </div>
   <div class="field">
-    <button on:click={min} class="button is-success">Minuscule</button>
+    <button on:click={min}>Minuscule</button>
   </div>
   {#if resultat}
     <hr />

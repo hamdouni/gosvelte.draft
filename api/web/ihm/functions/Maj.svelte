@@ -10,25 +10,16 @@
 </script>
 
 <div>
-  <h1 class="title">Majuscule</h1>
-  <div class="field">
+  <h1>Majuscule</h1>
+  <div class="field icon">
     <label class="label" for="name">
       Entrer le mot ou la phrase à mettre en majuscule
     </label>
-    <div class="control has-icons-left">
-      <input
-        bind:value={nom}
-        name="name"
-        type="text"
-        placeholder="Mot ou phrase..."
-        class="input" />
-      <span class="icon is-small is-left">
-        <i class="far fa-keyboard" />
-      </span>
-    </div>
+    <input bind:value={nom} name="name" type="text" placeholder="Mot ou phrase..." class="input" />
+    <i class="las la-keyboard" />
   </div>
   <div class="field">
-    <button on:click={maj} class="button is-success">Majuscule</button>
+    <button on:click={maj}>Majuscule</button>
   </div>
   {#if resultat}
     <hr />
