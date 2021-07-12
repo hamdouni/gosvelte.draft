@@ -21,79 +21,36 @@
   }
 </script>
 
-<nav class="navbar is-fixed-top has-shadow is-light">
-	<div class="navbar-brand">
-		<div class="navbar-item">
-			<span class="icon is-medium">
-				<i class="far fa-gem"></i>
-			</span>
-			<span>Webtoolkit</span>
-		</div>
-  </div>
-</nav>
-<section class="hero is-primary is-fullheight-with-navbar">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-          <p class="title">Web Tool Kit</p>
-          <!-- svelte-ignore a11y-autofocus-->
-          <form
-            on:submit|preventDefault={login}
-            action="/login"
-            method="post"
-            class="box ">
-            <div class="field">
-              <label for="username" class="label">Identifiant</label>
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  class="input"
-                  type="text"
-                  name="username"
-                  bind:value={username}
-                  autofocus="autofocus" />
-                <span class="icon is-small is-left">
-                  <i class="far fa-user" />
-                </span>
-              </div>
-            </div>
-            <div class="field">
-              <label for="password" class="label">Mot de passe</label>
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  class="input"
-                  type="password"
-                  name="password"
-                  bind:value={password} />
-                <span class="icon is-small is-left">
-                  <i class="far fa-unlock-alt" />
-                </span>
-              </div>
-            </div>
-            <div class="field">
-              <button class="button is-success" on:click|preventDefault={login}>
-                Connecter
-              </button>
-            </div>
-            <div>
-              {#if err}
-                <article class="message is-danger">
-                  <div class="message-body">
-                    <strong>{err}</strong>
-                  </div>
-                </article>
-              {/if}
-            </div>
-          </form>
-        </div>
+<section >
+  <main class="login">
+    <h1>
+      <span class="icon">
+        <i class="las la-cube la-fw" />
+      </span>
+      <span>Webtoolkit</span>
+    </h1>
+    <!-- svelte-ignore a11y-autofocus-->
+    <form on:submit|preventDefault={login} action="/login" method="post" class="box">
+      <div class="field icon">
+        <label for="username" class="label">E-mail</label>
+        <input type="email" name="username" bind:value={username} autofocus="autofocus" />
+        <i class="las la-user" />
       </div>
-    </div>
-  </div>
+      <div class="field icon">
+        <label for="password" class="label">Mot de passe</label>
+          <input type="password" name="password" bind:value={password} />
+            <i class="las la-unlock" />
+      </div>
+      <div class="field">
+        <button on:click|preventDefault={login}>
+          Connecter
+        </button>
+      </div>
+      {#if err}
+        <article class="message alert">
+          {err}
+        </article>
+      {/if}
+    </form>
+  </main>
 </section>
-
-<style>
-  .title {
-    font-family: 'Oleo Script Swash Caps', cursive;
-    font-size: 3rem;
-  }
-</style>

@@ -1,0 +1,250 @@
+:root {
+    --text-color: #4a4a4a;
+    --text-alert-color: #b40000;
+    --line-color: #52c95a6e;
+    --bg-color: #3a913f;
+    --bg-color-light: #71ff797c;
+    --nav-width: 256px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: var(--text-color);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+aside {
+    background-color: var(--bg-color-light);
+}
+
+nav {
+    width: var(--nav-width);
+    display: flex;
+    flex-direction: column;
+    transition: 250ms;
+    padding-top: 1rem;
+}
+
+#toggler {
+    display: none;
+}
+
+#toggler:checked~nav {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+nav .item {
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 1rem;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--line-color);
+}
+
+nav .item.selected, nav .item:hover {
+    background-color: var(--line-color);
+}
+
+section {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    transform: translateX(0);
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 2px 2px 20px 0px #707070;
+    z-index: 9999;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header .item {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    height: 2rem;
+}
+
+header .brand {
+    margin-left: 2rem;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+header .brand .icon {
+    margin-right: 0.75rem;
+}
+
+header .end .icon {
+    border: 1px solid #fff;
+    border-radius: 1rem;
+    padding: 0.2rem;
+    background-color: #fff;
+    margin: 0.3rem;
+    box-shadow: 5px 5px 10px #999;
+}
+
+/* header profile menu */
+
+header .profile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+header #profilebox {
+    display: none;
+}
+
+header .profilemenu {
+    transition: 250ms;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px 0px #707070;
+    z-index: 8888;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    transform: scaleY(100%);
+}
+
+header #profilebox:checked~.profilemenu {
+    transform: scaleY(0%);
+}
+
+header .profilemenu a {
+    white-space: nowrap;
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    transform: scaleY(100%);
+    border-bottom: 1px solid var(--line-color);
+}
+
+header .profilemenu a:hover {
+    color: var(--bg-color);
+    background-color: var(--text-color);
+}
+
+main {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* form */
+
+form {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 8px 0 var(--text-color);
+    max-width: max-content;
+}
+
+.field {
+    margin: 1rem 0 1.5rem 0;
+    position: relative;
+}
+
+input, select {
+    display: block;
+    max-width: 30rem;
+    width: 100%;
+    box-shadow: 1px 1px 1px 0px inset;
+    background-color: #fff;
+    padding: 0.5rem 0.25rem;
+    border: 1px solid var(--line-color);
+    border-radius: 0.3rem;
+}
+
+button {
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 0px;
+    padding: 0.75rem 0.5rem;
+    border: 0;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--bg-color);
+}
+
+button:focus {
+    color:  var(--bg-color);
+    background-color: #fff;
+}
+
+.action {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action button {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.action button:first-child {
+    margin-left: 0;
+}
+
+/* field input with icon */
+.field.icon input {
+    padding-left: 2rem;
+    line-height: 1rem;
+    font-size: 1rem;
+}
+.field.icon input ~ i {
+    position: absolute;
+    top: 2rem;
+    left: 0.3rem;
+    line-height: 1rem;
+    font-size: 1.3rem;
+}
+
+/* semantic */
+.login {
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color-light);
+}
+.login h1 {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+.login h1 .icon {
+    font-size: 3rem;
+}
+article.alert {
+    max-width: 15rem;
+    color: var(--text-alert-color);
+    font-weight: bold;
+}
