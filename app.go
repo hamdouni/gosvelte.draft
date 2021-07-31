@@ -6,8 +6,11 @@ import (
 	"app/infra/bdd"
 	"app/infra/sec"
 	_ "embed"
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 const port = 8000
@@ -16,8 +19,21 @@ const port = 8000
 var version string
 
 func main() {
-
 	log.Printf("App version %v", version)
+	if err := run(os.Args); err != nil {
+		log.Fatalf("Erreur de démarrage du service sur le port %v : %v\n", port, err)
+	}
+}
+
+func run(args []string) error {
+	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
+	var (
+		port = flags.Int("port", 8080, "port to listen on")
+	)
+	if err := flags.Parse(args[1:]); err != nil {
+		return err
+	}
+	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 
 	/*
 		Notre application aura ce schéma général :
@@ -34,7 +50,7 @@ func main() {
 
 	var sec sec.Secure
 	if err := sec.Init(); err != nil {
-		log.Fatalf("Impossible d'initialiser la sécurité de l'application : %v", err)
+		return fmt.Errorf("Impossible d'initialiser la sécurité de l'application : %v", err)
 	}
 
 	/*
@@ -47,7 +63,7 @@ func main() {
 		On ajoute un user de test
 	*/
 	if err := biz.CreateUser("maximilien", "motdepasse"); err != nil {
-		log.Fatalf("Impossible de créer un utilisateur de test : %v", err)
+		return fmt.Errorf("Impossible de créer un utilisateur de test : %v", err)
 	}
 
 	/*
@@ -56,9 +72,6 @@ func main() {
 	var api web.WEB
 	api.Init(biz)
 
-	log.Printf("Le service démarre sur le port %v \n", port)
-	err := http.ListenAndServe(":8000", nil)
-	if err != nil {
-		log.Fatalf("Erreur de démarrage du service sur le port %v : %v\n", port, err)
-	}
+	log.Printf("Le service démarre sur le port %v \n", *port)
+	return http.ListenAndServe(addr, nil)
 }
