@@ -34,46 +34,51 @@ func newEncryptionKey() (*[32]byte, error) {
 // Encrypt encrypts data using 256-bit AES-GCM.  This both hides the content of
 // the data and provides a check that it hasn't been altered. Output takes the
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func (s Secure) Encrypt(plaintext []byte) (ciphertext []byte, err error) {
+func (s Secure) Encrypt(plaintext string) (ciphertext string, err error) {
 	block, err := aes.NewCipher(s.key[:])
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	gcm, err := cipher.NewGCM(block)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	nonce := make([]byte, gcm.NonceSize())
 	_, err = io.ReadFull(rand.Reader, nonce)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-
-	return gcm.Seal(nonce, nonce, plaintext, nil), nil
+	sealed := gcm.Seal(nonce, nonce, []byte(plaintext), nil)
+	return string(sealed), nil
 }
 
 // Decrypt decrypts data using 256-bit AES-GCM. Expects input
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func (s Secure) Decrypt(ciphertext []byte) (plaintext []byte, err error) {
+func (s Secure) Decrypt(ciphertext string) (plaintext string, err error) {
 	block, err := aes.NewCipher(s.key[:])
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	gcm, err := cipher.NewGCM(block)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	if len(ciphertext) < gcm.NonceSize() {
-		return nil, errors.New("malformed ciphertext")
+		return "", errors.New("malformed ciphertext")
 	}
 
-	return gcm.Open(nil,
-		ciphertext[:gcm.NonceSize()],
-		ciphertext[gcm.NonceSize():],
+	cipher := []byte(ciphertext)
+	unsealed, err := gcm.Open(nil,
+		cipher[:gcm.NonceSize()],
+		cipher[gcm.NonceSize():],
 		nil,
 	)
+	if err != nil {
+		return "", err
+	}
+	return string(unsealed), nil
 }

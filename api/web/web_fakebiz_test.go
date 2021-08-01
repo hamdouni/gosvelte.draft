@@ -1,9 +1,5 @@
 package web_test
 
-import (
-	"log"
-)
-
 type fakeBizType struct{}
 
 func (fakeBizType) Bonjour(string) string {
@@ -24,10 +20,9 @@ func (fakeBizType) Historic() []string {
 func (fakeBizType) CheckPassword(u, p string) bool {
 	return u == p
 }
-func (fakeBizType) Encrypt(b []byte) ([]byte, error) {
+func (fakeBizType) Encrypt(b string) (string, error) {
 	return b, nil
 }
-func (fakeBizType) Decrypt(b []byte) ([]byte, error) {
-	log.Printf("Decrypt receive %s", b)
+func (fakeBizType) Decrypt(b string) (string, error) {
 	return b, nil
 }
