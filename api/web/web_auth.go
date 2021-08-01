@@ -13,7 +13,7 @@ func (web *WEB) auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie(tokenCookieName)
 		if err != nil {
-			respondJSON(w, http.StatusUnauthorized, "Non autorisé (pas de cookie).")
+			respondJSON(w, http.StatusUnauthorized, "Non autorisé (pas de cookie) : "+err.Error())
 			return
 		}
 		if !web.isAuth(cookie.Value, r) {
@@ -25,10 +25,13 @@ func (web *WEB) auth(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func (web *WEB) isAuth(cookie string, r *http.Request) bool {
+	log.Printf("Cookie received = %v", cookie)
 	decoded, err := base64.StdEncoding.DecodeString(cookie)
 	if err != nil {
 		return false
 	}
+	log.Printf("Cookie base64 decoded to = %s", decoded)
+
 	decoded, err = web.biz.Decrypt(decoded)
 	if err != nil {
 		return false
@@ -40,6 +43,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 	curTime := time.Now()
 	loginTime, err := time.Parse(tokenTimeLayout, parts[2])
 	if err != nil {
+		log.Printf("When parsing loginTime %v got error %v", parts[2], err)
 		return false
 	}
 	dur := curTime.Sub(loginTime)
@@ -50,6 +54,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 
 	userIP := parts[1]
 	reqIP := getIPAddress(r)
+	log.Printf("cookie ip %v and request ip %v", userIP, reqIP)
 	return userIP == reqIP
 }
 

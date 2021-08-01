@@ -1,6 +1,9 @@
 package web
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 // Logout clear id cookie
 func (web *WEB) Logout(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +14,8 @@ func (web *WEB) Logout(w http.ResponseWriter, r *http.Request) {
 	if redirURL == "" {
 		redirURL = "/"
 	}
+	// set content-type so http.Redirect does not populate a body (see http.Redirect)
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	http.Redirect(w, r, redirURL, http.StatusFound)
+	fmt.Fprintln(w, "\"redirected\"") // json style
 }

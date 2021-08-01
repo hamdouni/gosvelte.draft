@@ -8,18 +8,19 @@ import (
 // Login service
 func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		w.WriteHeader(http.StatusMethodNotAllowed)
+		respondJSON(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
 	}
 	if err := r.ParseForm(); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		respondJSON(w, http.StatusBadRequest, err.Error())
 		return
 	}
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
+	log.Printf("check username %v password %v", user, pass)
 	if !web.biz.CheckPassword(user, pass) {
-		w.WriteHeader(http.StatusForbidden)
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 
