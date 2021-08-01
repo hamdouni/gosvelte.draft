@@ -8,7 +8,10 @@ import "net/http"
 	Pour être considérée comme une HandleFunc, elle doit obligatoirement accepter en paramètre une http.ResponseWriter et un pointeur sur une http.Request
 */
 func (web *WEB) Upper(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	nom := r.Form.Get("nom")
 	message := web.biz.Maj(nom)
 	respondJSON(w, http.StatusOK, message)

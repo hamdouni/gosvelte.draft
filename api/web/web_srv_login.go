@@ -11,7 +11,10 @@ func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	r.ParseForm()
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 

@@ -28,7 +28,7 @@ func main() {
 func run(args []string) error {
 	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
 	var (
-		port = flags.Int("port", 8080, "port to listen on")
+		port = flags.Int("port", 8000, "port to listen on")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
