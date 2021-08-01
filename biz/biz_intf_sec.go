@@ -2,6 +2,6 @@ package biz
 
 // Contrat avec le service de sécurite
 type secure interface {
-	Encrypt([]byte) ([]byte, error)
-	Decrypt([]byte) ([]byte, error)
+	Encrypt(string) (string, error)
+	Decrypt(string) (string, error)
 }

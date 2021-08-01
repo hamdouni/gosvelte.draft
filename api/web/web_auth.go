@@ -32,11 +32,10 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 	}
 	log.Printf("Cookie base64 decoded to = %s", decoded)
 
-	decoded, err = web.biz.Decrypt(decoded)
+	code, err := web.biz.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
-	code := string(decoded)
 	log.Printf("Check decrypting cookie to : %s", code)
 	parts := strings.Split(code, "|")
 
@@ -61,11 +60,11 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 func (web *WEB) getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := web.biz.Encrypt([]byte(phrase))
+	val, err := web.biz.Encrypt(phrase)
 	if err != nil {
 		return "", err
 	}
-	return base64.StdEncoding.EncodeToString(val), nil
+	return base64.StdEncoding.EncodeToString([]byte(val)), nil
 }
 
 // Pour récupérer la vraie IP du user, il faut tenir compte du fait que l'ip
