@@ -1,11 +1,11 @@
 package main
 
 import (
+	"app"
 	"app/api/web"
 	"app/biz"
 	"app/infra/bdd"
 	"app/infra/sec"
-	_ "embed"
 	"flag"
 	"fmt"
 	"log"
@@ -15,11 +15,8 @@ import (
 
 const port = 8000
 
-//go:embed VERSION
-var version string
-
 func main() {
-	log.Printf("App version %v", version)
+	log.Printf("App version %v", app.Version)
 	if err := run(os.Args); err != nil {
 		log.Fatalf("Erreur de démarrage du service sur le port %v : %v\n", port, err)
 	}
@@ -50,25 +47,19 @@ func run(args []string) error {
 
 	var sec sec.Secure
 	if err := sec.Init(); err != nil {
-		return fmt.Errorf("Impossible d'initialiser la sécurité de l'application : %v", err)
+		return fmt.Errorf("impossible d'initialiser la sécurité de l'application : %v", err)
 	}
 
-	/*
-		On crée ensuite notre biz avec ces 2 composants
-	*/
+	// On crée ensuite notre biz avec ces 2 composants
 	var biz biz.BIZ
 	biz.Init(&storage, sec)
 
-	/*
-		On ajoute un user de test
-	*/
+	// On ajoute un user de test
 	if err := biz.CreateUser("maximilien", "motdepasse"); err != nil {
 		return fmt.Errorf("Impossible de créer un utilisateur de test : %v", err)
 	}
 
-	/*
-		Enfin, on crée l'api avec ce biz.
-	*/
+	// Enfin, on crée l'api avec ce biz.
 	var api web.WEB
 	api.Init(biz)
 
