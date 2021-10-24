@@ -5,12 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
-/*
-	Les fichiers générés iront dans ./public
-	- app.js le bundle javascript
-	- app.css le sylesheet
-*/
-const svelteRootFolder = ".";
+const publicFolder = "../../public";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,12 +31,12 @@ function serve() {
 }
 
 export default {
-	input: svelteRootFolder + '/boot.js',
+	input: './boot.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: svelteRootFolder + '/public/app.js'
+		file: publicFolder + '/app.js'
 	},
 	plugins: [
 		svelte({
@@ -71,7 +66,7 @@ export default {
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
-		!production && livereload(svelteRootFolder),
+		!production && livereload("."),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify

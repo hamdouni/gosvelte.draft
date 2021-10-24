@@ -1,23 +1,27 @@
 package biz
 
-import "errors"
+import (
+	"errors"
+)
+
+type User struct{ Username, Password string }
 
 var (
 	ErrPasswordTooShort = errors.New("password too short")
 	ErrUsernameTooShort = errors.New("username too short")
 )
 
-func (b BIZ) CreateUser(us, pw string) error {
+func (b BIZ) NewUser(us, pw string) (*User, error) {
 	if len(us) < 4 {
-		return ErrUsernameTooShort
+		return nil, ErrUsernameTooShort
 	}
 	if len(pw) < 8 {
-		return ErrPasswordTooShort
+		return nil, ErrPasswordTooShort
 	}
-	encryptedPassword, err := b.encryptPassword(pw)
-	if err != nil {
-		return err // Unexpected encrypt error
+
+	u := &User{
+		Username: us,
+		Password: pw,
 	}
-	b.store.AddUser(us, encryptedPassword)
-	return nil
+	return u, nil
 }

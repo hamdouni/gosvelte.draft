@@ -14,5 +14,6 @@ func (web *WEB) Upper(w http.ResponseWriter, r *http.Request) {
 	}
 	nom := r.Form.Get("nom")
 	message := web.biz.Maj(nom)
+	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

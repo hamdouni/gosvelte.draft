@@ -1,4 +1,8 @@
-package bdd
+package ram
+
+import (
+	"app/biz"
+)
 
 type RamStore struct {
 	ramhistoric []string
@@ -17,10 +21,11 @@ func (rs RamStore) ListeHistorique() []string {
 	return rs.ramhistoric
 }
 
-func (rs *RamStore) AddUser(k, v string) {
-	rs.ramusers[k] = v
+func (rs *RamStore) AddUser(user biz.User) error {
+	rs.ramusers[user.Username] = user.Password
+	return nil
 }
 
-func (rs *RamStore) GetPasswordUser(k string) (v string) {
-	return rs.ramusers[k]
+func (rs *RamStore) GetPasswordUser(username string) (encryptedPassword string) {
+	return rs.ramusers[username]
 }

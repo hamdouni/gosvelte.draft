@@ -5,6 +5,5 @@ package biz
 */
 func (b BIZ) Bonjour(s string) string {
 	res := "Bonjour " + s + " depuis le business !"
-	b.store.StockHistorique(res)
 	return res
 }

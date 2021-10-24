@@ -1,5 +1,3 @@
-// Package sec provides symmetric authenticated encryption using 256-bit AES-GCM with a random nonce.
-// From cryptopasta - Written by George Tankersley <george.tankersley@gmail.com>
 package sec
 
 import (
@@ -10,16 +8,9 @@ import (
 	"io"
 )
 
-// Secure store key
-type Secure struct {
-	key *[32]byte
-}
-
-// Init initialize secret key
-func (s *Secure) Init() (err error) {
-	s.key, err = newEncryptionKey()
-	return err
-}
+// Package sec provides symmetric authenticated encryption using
+// 256-bit AES-GCM with a random nonce.
+// From cryptopasta by George Tankersley <george.tankersley@gmail.com>
 
 // newEncryptionKey generates a random 256-bit key
 func newEncryptionKey() (*[32]byte, error) {

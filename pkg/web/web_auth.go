@@ -32,7 +32,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 	}
 	log.Printf("Cookie base64 decoded to = %s", decoded)
 
-	code, err := web.biz.Decrypt(string(decoded))
+	code, err := web.sec.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
@@ -60,7 +60,7 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 func (web *WEB) getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := web.biz.Encrypt(phrase)
+	val, err := web.sec.Encrypt(phrase)
 	if err != nil {
 		return "", err
 	}

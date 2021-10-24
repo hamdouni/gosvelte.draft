@@ -63,7 +63,7 @@ func TestAuthEndpointBadToken(t *testing.T) {
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code != http.StatusUnauthorized {
-				t.Errorf("Should not be authorized with code \"%v\" but got %v", http.StatusUnauthorized, rw.Code)
+				t.Errorf("when %v should not be authorized with code \"%v\" but got %v", tc.endpoint, http.StatusUnauthorized, rw.Code)
 			}
 		})
 	}

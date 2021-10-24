@@ -5,6 +5,6 @@ import (
 )
 
 func (web *WEB) Historic(w http.ResponseWriter, r *http.Request) {
-	message := web.biz.Historic()
+	message := web.data.ListeHistorique()
 	respondJSON(w, http.StatusOK, message)
 }

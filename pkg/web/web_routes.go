@@ -8,7 +8,7 @@ import (
 /*
 	InitRoutes initialise toutes les routes (url) en spécifiant les fonctions qui les prennent en charge, soit des fonctions à nous qu'on déclare avec HandleFunc, soit la fonction qui s'occupe de servir les fichiers statiques.
 */
-func (web *WEB) InitRoutes() {
+func (web *WEB) InitRoutes(publicDirectory string) {
 	/*
 		Voici des exemples de déclaration de routes avec l'url pour y accéder et la fonction qui va la traiter.
 		Par exemple l'url "/hello" est prise en charge par api.Hello que l'on doit implémenter (cf fichier api_hello.go).
@@ -24,7 +24,7 @@ func (web *WEB) InitRoutes() {
 	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.
 	*/
-	fs := http.FileServer(http.Dir("./api/web/ihm/public"))
+	fs := http.FileServer(http.Dir(publicDirectory))
 	http.Handle("/", fs)
 }
 
