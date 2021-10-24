@@ -19,7 +19,7 @@ func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	pass := r.Form.Get("password")
 
 	log.Printf("check username %v password %v", user, pass)
-	if !web.biz.CheckPassword(user, pass) {
+	if !web.sec.AuthUser(user, pass) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}

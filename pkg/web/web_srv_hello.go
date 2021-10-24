@@ -12,5 +12,6 @@ func (web *WEB) Hello(w http.ResponseWriter, r *http.Request) {
 	}
 	nom := r.Form.Get("nom")
 	message := web.biz.Bonjour(nom)
+	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

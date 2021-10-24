@@ -12,12 +12,16 @@ const tokenTimeLayout = time.RFC3339
 const tokenDuration = time.Duration(24) * time.Hour
 
 type WEB struct {
-	biz business
+	sec  secure
+	biz  business
+	data store
 }
 
-func (web WEB) Init(b business) {
+func (web WEB) Init(b business, s secure, d store, publicDirectory string) {
 	web.biz = b
-	web.InitRoutes()
+	web.sec = s
+	web.data = d
+	web.InitRoutes(publicDirectory)
 }
 
 // respondJSON retourne une reponse json avec le statut et le contenu passés en paramètre

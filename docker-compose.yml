@@ -5,9 +5,9 @@ services:
             dockerfile: Dockerfile
             context: ./
         volumes:
-            - ./ihm:/ihm
+            - ./pkg/web/ihm:/ihm
         command:
-            - "/program"
+            - "/server"
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.web.rule=PathPrefix(`/`)"

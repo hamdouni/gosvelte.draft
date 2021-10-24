@@ -33,7 +33,7 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	for _, test := range testcases {
-		err := fakeBiz.CreateUser(test.username, test.password)
+		_, err := fakeBiz.NewUser(test.username, test.password)
 		if err != test.err {
 			t.Fatalf("Waiting %v but got %v", test.err, err)
 		}
