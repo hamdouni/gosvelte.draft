@@ -1,4 +1,4 @@
-package biz
+package app
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ var (
 	ErrUsernameTooShort = errors.New("username too short")
 )
 
-func (b BIZ) NewUser(us, pw string) (*User, error) {
+func NewUser(us, pw string) (*User, error) {
 	if len(us) < 4 {
 		return nil, ErrUsernameTooShort
 	}

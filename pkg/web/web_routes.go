@@ -1,7 +1,6 @@
 package web
 
 import (
-	"log"
 	"net/http"
 )
 
@@ -38,7 +37,6 @@ func (web *WEB) logHandleFunc(pattern string, handler func(http.ResponseWriter, 
 }
 func logReq(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("path: %s", r.URL.Path)
 		next(w, r)
 	})
 }

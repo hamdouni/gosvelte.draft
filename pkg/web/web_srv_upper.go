@@ -1,6 +1,9 @@
 package web
 
-import "net/http"
+import (
+	app "app/uppercase"
+	"net/http"
+)
 
 /*
 	Upper implémente la fonction en charge de l'url "/upper".
@@ -13,7 +16,7 @@ func (web *WEB) Upper(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := web.biz.Maj(nom)
+	message := app.Maj(nom)
 	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

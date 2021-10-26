@@ -1,8 +1,7 @@
 package main
 
 import (
-	"app"
-	"app/biz"
+	app "app/create_user"
 	"app/pkg/ram"
 	"app/pkg/sec"
 	"app/pkg/web"
@@ -14,7 +13,6 @@ import (
 )
 
 func main() {
-	log.Printf("App version %v", app.Version)
 	if err := run(os.Args); err != nil {
 		log.Fatal(err)
 	}
@@ -45,15 +43,12 @@ func run(args []string) error {
 		return fmt.Errorf("impossible d'initialiser la sécurité de l'application : %v", err)
 	}
 
-	// biz
-	var biz biz.BIZ
-
 	// api utilise biz.
 	var api web.WEB
-	api.Init(&biz, &sec, &storage, "./public")
+	api.Init(&sec, &storage, "./public")
 
 	// On ajoute un user de test
-	user, err := biz.NewUser("maximilien", "motdepasse")
+	user, err := app.NewUser("maximilien", "motdepasse")
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
