@@ -25,18 +25,15 @@ func (web *WEB) auth(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func (web *WEB) isAuth(cookie string, r *http.Request) bool {
-	log.Printf("Cookie received = %v", cookie)
 	decoded, err := base64.StdEncoding.DecodeString(cookie)
 	if err != nil {
 		return false
 	}
-	log.Printf("Cookie base64 decoded to = %s", decoded)
 
 	code, err := web.sec.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
-	log.Printf("Check decrypting cookie to : %s", code)
 	parts := strings.Split(code, "|")
 
 	curTime := time.Now()
@@ -53,7 +50,6 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 
 	userIP := parts[1]
 	reqIP := getIPAddress(r)
-	log.Printf("cookie ip %v and request ip %v", userIP, reqIP)
 	return userIP == reqIP
 }
 

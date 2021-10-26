@@ -2,7 +2,6 @@ package web_test
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -31,7 +30,6 @@ func TestUnauthResponses(t *testing.T) {
 				t.Errorf("Should receive \"%v\" but got %v", tc.status, rw.Code)
 			}
 			body := rw.Body
-			log.Printf("the body is : %v", body)
 			resp := ""
 			if err := json.NewDecoder(body).Decode(&resp); err != nil {
 				t.Errorf("Should decode the response but got %v", err)

@@ -13,12 +13,10 @@ const tokenDuration = time.Duration(24) * time.Hour
 
 type WEB struct {
 	sec  secure
-	biz  business
 	data store
 }
 
-func (web WEB) Init(b business, s secure, d store, publicDirectory string) {
-	web.biz = b
+func (web WEB) Init(s secure, d store, publicDirectory string) {
 	web.sec = s
 	web.data = d
 	web.InitRoutes(publicDirectory)

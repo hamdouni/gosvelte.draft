@@ -1,6 +1,9 @@
 package web
 
-import "net/http"
+import (
+	app "app/lowercase"
+	"net/http"
+)
 
 /*
 	Lower implémente la fonction en charge de l'url "/lower".
@@ -11,7 +14,7 @@ func (web *WEB) Lower(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := web.biz.Min(nom)
+	message := app.Min(nom)
 	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

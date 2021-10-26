@@ -1,11 +1,14 @@
-package biz_test
+package app_test
 
-import "testing"
+import (
+	app "app/uppercase"
+	"testing"
+)
 
 func TestUpper(t *testing.T) {
 	given := "majuscule"
 	wait := "MAJUSCULE"
-	got := fakeBiz.Maj(given)
+	got := app.Maj(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}
