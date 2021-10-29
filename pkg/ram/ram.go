@@ -1,6 +1,6 @@
 package ram
 
-import app "app/create_user"
+import "app/create"
 
 type RamStore struct {
 	ramhistoric []string
@@ -19,7 +19,7 @@ func (rs RamStore) ListeHistorique() []string {
 	return rs.ramhistoric
 }
 
-func (rs *RamStore) AddUser(user app.User) error {
+func (rs *RamStore) AddUser(user create.User) error {
 	rs.ramusers[user.Username] = user.Password
 	return nil
 }

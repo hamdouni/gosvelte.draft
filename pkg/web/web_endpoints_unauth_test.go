@@ -14,7 +14,7 @@ func TestUnauthResponses(t *testing.T) {
 		status   int
 		result   string
 	}{
-		{"hello", "/hello", http.StatusOK, attendu},
+		{"hello", "/hello", http.StatusOK, "Bonjour  depuis le business !"},
 		{"login", "/login", http.StatusMethodNotAllowed, "method not allowed"},
 		{"logout", "/logout", http.StatusFound, "redirected"},
 	}

@@ -1,14 +1,14 @@
-package app_test
+package say_test
 
 import (
-	app "app/say_hello"
+	"app/say"
 	"testing"
 )
 
 func TestBonjour(t *testing.T) {
 	given := "Jean"
 	wait := "Bonjour Jean depuis le business !"
-	got := app.Bonjour(given)
+	got := say.Hello(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}

@@ -1,7 +1,7 @@
 package web
 
 import (
-	app "app/say_hello"
+	"app/say"
 	"net/http"
 )
 
@@ -14,7 +14,7 @@ func (web *WEB) Hello(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := app.Bonjour(nom)
+	message := say.Hello(nom)
 	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }
