@@ -5,8 +5,6 @@ import (
 	"app/pkg/web"
 )
 
-const attendu = "Fake"
-
 type fakeSecType struct{}
 
 func (s *fakeSecType) AuthUser(u, p string) bool        { return u == p }

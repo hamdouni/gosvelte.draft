@@ -7,10 +7,12 @@ chaine de caractères "Fake Biz" (cf web_test.go).
 package web_test
 
 import (
+	"bytes"
 	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 	"time"
 )
@@ -79,16 +81,17 @@ func TestAuthEndpoint(t *testing.T) {
 		endpoint string
 		results  interface{}
 	}{
-		{"lower", "/lower", attendu},
-		{"upper", "/upper", attendu},
-		{"historic", "/historic", []string{attendu}},
+		{"lower", "/lower", "lower"},
+		{"upper", "/upper", "UPPER"},
 	}
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			req, err := http.NewRequest("GET", tc.endpoint, nil)
+			body := url.Values{"nom": []string{tc.name}}
+			req, err := http.NewRequest("POST", tc.endpoint, bytes.NewBuffer([]byte(body.Encode())))
 			if err != nil {
 				t.Errorf("Should be able to create a request but got %v", err)
 			}
+			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			req.RemoteAddr = "1.2.3.4"
 			timestamp := time.Now().Format(time.RFC3339)
 			fakeCookie := base64.StdEncoding.EncodeToString([]byte("fake jeton|" + req.RemoteAddr + "|" + timestamp))
@@ -123,10 +126,9 @@ func TestAuthEndpointBadRequest(t *testing.T) {
 	tt := []struct {
 		name     string
 		endpoint string
-		results  interface{}
 	}{
-		{"lower", "/lower", attendu},
-		{"upper", "/upper", attendu},
+		{"lower", "/lower"},
+		{"upper", "/upper"},
 	}
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {

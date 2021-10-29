@@ -1,7 +1,8 @@
 package web
 
 import (
-	app "app/lowercase"
+	"app/lower"
+	"log"
 	"net/http"
 )
 
@@ -14,7 +15,8 @@ func (web *WEB) Lower(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := app.Min(nom)
+	log.Printf("got nom: %s", nom)
+	message := lower.String(nom)
 	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }
