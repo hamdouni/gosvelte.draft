@@ -4,7 +4,7 @@ Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et S
 
 ```
 # installation des éléments javascript
-cd api/web/ihm && npm i
+cd cmd/client && npm i
 ```
 
 Pour développer, il faut lancer en parallèle les commandes pour la partie serveur et la partie cliente :
@@ -14,10 +14,10 @@ Pour développer, il faut lancer en parallèle les commandes pour la partie serv
 go run . &
 
 # et ici le client
-cd api/web/ihm && npm run dev & 
+cd cmd/client && npm run dev & 
 ```
 
-Le dossier **ihm** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "public".
+Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "public".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 - **biz** est en charge de la logique métier et est agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.

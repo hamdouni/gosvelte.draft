@@ -1,14 +1,14 @@
-package say_test
+package usecase_test
 
 import (
-	"app/say"
+	"app/usecase"
 	"testing"
 )
 
 func TestBonjour(t *testing.T) {
 	given := "Jean"
 	wait := "Bonjour Jean depuis le business !"
-	got := say.Hello(given)
+	got := usecase.Hello(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}

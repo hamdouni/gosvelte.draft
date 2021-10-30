@@ -5,7 +5,7 @@ services:
             dockerfile: Dockerfile
             context: ./
         volumes:
-            - ./pkg/web/ihm:/ihm
+            - ./public:/public
         command:
             - "/server"
         labels:

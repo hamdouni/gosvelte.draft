@@ -1,7 +1,7 @@
 package web
 
 import (
-	"app/upper"
+	"app/usecase"
 	"net/http"
 )
 
@@ -16,7 +16,7 @@ func (web *WEB) Upper(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := upper.String(nom)
+	message := usecase.Upper(nom)
 	web.data.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }
