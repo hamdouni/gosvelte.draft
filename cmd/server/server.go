@@ -1,10 +1,10 @@
 package main
 
 import (
-	"app/create"
 	"app/pkg/ram"
 	"app/pkg/sec"
 	"app/pkg/web"
+	"app/usecase"
 	"flag"
 	"fmt"
 	"log"
@@ -48,7 +48,7 @@ func run(args []string) error {
 	api.Init(&sec, &storage, "./public")
 
 	// On ajoute un user de test
-	user, err := create.NewUser("maximilien", "motdepasse")
+	user, err := usecase.NewUser("maximilien", "motdepasse")
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}

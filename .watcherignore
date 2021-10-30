@@ -1,6 +1,6 @@
 .watcherignore
 .git
-ihm
+client
 *.md
 *.yml
 *.sh
