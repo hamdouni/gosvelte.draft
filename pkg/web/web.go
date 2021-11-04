@@ -16,10 +16,10 @@ type WEB struct {
 	data store
 }
 
-func (web WEB) Init(s secure, d store, publicDirectory string) {
+func (web WEB) Init(s secure, d store, htmlDirectory string) {
 	web.sec = s
 	web.data = d
-	web.InitRoutes(publicDirectory)
+	web.InitRoutes(htmlDirectory)
 }
 
 // respondJSON retourne une reponse json avec le statut et le contenu passés en paramètre

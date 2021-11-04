@@ -45,7 +45,7 @@ func run(args []string) error {
 
 	// api utilise biz.
 	var api web.WEB
-	api.Init(&sec, &storage, "./public")
+	api.Init(&sec, &storage, "./html")
 
 	// On ajoute un user de test
 	user, err := usecase.NewUser("maximilien", "motdepasse")

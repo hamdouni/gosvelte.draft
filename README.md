@@ -17,7 +17,7 @@ go run . &
 cd cmd/client && npm run dev & 
 ```
 
-Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "public".
+Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "html".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 - **biz** est en charge de la logique métier et est agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.

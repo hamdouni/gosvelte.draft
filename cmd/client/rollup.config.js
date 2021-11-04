@@ -5,7 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
-const publicFolder = "../../public";
+const htmlFolder = "../../html";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,7 +36,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: publicFolder + '/app.js'
+		file: htmlFolder + '/app.js'
 	},
 	plugins: [
 		svelte({
@@ -64,7 +64,7 @@ export default {
 		// the bundle has been generated
 		!production && serve(),
 
-		// Watch the `public` directory and refresh the
+		// Watch the `html` directory and refresh the
 		// browser on changes when not in production
 		!production && livereload("."),
 
