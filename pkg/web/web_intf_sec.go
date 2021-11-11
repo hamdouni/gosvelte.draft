@@ -4,5 +4,4 @@ package web
 type secure interface {
 	Encrypt(string) (string, error)
 	Decrypt(string) (string, error)
-	AuthUser(string, string) bool
 }

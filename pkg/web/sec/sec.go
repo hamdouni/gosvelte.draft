@@ -2,13 +2,11 @@ package sec
 
 // Secure store key
 type Secure struct {
-	key     *[32]byte
-	storage repo
+	key *[32]byte
 }
 
 // Init initialize secret key
-func (s *Secure) Init(store repo) (err error) {
-	s.storage = store
+func (s *Secure) Init() (err error) {
 	s.key, err = newEncryptionKey()
 	return err
 }

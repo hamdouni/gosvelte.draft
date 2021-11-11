@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"fmt"
 )
 
 type User struct{ Username, Password string }
@@ -19,9 +20,14 @@ func NewUser(us, pw string) (*User, error) {
 		return nil, ErrPasswordTooShort
 	}
 
+	hpw, err := HashPassword(pw)
+	if err != nil {
+		return nil, fmt.Errorf("usecase.create_user.HassPassword(%v): %v", pw, err)
+	}
+
 	u := &User{
 		Username: us,
-		Password: pw,
+		Password: hpw,
 	}
 	return u, nil
 }

@@ -17,6 +17,6 @@ func (web *WEB) Lower(w http.ResponseWriter, r *http.Request) {
 	nom := r.Form.Get("nom")
 	log.Printf("got nom: %s", nom)
 	message := usecase.Lower(nom)
-	web.data.StockHistorique(message)
+	web.store.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }
