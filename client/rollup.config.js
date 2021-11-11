@@ -5,7 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
-const htmlFolder = "../../html";
+const staticFolder = "../static";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -31,12 +31,12 @@ function serve() {
 }
 
 export default {
-	input: './boot.js',
+	input: './lib/boot.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: htmlFolder + '/app.js'
+		file: staticFolder + '/app.js'
 	},
 	plugins: [
 		svelte({

@@ -1,4 +1,4 @@
-package usecase
+package biz
 
 import (
 	"errors"
@@ -22,7 +22,7 @@ func NewUser(us, pw string) (*User, error) {
 
 	hpw, err := HashPassword(pw)
 	if err != nil {
-		return nil, fmt.Errorf("usecase.create_user.HassPassword(%v): %v", pw, err)
+		return nil, fmt.Errorf("biz.create_user.HassPassword(%v): %v", pw, err)
 	}
 
 	u := &User{
