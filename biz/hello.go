@@ -1,4 +1,4 @@
-package usecase
+package biz
 
 // Hello retourne bonjour et le nom passé en paramètre.
 func Hello(s string) string {

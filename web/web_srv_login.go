@@ -1,7 +1,7 @@
 package web
 
 import (
-	"app/usecase"
+	"app/biz"
 	"log"
 	"net/http"
 )
@@ -20,7 +20,7 @@ func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	pass := r.Form.Get("password")
 
 	hashed := web.store.GetPasswordUser(user)
-	if !usecase.CheckPassword(pass, hashed) {
+	if !biz.CheckPassword(pass, hashed) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}

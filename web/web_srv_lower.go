@@ -1,7 +1,7 @@
 package web
 
 import (
-	"app/usecase"
+	"app/biz"
 	"log"
 	"net/http"
 )
@@ -16,7 +16,7 @@ func (web *WEB) Lower(w http.ResponseWriter, r *http.Request) {
 	}
 	nom := r.Form.Get("nom")
 	log.Printf("got nom: %s", nom)
-	message := usecase.Lower(nom)
+	message := biz.Lower(nom)
 	web.store.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

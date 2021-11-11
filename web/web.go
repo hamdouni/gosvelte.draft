@@ -1,7 +1,7 @@
 package web
 
 import (
-	"app/pkg/web/sec"
+	"app/web/sec"
 	"encoding/json"
 	"log"
 	"net/http"

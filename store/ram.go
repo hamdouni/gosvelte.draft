@@ -1,6 +1,6 @@
-package ram
+package store
 
-import "app/usecase"
+import "app/biz"
 
 type Store struct {
 	historic []string
@@ -19,7 +19,7 @@ func (rs Store) ListeHistorique() []string {
 	return rs.historic
 }
 
-func (rs *Store) AddUser(user usecase.User) error {
+func (rs *Store) AddUser(user biz.User) error {
 	rs.users[user.Username] = user.Password
 	return nil
 }

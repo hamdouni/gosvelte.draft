@@ -1,12 +1,12 @@
 package web_test
 
 import (
-	"app/pkg/ram"
-	"app/pkg/web"
+	"app/store"
+	"app/web"
 )
 
 func init() {
-	var fakeStore ram.Store
+	var fakeStore store.Store
 	fakeStore.Init()
 	var fakeWeb web.WEB
 	fakeWeb.Init(&fakeStore, ".")

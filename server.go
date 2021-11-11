@@ -1,9 +1,9 @@
 package main
 
 import (
-	"app/pkg/ram"
-	"app/pkg/web"
-	"app/usecase"
+	"app/biz"
+	"app/store"
+	"app/web"
 	"flag"
 	"fmt"
 	"log"
@@ -32,17 +32,17 @@ func run(args []string) error {
 
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 
-	var storage ram.Store
+	var storage store.Store
 	storage.Init()
 	// On ajoute un user de test
-	user, err := usecase.NewUser("maximilien", "motdepasse")
+	user, err := biz.NewUser("maximilien", "motdepasse")
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
 	storage.AddUser(*user)
 
 	var api web.WEB
-	if err := api.Init(&storage, "./html"); err != nil {
+	if err := api.Init(&storage, "./static"); err != nil {
 		return fmt.Errorf("impossible d'initialiser la sécurité de l'application : %v", err)
 	}
 
