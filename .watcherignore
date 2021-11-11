@@ -1,6 +1,7 @@
 .watcherignore
 .git
 client
+static
 *.md
 *.yml
 *.sh
