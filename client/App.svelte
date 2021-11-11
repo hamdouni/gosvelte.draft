@@ -1,6 +1,6 @@
 <script>
-	import Login from './functions/Login.svelte';
-	import Dashboard from './functions/Dashboard.svelte';
+	import Login from './Login.svelte';
+	import Dashboard from './Dashboard.svelte';
 	import { getCookie } from './lib/cookie.js';
 	import { callCheckConnexion } from "./lib/network.js";
 

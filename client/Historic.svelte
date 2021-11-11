@@ -1,5 +1,5 @@
 <script>
-    import * as net from "../lib/network.js";
+    import * as net from "./lib/network.js";
 
     let historique = [];
 

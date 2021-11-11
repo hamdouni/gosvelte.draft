@@ -66,7 +66,7 @@ export default {
 
 		// Watch the `html` directory and refresh the
 		// browser on changes when not in production
-		!production && livereload("."),
+		!production && livereload(".."),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify

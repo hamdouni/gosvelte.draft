@@ -3,12 +3,14 @@
   import Maj from "./Maj.svelte";
   import Min from "./Min.svelte";
   import Historic from "./Historic.svelte";
+  import Table from "./Table.svelte";
 
   let Menu = [
     { id: "bonjour", component: Bonjour, icon: "la-handshake", label: "Bonjour" },
     { id: "maj", component: Maj, icon: "la-chart-bar", label: "Majuscule" },
     { id: "min", component: Min, icon: "la-compass", label: "Minuscule" },
-    { id: "historic", component: Historic, icon: "la-credit-card", label: "Historique" }
+    { id: "historic", component: Historic, icon: "la-credit-card", label: "Historique" },
+    { id: "table", component: Table, icon: "la-cubes", label:" Table" }
   ];
 
   let showNavbarMenu = false;
