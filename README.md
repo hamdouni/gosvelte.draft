@@ -1,5 +1,7 @@
 # WebToolKit
 
+> Travaux en cours : le projet n'est pas utilisable et nécessite d'importantes modifications. La réflexion en cours est que le modèle logique est trop simpliste pour permettre de mettre en évidence la mécanique générale : une piste serait de développer un tableau de bord d'administrateur avec la gestion des utilisateurs. Ce serait un bon candidat pour une application minimum et réutilisable dans un contexte professionnel.
+
 Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et Svelte pour la partie cliente. Il peut servir de base pour construire rapidement une application utilisant ces technologies, en recopiant simplement ces fichiers et en lançant les commandes suivantes :
 
 ```

@@ -15,6 +15,6 @@ func (web *WEB) Hello(w http.ResponseWriter, r *http.Request) {
 	}
 	nom := r.Form.Get("nom")
 	message := usecase.Hello(nom)
-	web.data.StockHistorique(message)
+	web.store.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

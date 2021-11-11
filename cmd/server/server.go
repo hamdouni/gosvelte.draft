@@ -2,7 +2,6 @@ package main
 
 import (
 	"app/pkg/ram"
-	"app/pkg/sec"
 	"app/pkg/web"
 	"app/usecase"
 	"flag"
@@ -33,31 +32,19 @@ func run(args []string) error {
 
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 
-	// composant de stockage des données
-	var storage ram.RamStore
+	var storage ram.Store
 	storage.Init()
-
-	// composant de sécurité
-	var sec sec.Secure
-	if err := sec.Init(&storage); err != nil {
-		return fmt.Errorf("impossible d'initialiser la sécurité de l'application : %v", err)
-	}
-
-	// api utilise biz.
-	var api web.WEB
-	api.Init(&sec, &storage, "./html")
-
 	// On ajoute un user de test
 	user, err := usecase.NewUser("maximilien", "motdepasse")
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
-	hp, err := sec.HashPassword(user.Password)
-	if err != nil {
-		return fmt.Errorf("cannot hass password: %v", err)
-	}
-	user.Password = hp
 	storage.AddUser(*user)
+
+	var api web.WEB
+	if err := api.Init(&storage, "./html"); err != nil {
+		return fmt.Errorf("impossible d'initialiser la sécurité de l'application : %v", err)
+	}
 
 	log.Printf("Le service démarre sur le port %v \n", *port)
 	return http.ListenAndServe(addr, nil)

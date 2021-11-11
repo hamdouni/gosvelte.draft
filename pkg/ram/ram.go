@@ -2,28 +2,28 @@ package ram
 
 import "app/usecase"
 
-type RamStore struct {
-	ramhistoric []string
-	ramusers    map[string]string
+type Store struct {
+	historic []string
+	users    map[string]string
 }
 
-func (rs *RamStore) Init() {
-	rs.ramusers = make(map[string]string)
+func (rs *Store) Init() {
+	rs.users = make(map[string]string)
 }
 
-func (rs *RamStore) StockHistorique(s string) {
-	rs.ramhistoric = append(rs.ramhistoric, s)
+func (rs *Store) StockHistorique(s string) {
+	rs.historic = append(rs.historic, s)
 }
 
-func (rs RamStore) ListeHistorique() []string {
-	return rs.ramhistoric
+func (rs Store) ListeHistorique() []string {
+	return rs.historic
 }
 
-func (rs *RamStore) AddUser(user usecase.User) error {
-	rs.ramusers[user.Username] = user.Password
+func (rs *Store) AddUser(user usecase.User) error {
+	rs.users[user.Username] = user.Password
 	return nil
 }
 
-func (rs *RamStore) GetPasswordUser(username string) (encryptedPassword string) {
-	return rs.ramusers[username]
+func (rs *Store) GetPasswordUser(username string) (encryptedPassword string) {
+	return rs.users[username]
 }

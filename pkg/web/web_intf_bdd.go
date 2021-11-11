@@ -1,6 +1,7 @@
 package web
 
-type store interface {
+type storage interface {
 	StockHistorique(string)
 	ListeHistorique() []string
+	GetPasswordUser(username string) (encryptedPassword string)
 }

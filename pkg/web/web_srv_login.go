@@ -1,6 +1,7 @@
 package web
 
 import (
+	"app/usecase"
 	"log"
 	"net/http"
 )
@@ -18,7 +19,8 @@ func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
-	if !web.sec.AuthUser(user, pass) {
+	hashed := web.store.GetPasswordUser(user)
+	if !usecase.CheckPassword(pass, hashed) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}

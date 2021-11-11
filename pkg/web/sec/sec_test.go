@@ -1,7 +1,7 @@
 package sec_test
 
 import (
-	"app/pkg/sec"
+	"app/pkg/web/sec"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ var ciphertext = "Only test the parts of the application that you want to work"
 
 func TestCrypt(t *testing.T) {
 	s := &sec.Secure{}
-	if err := s.Init(nil); err != nil {
+	if err := s.Init(); err != nil {
 		t.Errorf("cannot initialize security: %s", err)
 	}
 
@@ -24,20 +24,5 @@ func TestCrypt(t *testing.T) {
 	}
 	if ciphertext != decriptedtext {
 		t.Errorf("expected %s got %s", ciphertext, decriptedtext)
-	}
-}
-
-func TestHash(t *testing.T) {
-	s := &sec.Secure{}
-	if err := s.Init(nil); err != nil {
-		t.Errorf("cannot initialize security: %s", err)
-	}
-
-	hashedtext, err := s.HashPassword(ciphertext)
-	if err != nil {
-		t.Errorf("cannot hash: %s", err)
-	}
-	if !s.CheckPassword(ciphertext, hashedtext) {
-		t.Errorf("expected check password to be true")
 	}
 }

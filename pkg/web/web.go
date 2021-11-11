@@ -1,6 +1,7 @@
 package web
 
 import (
+	"app/pkg/web/sec"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -12,14 +13,20 @@ const tokenTimeLayout = time.RFC3339
 const tokenDuration = time.Duration(24) * time.Hour
 
 type WEB struct {
-	sec  secure
-	data store
+	sec   secure
+	store storage
 }
 
-func (web WEB) Init(s secure, d store, htmlDirectory string) {
+func (web WEB) Init(d storage, htmlDirectory string) error {
+	// composant de sécurité
+	var s sec.Secure
+	if err := s.Init(); err != nil {
+		return err
+	}
 	web.sec = s
-	web.data = d
+	web.store = d
 	web.InitRoutes(htmlDirectory)
+	return nil
 }
 
 // respondJSON retourne une reponse json avec le statut et le contenu passés en paramètre
