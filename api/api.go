@@ -1,7 +1,7 @@
-package web
+package api
 
 import (
-	"app/web/sec"
+	"app/api/sec"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -12,20 +12,20 @@ const tokenCookieName = "jeton"
 const tokenTimeLayout = time.RFC3339
 const tokenDuration = time.Duration(24) * time.Hour
 
-type WEB struct {
+type API struct {
 	sec   secure
 	store storage
 }
 
-func (web WEB) Init(d storage, htmlDirectory string) error {
+func (api API) Init(d storage, htmlDirectory string) error {
 	// composant de sécurité
 	var s sec.Secure
 	if err := s.Init(); err != nil {
 		return err
 	}
-	web.sec = s
-	web.store = d
-	web.InitRoutes(htmlDirectory)
+	api.sec = s
+	api.store = d
+	api.InitRoutes(htmlDirectory)
 	return nil
 }
 

@@ -1,4 +1,4 @@
-package web
+package api
 
 // Contrat avec le service de sécurite
 type secure interface {

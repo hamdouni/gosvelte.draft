@@ -1,4 +1,4 @@
-package web
+package api
 
 import (
 	"app/biz"
@@ -7,7 +7,7 @@ import (
 )
 
 // Login service
-func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
+func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		respondJSON(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
@@ -19,13 +19,13 @@ func (web *WEB) Login(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
-	hashed := web.store.GetPasswordUser(user)
+	hashed := api.store.GetPasswordUser(user)
 	if !biz.CheckPassword(pass, hashed) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 
-	jeton, err := web.getAuthToken(user, r)
+	jeton, err := api.getAuthToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Login error : %v", err)
