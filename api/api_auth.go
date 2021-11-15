@@ -1,4 +1,4 @@
-package web
+package api
 
 import (
 	"encoding/base64"
@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-func (web *WEB) auth(next http.HandlerFunc) http.HandlerFunc {
+func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie(tokenCookieName)
 		if err != nil {
 			respondJSON(w, http.StatusUnauthorized, "Non autorisé (pas de cookie) : "+err.Error())
 			return
 		}
-		if !web.isAuth(cookie.Value, r) {
+		if !api.isAuth(cookie.Value, r) {
 			respondJSON(w, http.StatusUnauthorized, "Non autorisé.")
 			return
 		}
@@ -24,13 +24,13 @@ func (web *WEB) auth(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func (web *WEB) isAuth(cookie string, r *http.Request) bool {
+func (api *API) isAuth(cookie string, r *http.Request) bool {
 	decoded, err := base64.StdEncoding.DecodeString(cookie)
 	if err != nil {
 		return false
 	}
 
-	code, err := web.sec.Decrypt(string(decoded))
+	code, err := api.sec.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
@@ -53,10 +53,10 @@ func (web *WEB) isAuth(cookie string, r *http.Request) bool {
 	return userIP == reqIP
 }
 
-func (web *WEB) getAuthToken(user string, r *http.Request) (token string, err error) {
+func (api *API) getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := web.sec.Encrypt(phrase)
+	val, err := api.sec.Encrypt(phrase)
 	if err != nil {
 		return "", err
 	}

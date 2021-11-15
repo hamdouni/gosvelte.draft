@@ -5,7 +5,7 @@ services:
             dockerfile: Dockerfile
             context: ./
         volumes:
-            - ./html:/html
+            - ./client/static:/client/static
         command:
             - "/server"
         labels:

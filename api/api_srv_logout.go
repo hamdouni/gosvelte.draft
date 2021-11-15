@@ -1,4 +1,4 @@
-package web
+package api
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 // Logout clear id cookie
-func (web *WEB) Logout(w http.ResponseWriter, r *http.Request) {
+func (api *API) Logout(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{Name: tokenCookieName, Value: "", MaxAge: -1}
 	http.SetCookie(w, &cookie)
 	// if behind a proxy who change strip url prefix

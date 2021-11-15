@@ -4,7 +4,7 @@ c'est bien ce que l'on récupère au bout au format json.
 Donc, on va utiliser un business complètement bidon qui renvoit toujours la même
 chaine de caractères "Fake Biz" (cf web_test.go).
 */
-package web_test
+package api_test
 
 import (
 	"bytes"

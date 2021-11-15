@@ -1,13 +1,13 @@
-package web_test
+package api_test
 
 import (
+	api "app/api"
 	"app/store"
-	"app/web"
 )
 
 func init() {
 	var fakeStore store.Store
 	fakeStore.Init()
-	var fakeWeb web.WEB
+	var fakeWeb api.API
 	fakeWeb.Init(&fakeStore, ".")
 }

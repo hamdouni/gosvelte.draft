@@ -1,7 +1,7 @@
 package sec_test
 
 import (
-	"app/web/sec"
+	"app/api/sec"
 	"testing"
 )
 

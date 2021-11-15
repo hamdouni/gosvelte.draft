@@ -16,7 +16,7 @@ func NewUser(us, pw string) (*User, error) {
 	if len(us) < 4 {
 		return nil, ErrUsernameTooShort
 	}
-	if len(pw) < 8 {
+	if len(pw) < 4 {
 		return nil, ErrPasswordTooShort
 	}
 
