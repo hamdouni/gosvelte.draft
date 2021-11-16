@@ -2,8 +2,8 @@ package main
 
 import (
 	"app/api"
-	"app/biz"
-	"app/store"
+	"app/biz/create"
+	"app/store/ram"
 	"flag"
 	"fmt"
 	"log"
@@ -33,14 +33,14 @@ func run(args []string) error {
 
 	addr := fmt.Sprintf("%s:%d", *host, *port)
 
-	var storage store.Store
+	var storage ram.Store
 	storage.Init()
 	// On ajoute un user de test
-	user, err := biz.NewUser("test", "test")
+	user, err := create.NewUser("test", "test")
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
-	storage.AddUser(*user)
+	storage.AddUser(user.Username, user.Password)
 
 	var api api.API
 	if err := api.Init(&storage, "./client/static"); err != nil {

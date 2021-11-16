@@ -1,7 +1,7 @@
-package biz_test
+package hash_test
 
 import (
-	"app/biz"
+	"app/biz/hash"
 	"testing"
 )
 
@@ -9,11 +9,11 @@ func TestHash(t *testing.T) {
 
 	testpass := "CKVght324!"
 
-	hashedtext, err := biz.HashPassword(testpass)
+	hashedtext, err := hash.HashPassword(testpass)
 	if err != nil {
 		t.Errorf("cannot hash: %s", err)
 	}
-	if !biz.CheckPassword(testpass, hashedtext) {
+	if !hash.CheckPassword(testpass, hashedtext) {
 		t.Errorf("expected check password to be true")
 	}
 }

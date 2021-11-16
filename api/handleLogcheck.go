@@ -4,10 +4,10 @@ import (
 	"net/http"
 )
 
-// LogCheck check the login connexion
+// handleLogCheck check the login connexion
 // If a cookie exists and is valid return OK status.
 // Return Forbidden if not.
-func (api *API) LogCheck(w http.ResponseWriter, r *http.Request) {
+func (api *API) handleLogCheck(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie(tokenCookieName)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)

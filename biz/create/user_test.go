@@ -1,7 +1,7 @@
-package biz_test
+package create_test
 
 import (
-	"app/biz"
+	"app/biz/create"
 	"testing"
 )
 
@@ -22,18 +22,18 @@ func TestCreateUser(t *testing.T) {
 			name:     "Username too short ie less than 4 chars",
 			username: "abc",
 			password: "12345678",
-			err:      biz.ErrUsernameTooShort,
+			err:      create.ErrUsernameTooShort,
 		},
 		{
 			name:     "Password too short ie less than 4 chars",
 			username: "abcdefgh",
 			password: "123",
-			err:      biz.ErrPasswordTooShort,
+			err:      create.ErrPasswordTooShort,
 		},
 	}
 
 	for _, test := range testcases {
-		_, err := biz.NewUser(test.username, test.password)
+		_, err := create.NewUser(test.username, test.password)
 		if err != test.err {
 			t.Fatalf("Waiting %v but got %v", test.err, err)
 		}

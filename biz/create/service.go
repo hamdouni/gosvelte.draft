@@ -1,11 +1,10 @@
-package biz
+package create
 
 import (
+	"app/biz/hash"
 	"errors"
 	"fmt"
 )
-
-type User struct{ Username, Password string }
 
 var (
 	ErrPasswordTooShort = errors.New("password too short")
@@ -20,7 +19,7 @@ func NewUser(us, pw string) (*User, error) {
 		return nil, ErrPasswordTooShort
 	}
 
-	hpw, err := HashPassword(pw)
+	hpw, err := hash.HashPassword(pw)
 	if err != nil {
 		return nil, fmt.Errorf("biz.create_user.HassPassword(%v): %v", pw, err)
 	}

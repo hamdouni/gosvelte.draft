@@ -1,7 +1,7 @@
 package api
 
 import (
-	"app/biz"
+	"app/biz/upper"
 	"net/http"
 )
 
@@ -16,7 +16,7 @@ func (api *API) Upper(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := biz.Upper(nom)
+	message := upper.String(nom)
 	api.store.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }
