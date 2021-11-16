@@ -1,6 +1,4 @@
-package store
-
-import "app/biz"
+package ram
 
 type Store struct {
 	historic []string
@@ -19,8 +17,8 @@ func (rs Store) ListeHistorique() []string {
 	return rs.historic
 }
 
-func (rs *Store) AddUser(user biz.User) error {
-	rs.users[user.Username] = user.Password
+func (rs *Store) AddUser(username, password string) error {
+	rs.users[username] = password
 	return nil
 }
 

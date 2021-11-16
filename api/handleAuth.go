@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func (api *API) auth(next http.HandlerFunc) http.HandlerFunc {
+func (api *API) handleAuth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie(tokenCookieName)
 		if err != nil {

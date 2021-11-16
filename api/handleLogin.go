@@ -1,13 +1,13 @@
 package api
 
 import (
-	"app/biz"
+	"app/biz/hash"
 	"log"
 	"net/http"
 )
 
-// Login service
-func (api *API) Login(w http.ResponseWriter, r *http.Request) {
+// handleLogin service
+func (api *API) handleLogin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		respondJSON(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
@@ -20,7 +20,7 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 	pass := r.Form.Get("password")
 
 	hashed := api.store.GetPasswordUser(user)
-	if !biz.CheckPassword(pass, hashed) {
+	if !hash.CheckPassword(pass, hashed) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
