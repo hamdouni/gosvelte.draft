@@ -6,25 +6,25 @@ Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et S
 
 ```
 # installation des éléments javascript
-cd cmd/client && npm i
+cd client && npm i && cd -
 ```
 
 Pour développer, il faut lancer en parallèle les commandes pour la partie serveur et la partie cliente :
 
 ```
 # ici on lance le serveur
-go run . &
+go run api/server/server.go &
 
 # et ici le client
-cd cmd/client && npm run dev & 
+cd client && npm run dev & cd -
 ```
 
-Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "html".
+Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "static".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 - **biz** est en charge de la logique métier et est agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
-- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request) et retourner les données en réponses (response au format JSON)
-- **infra** regroupe **bdd** qui contient les différents magasins de données possibles (un magasin en mémoire est utilisé en exemple)  et **sec** pour le chiffrement des données (en exemple, une version AES 256).
+- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et le chiffrement des données (cookie et hash mot de passe).
+- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple.
 
 ## Pré-requis
 
@@ -75,7 +75,7 @@ Plus tard, nous utiliserons Docker (et Docker Compose) pour organiser notre infr
 
 ```sh
 # On s'authentifie en POST et on sauvegarde le cookie dans un fichier
-curl -v -c /tmp/cookie.txt -d 'username=maximilien&password=motdepasse' http://localhost:8000/login
+curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://localhost:8000/login
 # On peut appeler un service en POST en réutilisant le fichier cookie
 curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://localhost:8000/upper
 # Ou alors en simple GET (parametres dans l'URL)
