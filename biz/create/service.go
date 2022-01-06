@@ -25,7 +25,7 @@ func NewUser(us, pw string, role RoleType) (*User, error) {
 
 	hpw, err := hash.HashPassword(pw)
 	if err != nil {
-		return nil, fmt.Errorf("biz.create_user.HassPassword(%v): %v", pw, err)
+		return nil, fmt.Errorf("biz.create_user.HashPassword(%v): %v", pw, err)
 	}
 
 	u := &User{
