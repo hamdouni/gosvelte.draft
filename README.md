@@ -13,7 +13,7 @@ Pour développer, il faut lancer en parallèle les commandes pour la partie serv
 
 ```
 # ici on lance le serveur
-go run api/server/server.go &
+go run web/server/server.go &
 
 # et ici le client
 cd client && npm run dev & cd -
