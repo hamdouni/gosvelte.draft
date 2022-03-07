@@ -48,10 +48,10 @@ func run(args []string) error {
 		return err
 	}
 
-	app.Config(&storage, security)
+	app.Config(&storage, &storage, security)
 
 	// On ajoute un user de test
-	err = app.AddUser("test", "test", model.Administrator)
+	err = model.AddUser("test", "test", model.Administrator)
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}

@@ -9,28 +9,8 @@ package app
 
 import "admin/model"
 
-var app struct {
-	store  storage
-	secure security
-}
-
-func Config(store storage, secure security) {
-	app.store = store
-	app.secure = secure
-}
-
-// Contrat avec le service de sécurité
-type security interface {
-	Encrypt(string) (string, error)
-	Decrypt(string) (string, error)
-	HashPassword(pw string) (encryptedPassword string, err error)
-	CheckPassword(pw, hashed string) bool
-}
-
-// Contrat avec le service de stockage
-type storage interface {
-	StockHistorique(string)
-	ListeHistorique() []string
-	GetPasswordUser(username string) (encryptedPassword string)
-	AddUser(username, password string, role model.Role) error
+func Config(uStore model.UserStorage, hStore model.HistoricStorage, secure model.Security) {
+	model.UserStore = uStore
+	model.HistoricStore = hStore
+	model.Secure = secure
 }

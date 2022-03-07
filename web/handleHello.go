@@ -1,7 +1,6 @@
 package web
 
 import (
-	"admin/app"
 	"admin/model"
 	"net/http"
 )
@@ -16,6 +15,6 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 	}
 	nom := r.Form.Get("nom")
 	message := model.Hello(nom)
-	app.StockHistorique(message)
+	model.StockHistorique(message)
 	respondJSON(w, http.StatusOK, message)
 }

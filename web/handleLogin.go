@@ -1,7 +1,7 @@
 package web
 
 import (
-	"admin/app"
+	"admin/model"
 	"log"
 	"net/http"
 )
@@ -19,7 +19,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
-	if !app.CheckPassword(user, pass) {
+	if !model.CheckPassword(user, pass) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
