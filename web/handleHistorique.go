@@ -1,11 +1,11 @@
 package web
 
 import (
-	"admin/app"
+	"admin/model"
 	"net/http"
 )
 
 func Historic(w http.ResponseWriter, r *http.Request) {
-	message := app.ListeHistorique()
+	message := model.ListeHistorique()
 	respondJSON(w, http.StatusOK, message)
 }

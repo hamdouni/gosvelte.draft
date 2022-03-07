@@ -1,7 +1,7 @@
 package web
 
 import (
-	"admin/app"
+	"admin/model"
 	"encoding/base64"
 	"log"
 	"net"
@@ -31,7 +31,7 @@ func isAuth(cookie string, r *http.Request) bool {
 		return false
 	}
 
-	code, err := app.Decrypt(string(decoded))
+	code, err := model.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
@@ -56,7 +56,7 @@ func isAuth(cookie string, r *http.Request) bool {
 func getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := app.Encrypt(phrase)
+	val, err := model.Encrypt(phrase)
 	if err != nil {
 		return "", err
 	}

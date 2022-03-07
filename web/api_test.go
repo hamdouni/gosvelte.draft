@@ -2,6 +2,7 @@ package web_test
 
 import (
 	"admin/app"
+	"admin/model"
 	"admin/store"
 	"admin/web"
 )
@@ -9,8 +10,8 @@ import (
 func init() {
 	var fakeSec fakeSecurity
 	fakeStore, _ := store.New()
-	app.Config(&fakeStore, fakeSec)
-	app.AddUser("samething", "samething", 1)
+	app.Config(&fakeStore, &fakeStore, fakeSec)
+	model.AddUser("samething", "samething", 1)
 	web.New(".")
 }
 
