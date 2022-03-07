@@ -1,14 +1,14 @@
-package greet_test
+package model_test
 
 import (
-	"app/greet"
+	"admin/model"
 	"testing"
 )
 
 func TestBonjour(t *testing.T) {
 	given := "Jean"
 	wait := "Bonjour Jean depuis le business !"
-	got := greet.Hello(given)
+	got := model.Hello(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}

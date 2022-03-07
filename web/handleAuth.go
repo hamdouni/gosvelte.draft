@@ -1,6 +1,7 @@
 package web
 
 import (
+	"admin/app"
 	"encoding/base64"
 	"log"
 	"net"
@@ -30,7 +31,7 @@ func (api *API) isAuth(cookie string, r *http.Request) bool {
 		return false
 	}
 
-	code, err := api.sec.Decrypt(string(decoded))
+	code, err := app.Decrypt(string(decoded))
 	if err != nil {
 		return false
 	}
@@ -43,7 +44,6 @@ func (api *API) isAuth(cookie string, r *http.Request) bool {
 		return false
 	}
 	dur := curTime.Sub(loginTime)
-	log.Printf("Last login %v %v diff %v", curTime, loginTime, dur)
 	if dur > tokenDuration {
 		return false
 	}
@@ -56,7 +56,7 @@ func (api *API) isAuth(cookie string, r *http.Request) bool {
 func (api *API) getAuthToken(user string, r *http.Request) (token string, err error) {
 	timestamp := time.Now().Format(tokenTimeLayout)
 	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := api.sec.Encrypt(phrase)
+	val, err := app.Encrypt(phrase)
 	if err != nil {
 		return "", err
 	}
@@ -70,7 +70,7 @@ func (api *API) getAuthToken(user string, r *http.Request) (token string, err er
 // trace de l'IP réelle.
 // Donc le principe c'est de vérifier si on trouve l'une de ces entrées,
 // en prenant la dernière utilisée (c'est censé être l'IP avant de rentrer dans
-// notrereverse-proxy)
+// notre reverse-proxy)
 // Et si on n'en trouve pas, on retourne l'adresse réseau.
 func getIPAddress(r *http.Request) string {
 	for _, h := range []string{"X-Forwarded-For", "X-Real-Ip"} {

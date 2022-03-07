@@ -1,14 +1,18 @@
 package store
 
-import "app"
+import (
+	"admin/model"
+)
 
 type Store struct {
 	historic []string
-	users    map[string]app.User
+	users    map[string]model.User
 }
 
-func (rs *Store) Init() {
-	rs.users = make(map[string]app.User)
+func New() (Store, error) {
+	var rs Store
+	rs.users = make(map[string]model.User)
+	return rs, nil
 }
 
 func (rs *Store) StockHistorique(s string) {
@@ -19,8 +23,8 @@ func (rs Store) ListeHistorique() []string {
 	return rs.historic
 }
 
-func (rs *Store) AddUser(username, password string, role app.RoleType) error {
-	rs.users[username] = app.User{
+func (rs *Store) AddUser(username, password string, role model.Role) error {
+	rs.users[username] = model.User{
 		Password: password,
 		Role:     role,
 	}

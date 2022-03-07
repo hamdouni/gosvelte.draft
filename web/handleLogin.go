@@ -1,7 +1,7 @@
 package web
 
 import (
-	"app/hash"
+	"admin/app"
 	"log"
 	"net/http"
 )
@@ -19,8 +19,7 @@ func (api *API) handleLogin(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 
-	hashed := api.store.GetPasswordUser(user)
-	if !hash.CheckPassword(pass, hashed) {
+	if !app.CheckPassword(user, pass) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}

@@ -1,6 +1,7 @@
 package secure_test
 
 import (
+	"admin/secure"
 	"testing"
 )
 
@@ -8,8 +9,8 @@ import (
 var ciphertext = "Only test the parts of the application that you want to work"
 
 func TestCrypt(t *testing.T) {
-	s := &sec.Secure{}
-	if err := s.Init(); err != nil {
+	s, err := secure.New()
+	if err != nil {
 		t.Errorf("cannot initialize security: %s", err)
 	}
 

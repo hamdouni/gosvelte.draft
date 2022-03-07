@@ -1,3 +1,7 @@
+// Provides symmetric authenticated encryption using
+// 256-bit AES-GCM with a random nonce.
+// From cryptopasta by George Tankersley <george.tankersley@gmail.com>
+
 package secure
 
 import (
@@ -7,20 +11,6 @@ import (
 	"errors"
 	"io"
 )
-
-// Package sec provides symmetric authenticated encryption using
-// 256-bit AES-GCM with a random nonce.
-// From cryptopasta by George Tankersley <george.tankersley@gmail.com>
-
-// newEncryptionKey generates a random 256-bit key
-func newEncryptionKey() (*[32]byte, error) {
-	key := [32]byte{}
-	_, err := io.ReadFull(rand.Reader, key[:])
-	if err != nil {
-		return nil, err
-	}
-	return &key, nil
-}
 
 // Encrypt encrypts data using 256-bit AES-GCM.  This both hides the content of
 // the data and provides a check that it hasn't been altered. Output takes the

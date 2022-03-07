@@ -1,14 +1,14 @@
-package lower_test
+package model_test
 
 import (
-	"app/lower"
+	"admin/model"
 	"testing"
 )
 
 func TestLower(t *testing.T) {
 	given := "MINUSCULE"
 	wait := "minuscule"
-	got := lower.String(given)
+	got := model.Lower(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}

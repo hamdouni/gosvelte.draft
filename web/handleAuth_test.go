@@ -60,7 +60,7 @@ func TestAuthEndpointBadToken(t *testing.T) {
 			if err != nil {
 				t.Errorf("Should be able to create a request but got %v", err)
 			}
-			fakeCookie := base64.StdEncoding.EncodeToString([]byte("badtoken|badip|badtimestamp"))
+			fakeCookie := base64.StdEncoding.EncodeToString([]byte("badtoken|badip|2006-01-02T15:04:05Z"))
 			req.AddCookie(&http.Cookie{Name: "jeton", Value: fakeCookie})
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
@@ -99,7 +99,7 @@ func TestAuthEndpoint(t *testing.T) {
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code == http.StatusUnauthorized {
-				t.Errorf("Should be authorized but got %v", rw.Code)
+				t.Errorf("Should be authorized but got %v", rw.Result().Status)
 			}
 			resp := tc.results
 			if err := json.NewDecoder(rw.Body).Decode(&resp); err != nil {
