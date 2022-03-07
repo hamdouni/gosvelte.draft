@@ -22,7 +22,7 @@ func main() {
 func run(args []string) error {
 	flags := flag.NewFlagSet(args[0], flag.ExitOnError)
 	host := flags.String("host", "0.0.0.0", "host name to listen on")
-	port := flags.Int("port", 8000, "specify port to listen on")
+	port := flags.Int("port", 80, "specify port to listen on")
 	static := flags.String("static", "./web/client/static", "folder to html css js static files")
 	help := flags.Bool("help", false, "show command usage")
 	if err := flags.Parse(args[1:]); err != nil {
@@ -56,7 +56,7 @@ func run(args []string) error {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
 
-	_, err = web.New(*static)
+	err = web.New(*static)
 	if err != nil {
 		return fmt.Errorf("impossible d'initialiser l'api: %v", err)
 	}

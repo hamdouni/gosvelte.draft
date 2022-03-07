@@ -14,16 +14,15 @@ const tokenDuration = time.Duration(24) * time.Hour
 type API struct {
 }
 
-func New(htmlDirectory string) (API, error) {
-	var api API
-	api.InitRoutes(htmlDirectory)
-	return api, nil
+func New(htmlDirectory string) error {
+	InitRoutes(htmlDirectory)
+	return nil
 }
 
 /*
 	InitRoutes initialise toutes les routes (url) en spécifiant les fonctions qui les prennent en charge, soit des fonctions à nous qu'on déclare avec HandleFunc, soit la fonction qui s'occupe de servir les fichiers statiques.
 */
-func (api *API) InitRoutes(htmlDirectory string) {
+func InitRoutes(htmlDirectory string) {
 	/*
 		Voici des exemples de déclaration de routes avec l'url pour y accéder et la fonction qui va la traiter.
 		Par exemple l'url "/hello" est prise en charge par api.Hello que l'on doit implémenter (cf fichier api_hello.go).
@@ -33,8 +32,8 @@ func (api *API) InitRoutes(htmlDirectory string) {
 	logHandleFunc("/logout", handleLogout)
 	logHandleFunc("/check", handleLogCheck)
 	logHandleFunc("/historic", handleAuth(Historic))
-	logHandleFunc("/upper", handleAuth(api.Upper))
-	logHandleFunc("/lower", handleAuth(api.Lower))
+	logHandleFunc("/upper", handleAuth(Upper))
+	logHandleFunc("/lower", handleAuth(Lower))
 
 	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.
