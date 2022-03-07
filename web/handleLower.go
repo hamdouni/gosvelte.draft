@@ -9,7 +9,7 @@ import (
 /*
 	Lower implémente la fonction en charge de l'url "/lower".
 */
-func (api *API) Lower(w http.ResponseWriter, r *http.Request) {
+func Lower(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
