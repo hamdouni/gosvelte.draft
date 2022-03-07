@@ -28,13 +28,13 @@ func (api *API) InitRoutes(htmlDirectory string) {
 		Voici des exemples de déclaration de routes avec l'url pour y accéder et la fonction qui va la traiter.
 		Par exemple l'url "/hello" est prise en charge par api.Hello que l'on doit implémenter (cf fichier api_hello.go).
 	*/
-	logHandleFunc("/hello", api.handleHello)
-	logHandleFunc("/login", api.handleLogin)
-	logHandleFunc("/logout", api.handleLogout)
-	logHandleFunc("/check", api.handleLogCheck)
-	logHandleFunc("/historic", api.handleAuth(api.Historic))
-	logHandleFunc("/upper", api.handleAuth(api.Upper))
-	logHandleFunc("/lower", api.handleAuth(api.Lower))
+	logHandleFunc("/hello", handleHello)
+	logHandleFunc("/login", handleLogin)
+	logHandleFunc("/logout", handleLogout)
+	logHandleFunc("/check", handleLogCheck)
+	logHandleFunc("/historic", handleAuth(Historic))
+	logHandleFunc("/upper", handleAuth(api.Upper))
+	logHandleFunc("/lower", handleAuth(api.Lower))
 
 	/*
 		Pour les fichiers statiques (html, js, images, ...), la librairie standard propose une fonction FileServer qui reçoit le dossier contenant nos fichiers statiques.

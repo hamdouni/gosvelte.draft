@@ -6,7 +6,7 @@ import (
 )
 
 // handleLogout clear id cookie
-func (api *API) handleLogout(w http.ResponseWriter, r *http.Request) {
+func handleLogout(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{Name: tokenCookieName, Value: "", MaxAge: -1}
 	http.SetCookie(w, &cookie)
 	// if behind a proxy who change strip url prefix

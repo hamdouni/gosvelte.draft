@@ -7,7 +7,7 @@ import (
 )
 
 // handleLogin service
-func (api *API) handleLogin(w http.ResponseWriter, r *http.Request) {
+func handleLogin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		respondJSON(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
@@ -24,7 +24,7 @@ func (api *API) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jeton, err := api.getAuthToken(user, r)
+	jeton, err := getAuthToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Login error : %v", err)
