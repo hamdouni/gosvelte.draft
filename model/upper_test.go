@@ -1,14 +1,14 @@
-package upper_test
+package model_test
 
 import (
-	"app/upper"
+	"admin/model"
 	"testing"
 )
 
 func TestUpper(t *testing.T) {
 	given := "majuscule"
 	wait := "MAJUSCULE"
-	got := upper.String(given)
+	got := model.Upper(given)
 	if got != wait {
 		t.Fatalf("Waiting %v but got %v", wait, got)
 	}

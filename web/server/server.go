@@ -1,9 +1,11 @@
 package main
 
 import (
-	"app"
-	"app/store"
-	"app/web"
+	"admin/app"
+	"admin/model"
+	"admin/secure"
+	"admin/store"
+	"admin/web"
 	"flag"
 	"fmt"
 	"log"
@@ -34,17 +36,28 @@ func run(args []string) error {
 
 	addr := fmt.Sprintf("%s:%d", *host, *port)
 
-	var storage store.Store
-	storage.Init()
+	// composant de stockage
+	storage, err := store.New()
+	if err != nil {
+		return err
+	}
+
+	// composant de sécurité
+	security, err := secure.New()
+	if err != nil {
+		return err
+	}
+
+	app.Config(&storage, security)
+
 	// On ajoute un user de test
-	user, err := app.NewUser("test", "test", app.Administrator)
+	err = app.AddUser("test", "test", model.Administrator)
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %v", err)
 	}
-	storage.AddUser(user.Username, user.Password, user.Role)
 
-	var api web.API
-	if err := api.Init(&storage, *static); err != nil {
+	_, err = web.New(*static)
+	if err != nil {
 		return fmt.Errorf("impossible d'initialiser l'api: %v", err)
 	}
 
