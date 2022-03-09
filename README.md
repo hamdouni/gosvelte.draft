@@ -13,7 +13,7 @@ Pour développer, il faut lancer en parallèle les commandes pour la partie serv
 
 ```
 # ici on lance le serveur
-go run web/server/server.go &
+go run . &
 
 # et ici le client
 cd client && npm run dev & cd -
@@ -22,9 +22,13 @@ cd client && npm run dev & cd -
 Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "static".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
-- **biz** est en charge de la logique métier et est agnostique de la façon d'interagir avec le monde extérieur, que ce soit l'interface web ou le stockage des données. On y trouvera toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets.
-- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et le chiffrement des données (cookie et hash mot de passe).
-- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple.
+- **model** est en charge de la logique métier et de la structuration des données. On y trouve toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets. 
+Des interfaces sont définies pour intéragir avec le stockage des données et une injection de cette dépendance est nécessaire au démarrage. Une implémentation en RAM est fournie dans le paquet `store/ram`.
+Cette couche internalise les fonctions de sécurité dans le sous paquet `secure`. 
+
+- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et utilise le chiffrement des données (cookie et hash mot de passe) mis à disposition pour le métier.
+
+- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple et permet de remplir le contrat d'interface du métier pour le stockage des utilisateurs et des l'historique.
 
 ## Pré-requis
 
@@ -45,13 +49,13 @@ L'architecture côté serveur respecte les principes de séparation des responsa
         - [x] connexion
         - [x] déconnexion
         - [ ] détection déconnexion backend ?
-    - [/] implémente la stratégie d'authentification avec jeton (cf plus bas)
+    - [x] implémente la stratégie d'authentification avec jeton (cf plus bas)
         - [x] enregistre les infos dans le cookie
-        - [ ] contrôle à chaque requête sa validité
+        - [x] contrôle à chaque requête sa validité
 
 ## Stratégie d'authentification avec jeton (token)
 
-Pour gérer l'authentification des utilisateurs, on leur demande un identifiant et un mot de passe, dont on contrôle la validité. Si les données sont correctes, on génère un jeton crypté qui contient la structure suivante :
+Pour gérer l'authentification des utilisateurs, on leur demande un identifiant et un mot de passe, dont on contrôle la validité. Si les données sont correctes, on génère un jeton signé et crypté qui contient la structure suivante :
 
 ```
 identifiant|adresse IP|horodatage
@@ -59,7 +63,7 @@ identifiant|adresse IP|horodatage
 
 Le jeton est envoyé au navigateur de l'utilisateur sous la forme d'un 'cookie' : le navigateur va donc nous renvoyer ce 'cookie' à chaque requête. On pourra alors contrôler l'accès légitime de cette requête :
 
-1. on décrypte le contenu du 'cookie'
+1. on décrypte le contenu du 'cookie' : si on y arrive c'est que la signature est bonne.
 2. on vérifie que l'adresse IP est toujours celle de connexion
 3. on vérifie que cela ne fait pas trop longtemps que la connexion a eu lieu
 
@@ -67,21 +71,17 @@ Le jeton est envoyé au navigateur de l'utilisateur sous la forme d'un 'cookie' 
 
 Docker va nous servir à la fois de simulateur d'infrastructure de production et de stratégie de déploiement. 
 
-Nous utilisons Docker pour simuler une architecture avec un reverse-proxy (Traefik) ce qui nous permet de tester la mécanique de récupération de l'adresse IP de l'utilisateur.
-
-Plus tard, nous utiliserons Docker (et Docker Compose) pour organiser notre infrastructure et l'envoyer sur un serveur de production.
-
 ## Test de l'API avec curl
 
 ```sh
 # On s'authentifie en POST et on sauvegarde le cookie dans un fichier
-curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://localhost:8000/login
+curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://localhost:80/login
 # On peut appeler un service en POST en réutilisant le fichier cookie
-curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://localhost:8000/upper
+curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://localhost:80/upper
 # Ou alors en simple GET (parametres dans l'URL)
-curl -v -b /tmp/cookie.txt http://localhost:8000/hello\?nom\=le%20monde
-curl -v -b /tmp/cookie.txt http://localhost:8000/lower\?nom\=The%20Universe
-curl -v -b /tmp/cookie.txt http://localhost:8000/historic
+curl -v -b /tmp/cookie.txt http://localhost:80/hello\?nom\=le%20monde
+curl -v -b /tmp/cookie.txt http://localhost:80/lower\?nom\=The%20Universe
+curl -v -b /tmp/cookie.txt http://localhost:80/historic
 # On se déconnecte en modifiant le fichier cookie
-curl -v -c /tmp/cookie.txt http://localhost:8000/logout
+curl -v -c /tmp/cookie.txt http://localhost:80/logout
 ```
