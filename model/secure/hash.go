@@ -3,7 +3,7 @@ package secure
 import "golang.org/x/crypto/bcrypt"
 
 // Hash password using Bcrypt
-func (s Secure) HashPassword(pw string) (encryptedPassword string, err error) {
+func HashPassword(pw string) (encryptedPassword string, err error) {
 	hashedPasswordBytes, err := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.MinCost)
 	if err != nil {
 		return "", err
@@ -12,7 +12,7 @@ func (s Secure) HashPassword(pw string) (encryptedPassword string, err error) {
 }
 
 // CheckPassword return true if hash(pw)=hashed
-func (s Secure) CheckPassword(pw, hashed string) bool {
+func CheckPassword(pw, hashed string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(pw))
 	return err == nil
 }

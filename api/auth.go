@@ -1,13 +1,11 @@
-package web
+package api
 
 import (
 	"admin/model"
 	"encoding/base64"
-	"log"
 	"net"
 	"net/http"
 	"strings"
-	"time"
 )
 
 func handleAuth(next http.HandlerFunc) http.HandlerFunc {
@@ -26,37 +24,20 @@ func handleAuth(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func isAuth(cookie string, r *http.Request) bool {
-	decoded, err := base64.StdEncoding.DecodeString(cookie)
+	token, err := base64.StdEncoding.DecodeString(cookie)
 	if err != nil {
 		return false
 	}
 
-	code, err := model.Decrypt(string(decoded))
+	auth, err := model.CheckToken(string(token), getIPAddress(r))
 	if err != nil {
 		return false
 	}
-	parts := strings.Split(code, "|")
-
-	curTime := time.Now()
-	loginTime, err := time.Parse(tokenTimeLayout, parts[2])
-	if err != nil {
-		log.Printf("When parsing loginTime %v got error %v", parts[2], err)
-		return false
-	}
-	dur := curTime.Sub(loginTime)
-	if dur > tokenDuration {
-		return false
-	}
-
-	userIP := parts[1]
-	reqIP := getIPAddress(r)
-	return userIP == reqIP
+	return auth
 }
 
 func getAuthToken(user string, r *http.Request) (token string, err error) {
-	timestamp := time.Now().Format(tokenTimeLayout)
-	phrase := user + "|" + getIPAddress(r) + "|" + timestamp
-	val, err := model.Encrypt(phrase)
+	val, err := model.NewToken(user, getIPAddress(r))
 	if err != nil {
 		return "", err
 	}

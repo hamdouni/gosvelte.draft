@@ -1,4 +1,4 @@
-package web
+package api
 
 import (
 	"admin/model"
@@ -27,7 +27,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	jeton, err := getAuthToken(user, r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("Login error : %v", err)
+		log.Printf("Login error : %s", err)
 		return
 	}
 

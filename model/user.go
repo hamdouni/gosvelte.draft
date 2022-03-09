@@ -1,19 +1,11 @@
 package model
 
+import "admin/model/secure"
+
 type User struct {
 	Username string
 	Password string
 	Role     Role
-}
-
-var Secure Security
-
-// Contrat avec le service de sécurité
-type Security interface {
-	Encrypt(string) (string, error)
-	Decrypt(string) (string, error)
-	HashPassword(pw string) (encryptedPassword string, err error)
-	CheckPassword(pw, hashed string) bool
 }
 
 var UserStore UserStorage
@@ -46,11 +38,11 @@ func NewUser(un, pw string, ro Role) (*User, error) {
 func CheckPassword(username, password string) bool {
 	hashed := UserStore.GetPasswordUser(username)
 
-	return Secure.CheckPassword(password, hashed)
+	return secure.CheckPassword(password, hashed)
 }
 
 func AddUser(username, password string, role Role) error {
-	hashed, err := Secure.HashPassword(password)
+	hashed, err := secure.HashPassword(password)
 	if err != nil {
 		return err
 	}
@@ -60,9 +52,9 @@ func AddUser(username, password string, role Role) error {
 }
 
 func Decrypt(message string) (string, error) {
-	return Secure.Decrypt(message)
+	return secure.Decrypt(message)
 }
 
 func Encrypt(message string) (string, error) {
-	return Secure.Encrypt(message)
+	return secure.Encrypt(message)
 }
