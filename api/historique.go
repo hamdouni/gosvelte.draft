@@ -7,5 +7,5 @@ import (
 
 func Historic(w http.ResponseWriter, r *http.Request) {
 	message := model.ListeHistorique()
-	respondJSON(w, http.StatusOK, message)
+	respond(w, http.StatusOK, message)
 }
