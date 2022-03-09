@@ -6,17 +6,18 @@ import (
 )
 
 // Secure store key
-type Secure struct {
+var Secure struct {
 	key *[32]byte
 }
 
-// New initialize secret key
-func New() (Secure, error) {
+// Init initialize secret key
+func Init() error {
 	key, err := newEncryptionKey()
 	if err != nil {
-		return Secure{}, err
+		return err
 	}
-	return Secure{key: key}, nil
+	Secure.key = key
+	return nil
 }
 
 // newEncryptionKey generates a random 256-bit key

@@ -2,11 +2,11 @@ version: '3'
 services:
     web:
         build:
-            dockerfile: ./conf/dev/Dockerfile
+            dockerfile: ./Dockerfile.dev
             context: ./
         volumes:
             - ./:/src
             - $GOPATH/pkg/mod:/go/pkg/mod
-        entrypoint: watcher -dir . -run web/server/server.go
+        entrypoint: watcher
         ports:
             - 80:80

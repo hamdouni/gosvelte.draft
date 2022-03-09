@@ -2,10 +2,10 @@ version: '3'
 services:
     web:
         build:
-            dockerfile: ./conf/prod/Dockerfile
+            dockerfile: ./Dockerfile
             context: ./
         volumes:
-            - ./web/client/static:/client/static
+            - ./client/static:/client/static
         command: /server -host=0.0.0.0 -port=80 -static=/client/static
         ports:
             - 80:80

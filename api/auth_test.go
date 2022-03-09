@@ -4,9 +4,10 @@ c'est bien ce que l'on récupère au bout au format json.
 Donc, on va utiliser un business complètement bidon qui renvoit toujours la même
 chaine de caractères "Fake Biz" (cf web_test.go).
 */
-package web_test
+package api_test
 
 import (
+	"admin/model"
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
@@ -14,7 +15,6 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"testing"
-	"time"
 )
 
 // TestAuthEndpointUnauthorized vérifie que les endpoints qui nécessitent une
@@ -32,12 +32,12 @@ func TestAuthEndpointUnauthorized(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			req, err := http.NewRequest("GET", tc.endpoint, nil)
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code != http.StatusUnauthorized {
-				t.Errorf("Should not be authorized with code \"%v\" but got %v", http.StatusUnauthorized, rw.Code)
+				t.Errorf("Should not be authorized with code %d but got %d", http.StatusUnauthorized, rw.Code)
 			}
 		})
 	}
@@ -58,14 +58,14 @@ func TestAuthEndpointBadToken(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			req, err := http.NewRequest("GET", tc.endpoint, nil)
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			fakeCookie := base64.StdEncoding.EncodeToString([]byte("badtoken|badip|2006-01-02T15:04:05Z"))
 			req.AddCookie(&http.Cookie{Name: "jeton", Value: fakeCookie})
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code != http.StatusUnauthorized {
-				t.Errorf("when %v should not be authorized with code \"%v\" but got %v", tc.endpoint, http.StatusUnauthorized, rw.Code)
+				t.Errorf("when %s should not be authorized with code %d but got %d", tc.endpoint, http.StatusUnauthorized, rw.Code)
 			}
 		})
 	}
@@ -89,21 +89,24 @@ func TestAuthEndpoint(t *testing.T) {
 			body := url.Values{"nom": []string{tc.name}}
 			req, err := http.NewRequest("POST", tc.endpoint, bytes.NewBuffer([]byte(body.Encode())))
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			req.RemoteAddr = "1.2.3.4"
-			timestamp := time.Now().Format(time.RFC3339)
-			fakeCookie := base64.StdEncoding.EncodeToString([]byte("fake jeton|" + req.RemoteAddr + "|" + timestamp))
+			token, err := model.NewToken("fakejeton", req.RemoteAddr)
+			if err != nil {
+				t.Errorf("NewToken should not err but got %s", err)
+			}
+			fakeCookie := base64.StdEncoding.EncodeToString([]byte(token))
 			req.AddCookie(&http.Cookie{Name: "jeton", Value: fakeCookie})
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code == http.StatusUnauthorized {
-				t.Errorf("Should be authorized but got %v", rw.Result().Status)
+				t.Errorf("Should be authorized but got %s", rw.Result().Status)
 			}
 			resp := tc.results
 			if err := json.NewDecoder(rw.Body).Decode(&resp); err != nil {
-				t.Errorf("Should decode the response but got %v", err)
+				t.Errorf("Should decode the response but got %s", err)
 			}
 			different := false
 			switch resp.(type) {
@@ -134,11 +137,14 @@ func TestAuthEndpointBadRequest(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			req, err := http.NewRequest("POST", tc.endpoint, nil)
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			req.RemoteAddr = "1.2.3.4"
-			timestamp := time.Now().Format(time.RFC3339)
-			fakeCookie := base64.StdEncoding.EncodeToString([]byte("fake jeton|" + req.RemoteAddr + "|" + timestamp))
+			token, err := model.NewToken("fakejeton", req.RemoteAddr)
+			if err != nil {
+				t.Errorf("NewToken should not err but got %s", err)
+			}
+			fakeCookie := base64.StdEncoding.EncodeToString([]byte(token))
 			req.AddCookie(&http.Cookie{Name: "jeton", Value: fakeCookie})
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
@@ -164,7 +170,7 @@ func TestUnauthResponses(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			req, err := http.NewRequest("GET", tc.endpoint, nil)
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
@@ -174,7 +180,7 @@ func TestUnauthResponses(t *testing.T) {
 			body := rw.Body
 			resp := ""
 			if err := json.NewDecoder(body).Decode(&resp); err != nil {
-				t.Errorf("Should decode the response but got %v", err)
+				t.Errorf("Should decode the response but got %s", err)
 			}
 			if resp != tc.result {
 				t.Errorf("Should respond %s but got %s", tc.result, resp)
@@ -197,7 +203,7 @@ func TestUnauthBadRequest(t *testing.T) {
 			// format a failing request with empty form body and method POST
 			req, err := http.NewRequest("POST", tc.endpoint, nil)
 			if err != nil {
-				t.Errorf("Should be able to create a request but got %v", err)
+				t.Errorf("Should be able to create a request but got %s", err)
 			}
 
 			rw := httptest.NewRecorder()

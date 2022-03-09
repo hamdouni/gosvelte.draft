@@ -1,7 +1,7 @@
 package secure_test
 
 import (
-	"admin/secure"
+	"admin/model/secure"
 	"testing"
 )
 
@@ -9,16 +9,16 @@ import (
 var ciphertext = "Only test the parts of the application that you want to work"
 
 func TestCrypt(t *testing.T) {
-	s, err := secure.New()
+	err := secure.Init()
 	if err != nil {
 		t.Errorf("cannot initialize security: %s", err)
 	}
 
-	cryptedtext, err := s.Encrypt(ciphertext)
+	cryptedtext, err := secure.Encrypt(ciphertext)
 	if err != nil {
 		t.Errorf("cannot crypt: %s", err)
 	}
-	decriptedtext, err := s.Decrypt(cryptedtext)
+	decriptedtext, err := secure.Decrypt(cryptedtext)
 	if err != nil {
 		t.Errorf("cannot decrypt: %s", err)
 	}

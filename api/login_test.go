@@ -1,4 +1,4 @@
-package web_test
+package api_test
 
 import (
 	"net/http"
@@ -15,7 +15,7 @@ func TestBadPassword(t *testing.T) {
 	body := strings.NewReader(form.Encode())
 	req, err := http.NewRequest("POST", "/login", body)
 	if err != nil {
-		t.Errorf("Should be able to create a request but got %v", err)
+		t.Errorf("Should be able to create a request but got %s", err)
 	}
 	req.Form = form
 	rw := httptest.NewRecorder()
@@ -31,7 +31,7 @@ func TestGoodPassword(t *testing.T) {
 	body := strings.NewReader(form.Encode())
 	req, err := http.NewRequest("POST", "/login", body)
 	if err != nil {
-		t.Errorf("Should be able to create a request but got %v", err)
+		t.Errorf("Should be able to create a request but got %s", err)
 	}
 	req.Form = form
 	rw := httptest.NewRecorder()
