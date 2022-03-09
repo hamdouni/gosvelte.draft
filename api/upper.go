@@ -18,5 +18,5 @@ func Upper(w http.ResponseWriter, r *http.Request) {
 	nom := r.Form.Get("nom")
 	message := model.Upper(nom)
 	model.StockHistorique(message)
-	respondJSON(w, http.StatusOK, message)
+	respond(w, http.StatusOK, message)
 }

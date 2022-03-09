@@ -52,7 +52,7 @@ func run(args []string) error {
 	}
 
 	// initialise les routes de l'api
-	err = api.NewRoutes(*static)
+	err = api.Routes(*static)
 	if err != nil {
 		return fmt.Errorf("impossible d'initialiser l'api: %s", err)
 	}

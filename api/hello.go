@@ -16,5 +16,5 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 	nom := r.Form.Get("nom")
 	message := model.Hello(nom)
 	model.StockHistorique(message)
-	respondJSON(w, http.StatusOK, message)
+	respond(w, http.StatusOK, message)
 }
