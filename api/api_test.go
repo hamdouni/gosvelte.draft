@@ -24,7 +24,7 @@ func init() {
 	fakeStore, _ := ram.New()
 	model.Init(&fakeStore, &fakeStore)
 	model.AddUser("samething", "samething", 1)
-	api.Routes(".")
+	api.Routes()
 }
 
 func TestBadPassword(t *testing.T) {
