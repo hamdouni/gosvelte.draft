@@ -7,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -32,8 +31,6 @@ func run(args []string) error {
 		return nil
 	}
 
-	addr := fmt.Sprintf("%s:%d", *host, *port)
-
 	// composant de stockage en RAM
 	storage, err := ram.New()
 	if err != nil {
@@ -51,13 +48,12 @@ func run(args []string) error {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %s", err)
 	}
 
-	// initialise les routes de l'api
-	err = api.Routes(*static)
-	if err != nil {
-		return fmt.Errorf("impossible d'initialiser l'api: %s", err)
+	// initialise le serveur api
+	server := api.Server{
+		RootDir: *static,
+		Address: fmt.Sprintf("%s:%d", *host, *port),
 	}
 
-	// démarre le serveur
-	log.Printf("Le service démarre sur %s:%d \n", *host, *port)
-	return http.ListenAndServe(addr, nil)
+	// lance le server
+	return server.Run()
 }

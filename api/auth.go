@@ -31,11 +31,9 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jeton := base64.StdEncoding.EncodeToString([]byte(token))
-
 	cookie := http.Cookie{
 		Name:     tokenCookieName,
-		Value:    string(jeton),
+		Value:    base64.StdEncoding.EncodeToString([]byte(token)),
 		SameSite: http.SameSiteLaxMode,
 	}
 	http.SetCookie(w, &cookie)
@@ -69,8 +67,8 @@ func handleLogCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// handleAuth wraps other handlers to check authentification.
-func handleAuth(next http.HandlerFunc) http.HandlerFunc {
+// auth wraps other handlers to check authentification.
+func auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !isAuth(r) {
 			respond(w, http.StatusUnauthorized, "Non autorisé.")

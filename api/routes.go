@@ -3,32 +3,33 @@ package api
 import "net/http"
 
 /*
-	Routes initialise toutes les routes (url) en spécifiant les fonctions
-	qui les prennent en charge, soit des fonctions à nous qu'on déclare avec
-	HandleFunc, soit la fonction qui s'occupe de servir les fichiers statiques.
+On définit les routes dans un tableau pour faciliter leur déclaration, en
+précisant leurs caractéristiques :
+- `endpoint` pour l'url d'accès à la route,
+- `handler` pour la fonction en charge de cette route
+- `auth` pour indiquer si la fonction doit être authentifiée ou non
 */
-func Routes(dir string) error {
-	/*
-		Pour les fichiers statiques (html, js, images, ...), la librairie
-		standard propose une fonction FileServer qui reçoit le dossier
-		contenant nos fichiers statiques.
-	*/
-	fs := http.FileServer(http.Dir(dir))
-	http.Handle("/", fs)
+var routes = []struct {
+	endpoint string           // url de la route
+	handler  http.HandlerFunc // fonction en charge
+	auth     bool             // indicateur fonction authentifiée
+}{
+	{"/hello", handleHello, false},
+	{"/login", handleLogin, false},
+	{"/logout", handleLogout, false},
+	{"/check", handleLogCheck, false},
+	{"/upper", Upper, true},
+	{"/lower", Lower, true},
+	{"/historic", Historic, true},
+}
 
-	/*
-		Pour les traitements dynamiques, on déclare la route depuis l'url vers
-		la fonction de prise en charge.
-		Par exemple l'url "/hello" est prise en charge par la fonction
-		handleHello du fichier hello.go.
-	*/
-	http.HandleFunc("/hello", handleHello)
-	http.HandleFunc("/login", handleLogin)
-	http.HandleFunc("/logout", handleLogout)
-	http.HandleFunc("/check", handleLogCheck)
-	http.HandleFunc("/historic", handleAuth(Historic))
-	http.HandleFunc("/upper", handleAuth(Upper))
-	http.HandleFunc("/lower", handleAuth(Lower))
-
-	return nil
+// Routes initalise les routes
+func Routes() {
+	for _, route := range routes {
+		if route.auth {
+			http.HandleFunc(route.endpoint, auth(route.handler))
+		} else {
+			http.HandleFunc(route.endpoint, route.handler)
+		}
+	}
 }
