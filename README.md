@@ -1,39 +1,40 @@
 # WebToolKit
 
-> Travaux en cours : le projet n'est pas utilisable et nécessite d'importantes modifications. La réflexion en cours est que le modèle logique est trop simpliste pour permettre de mettre en évidence la mécanique générale : une piste serait de développer un tableau de bord d'administrateur avec la gestion des utilisateurs. Ce serait un bon candidat pour une application minimum et réutilisable dans un contexte professionnel.
+Ceci est un modèle d'application web en Go pour la partie serveur et Svelte pour la partie cliente, avec Docker Compose comme orchestrateur. Il peut servir de base pour construire rapidement une application utilisant ces technologies.
 
-Ceci est un modèle d'application web. Il utilise Go pour la partie serveur et Svelte pour la partie cliente. Il peut servir de base pour construire rapidement une application utilisant ces technologies, en recopiant simplement ces fichiers et en lançant les commandes suivantes :
+## Pré-requis
+
+- Go
+- Docker et Docker Compose
+- npm
+
+## Installation
+
+Pour la partie cliente Svelte uniquement :
 
 ```
-# installation des éléments javascript
 cd client && npm i && cd -
 ```
 
-Pour développer, il faut lancer en parallèle les commandes pour la partie serveur et la partie cliente :
+## Utilisation
+
+Le client et le serveur sont automatiquement recompilés à chaque modification de leur code respectif.
 
 ```
-# ici on lance le serveur
-go run . &
-
-# et ici le client
-cd client && npm run dev & cd -
+docker-compose up -d && cd client && npm run dev & cd -
 ```
 
 Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "static".
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
+
 - **model** est en charge de la logique métier et de la structuration des données. On y trouve toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets. 
 Des interfaces sont définies pour intéragir avec le stockage des données et une injection de cette dépendance est nécessaire au démarrage. Une implémentation en RAM est fournie dans le paquet `store/ram`.
 Cette couche internalise les fonctions de sécurité dans le sous paquet `secure`. 
 
-- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et utilise le chiffrement des données (cookie et hash mot de passe) mis à disposition pour le métier.
+- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et utilise le chiffrement des données (cookie et hash mot de passe) mis à disposition par le métier.
 
-- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple et permet de remplir le contrat d'interface du métier pour le stockage des utilisateurs et des l'historique.
-
-## Pré-requis
-
-- nodejs & npm pour développer la partie cliente (javascript et Svelte)
-- Go (golang) pour développer la partie serveur
+- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple et permet de remplir le contrat d'interface du métier pour le stockage des utilisateurs et de l'historique.
 
 ## Reste à faire 
 
@@ -52,6 +53,7 @@ Cette couche internalise les fonctions de sécurité dans le sous paquet `secure
     - [x] implémente la stratégie d'authentification avec jeton (cf plus bas)
         - [x] enregistre les infos dans le cookie
         - [x] contrôle à chaque requête sa validité
+- [ ] ajoute un Makefile pour faciliter l'installation et le lancement
 
 ## Stratégie d'authentification avec jeton (token)
 
