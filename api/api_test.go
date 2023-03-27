@@ -28,36 +28,33 @@ func init() {
 	api.Routes()
 }
 
-func TestBadPassword(t *testing.T) {
-	form := url.Values{}
-	form.Add("username", "toto")
-	form.Add("password", "titi")
-	body := strings.NewReader(form.Encode())
-	req, err := http.NewRequest("POST", "/login", body)
-	if err != nil {
-		t.Errorf("Should be able to create a request but got %s", err)
+func TestPassword(t *testing.T) {
+	tt := []struct {
+		name     string
+		username string
+		password string
+		status   int
+	}{
+		{"Bad Password", "toto", "titi", http.StatusUnauthorized},
+		{"Good Password", "samething", "samething", http.StatusOK},
 	}
-	req.Form = form
-	rw := httptest.NewRecorder()
-	http.DefaultServeMux.ServeHTTP(rw, req)
-	if rw.Code != http.StatusUnauthorized {
-		t.Errorf("Should receive %d but got %d", http.StatusUnauthorized, rw.Code)
-	}
-}
-func TestGoodPassword(t *testing.T) {
-	form := url.Values{}
-	form.Add("username", "samething")
-	form.Add("password", "samething")
-	body := strings.NewReader(form.Encode())
-	req, err := http.NewRequest("POST", "/login", body)
-	if err != nil {
-		t.Errorf("Should be able to create a request but got %s", err)
-	}
-	req.Form = form
-	rw := httptest.NewRecorder()
-	http.DefaultServeMux.ServeHTTP(rw, req)
-	if rw.Code != http.StatusOK {
-		t.Errorf("Should receive %d but got %d", http.StatusOK, rw.Code)
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			form := url.Values{}
+			form.Add("username", tc.username)
+			form.Add("password", tc.password)
+			body := strings.NewReader(form.Encode())
+			req, err := http.NewRequest("POST", "/login", body)
+			if err != nil {
+				t.Errorf("Should be able to create a request but got %s", err)
+			}
+			req.Form = form
+			rw := httptest.NewRecorder()
+			http.DefaultServeMux.ServeHTTP(rw, req)
+			if rw.Code != tc.status {
+				t.Errorf("Should receive %d but got %d", tc.status, rw.Code)
+			}
+		})
 	}
 }
 
