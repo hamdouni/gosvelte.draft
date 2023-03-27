@@ -1,74 +1,16 @@
 package api
 
 import (
-	"admin/model"
 	"admin/model/secure"
 	"encoding/base64"
-	"fmt"
 	"net"
 	"net/http"
 	"strings"
 )
 
-const tokenCookieName = "jeton"
+const authCookieName = "jeton"
 
-// handleLogin service
-func handleLogin(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		respond(w, http.StatusMethodNotAllowed, "method not allowed")
-		return
-	}
-	if err := r.ParseForm(); err != nil {
-		respond(w, http.StatusBadRequest, err.Error())
-		return
-	}
-	user := r.Form.Get("username")
-	pass := r.Form.Get("password")
-	address := ipAddress(r)
-
-	token, err := model.Auth(user, pass, address)
-	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	cookie := http.Cookie{
-		Name:     tokenCookieName,
-		Value:    base64.StdEncoding.EncodeToString([]byte(token)),
-		SameSite: http.SameSiteLaxMode,
-	}
-	http.SetCookie(w, &cookie)
-	w.WriteHeader(http.StatusOK)
-}
-
-// handleLogout clear id cookie
-func handleLogout(w http.ResponseWriter, r *http.Request) {
-	cookie := http.Cookie{Name: tokenCookieName, Value: "", MaxAge: -1}
-	http.SetCookie(w, &cookie)
-	// if behind a proxy who change strip url prefix
-	redirURL := r.Header.Get("X-Forwarded-Prefix")
-	if redirURL == "" {
-		redirURL = "/"
-	}
-	// set content-type so http.Redirect does not populate a body (see http.Redirect)
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	http.Redirect(w, r, redirURL, http.StatusFound)
-	fmt.Fprintln(w, "\"redirected\"") // json style
-}
-
-// handleLogCheck check the login connexion
-// If a cookie exists and is valid return OK status.
-// Return Forbidden if not.
-func handleLogCheck(w http.ResponseWriter, r *http.Request) {
-	if !isAuth(r) {
-		w.WriteHeader(http.StatusForbidden)
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-}
-
-// auth wraps other handlers to check authentification.
+// auth enveloppe les handlers nécessitant une authentification
 func auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !isAuth(r) {
@@ -79,9 +21,9 @@ func auth(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-// isAuth is a helper to check authentification based on the cookie
+// isAuth vérifie l'authentification basée sur le cookie
 func isAuth(r *http.Request) bool {
-	cookie, err := r.Cookie(tokenCookieName)
+	cookie, err := r.Cookie(authCookieName)
 	if err != nil {
 		return false
 	}
