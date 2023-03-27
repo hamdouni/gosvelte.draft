@@ -7,6 +7,6 @@ services:
         volumes:
             - ./:/src
             - $GOPATH/pkg/mod:/go/pkg/mod
-        entrypoint: watcher
+        entrypoint: "watcher -run cmd/main.go"
         ports:
             - 80:80
