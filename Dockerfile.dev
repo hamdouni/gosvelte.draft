@@ -1,4 +1,3 @@
-FROM golang:1.17 as build-go
+FROM golang:1.19 as build-go
 RUN go install github.com/sipkg/watcher@v0.0.8
 WORKDIR /src
-CMD ["watcher"]
