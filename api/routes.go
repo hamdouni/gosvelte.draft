@@ -17,10 +17,10 @@ var routes = []struct {
 	{"/hello", handleHello, false},
 	{"/login", handleLogin, false},
 	{"/logout", handleLogout, false},
-	{"/check", handleLogCheck, false},
-	{"/upper", Upper, true},
-	{"/lower", Lower, true},
-	{"/historic", Historic, true},
+	{"/check", handleLoginCheck, false},
+	{"/upper", handleUpper, true},
+	{"/lower", handleLower, true},
+	{"/historic", handleHistoric, true},
 }
 
 // Routes initalise les routes

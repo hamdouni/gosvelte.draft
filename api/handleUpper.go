@@ -6,15 +6,15 @@ import (
 )
 
 /*
-	Lower implémente la fonction en charge de l'url "/lower".
+	handleUpper est en charge de l'url "/upper".
 */
-func Lower(w http.ResponseWriter, r *http.Request) {
+func handleUpper(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := model.Lower(nom)
+	message := model.Upper(nom)
 	model.StockHistorique(message)
 	respond(w, http.StatusOK, message)
 }
