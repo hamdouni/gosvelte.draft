@@ -42,14 +42,14 @@ Cette couche internalise les fonctions de sécurité dans le sous paquet `secure
 - [x] montre comment on gère les données persistantes avec un store en mémoire
 - [x] ajoute un middleware côté client pour centraliser tous les accès réseaux et pouvoir capturer les erreurs et les déconnexions
 - [ ] ajoute des tests et montrer l'intérêt des interfaces
-- [ ] gére la connexion/déconnexion et les zones publiques/privées
+- [x] gére la connexion/déconnexion et les zones publiques/privées
     - [x] étoffe le storage pour stocker les users
     - [x] implémente une 1ère vérification d'identifiant/mot de passe
     - [x] crée un package séparé pour la sécurité (par ex. "sec")
-    - [/] gére la connexion côté IHM [en cours...]
+    - [x] gére la connexion côté IHM [en cours...]
         - [x] connexion
         - [x] déconnexion
-        - [ ] détection déconnexion backend ?
+        - [x] détection déconnexion backend en testant la connexion toutes les 5s
     - [x] implémente la stratégie d'authentification avec jeton (cf plus bas)
         - [x] enregistre les infos dans le cookie
         - [x] contrôle à chaque requête sa validité

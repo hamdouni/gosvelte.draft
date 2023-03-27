@@ -9,6 +9,17 @@
 	let connectedStatus = true;
 	if(getCookie("jeton") === "") connectedStatus = false; 
 	else callCheckConnexion().then(response => { connectedStatus = response; });	
+	// vérifie périodiquement que la connexion est toujours ok
+	function periodicCheck() {
+		callCheckConnexion().then(response => { 
+			console.log("checking connexion:", response);
+			connectedStatus = response; 
+			if (connectedStatus) {
+				setTimeout(periodicCheck, 5000);
+			}
+		});	
+	}
+	$: if(connectedStatus) periodicCheck();
 </script>
 
 {#if !connectedStatus}
