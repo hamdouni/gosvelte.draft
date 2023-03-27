@@ -13,7 +13,7 @@ Ceci est un modèle d'application web en Go pour la partie serveur et Svelte pou
 Pour la partie cliente Svelte uniquement :
 
 ```
-cd client && npm i && cd -
+make install
 ```
 
 ## Utilisation
@@ -21,7 +21,7 @@ cd client && npm i && cd -
 Le client et le serveur sont automatiquement recompilés à chaque modification de leur code respectif.
 
 ```
-docker-compose up -d && cd client && npm run dev & cd -
+make
 ```
 
 Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "static".
@@ -53,7 +53,7 @@ Cette couche internalise les fonctions de sécurité dans le sous paquet `secure
     - [x] implémente la stratégie d'authentification avec jeton (cf plus bas)
         - [x] enregistre les infos dans le cookie
         - [x] contrôle à chaque requête sa validité
-- [ ] ajoute un Makefile pour faciliter l'installation et le lancement
+- [x] ajoute un Makefile pour faciliter l'installation et le lancement
 
 ## Stratégie d'authentification avec jeton (token)
 
