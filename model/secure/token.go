@@ -1,4 +1,4 @@
-package model
+package secure
 
 import (
 	"fmt"
@@ -8,18 +8,6 @@ import (
 
 const tokenTimeLayout = time.RFC3339
 const tokenDuration = time.Duration(24) * time.Hour
-
-// Auth vérifie l'authentification de l'utilisateur et retourne un token signé.
-func Auth(user, pass, address string) (string, error) {
-	if !CheckPassword(user, pass) {
-		return "", fmt.Errorf("not authorized")
-	}
-	t, err := NewToken(user, address)
-	if err != nil {
-		return "", err
-	}
-	return t, nil
-}
 
 // NewToken génère un token d'authentification, numériquement signé.
 // Il est constitué de 3 parties séparées par une barre verticale :

@@ -1,24 +1,25 @@
-package model_test
+package secure_test
 
 import (
 	"admin/model"
+	"admin/model/secure"
 	"testing"
 )
 
 func TestToken(t *testing.T) {
 	model.Init(nil, nil)
-	token, err := model.NewToken("fakeuser", "fakelocalisation")
+	token, err := secure.NewToken("fakeuser", "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
-	ok, err := model.CheckToken(token, "otherlocalisation")
+	ok, err := secure.CheckToken(token, "otherlocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
 	if ok {
 		t.Fatalf("Expecting check token to return false got %v", ok)
 	}
-	ok, err = model.CheckToken(token, "fakelocalisation")
+	ok, err = secure.CheckToken(token, "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
