@@ -49,10 +49,7 @@ func run(args []string) error {
 	}
 
 	// initialise le serveur api
-	server := api.Server{
-		RootDir: *static,
-		Address: fmt.Sprintf("%s:%d", *host, *port),
-	}
+	server := api.New(*static, *host, *port)
 
 	// lance le server
 	return server.Run()

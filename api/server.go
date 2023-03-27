@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -9,6 +10,14 @@ import (
 type Server struct {
 	RootDir string
 	Address string
+}
+
+// New retourne un serveur à partir d'un dossier, d'un host et d'un port
+func New(dir, host string, port int) Server {
+	return Server{
+		RootDir: dir,
+		Address: fmt.Sprintf("%s:%d", host, port),
+	}
 }
 
 // Run exécute le serveur qui sert les fichiers statiques et les routes.
