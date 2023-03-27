@@ -15,8 +15,14 @@ export async function callApi(url) {
 }
 
 export async function callCheckConnexion() {
-    let response = await fetch("check");
-    return response.ok;
+	let response;
+	try {
+		response = await fetch("check");
+		return response.ok;
+	} catch (error) {
+        console.log("Erreur réseau " + error);
+		return null;
+	}
 }
 
 export async function callBonjour(nom) {

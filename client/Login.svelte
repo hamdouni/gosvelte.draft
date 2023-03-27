@@ -6,18 +6,23 @@
   let err;
 
   async function login() {
-    let response = await fetch("/login", {
-      method: "POST",
-      body: "username=" + username + "&password=" + password,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    });
-    if (response.ok) {
-      connectedStatus = true;
-    } else {
-      connectedStatus = false;
-      err =
-        "Echec de la connexion. Veuillez vérifier votre identifiant et votre mot de passe. Si le problème persiste, merci de contacter l'administrateur.";
-    }
+	try {
+		let response = await fetch("/login", {
+		  method: "POST",
+		  body: "username=" + username + "&password=" + password,
+		  headers: { "Content-Type": "application/x-www-form-urlencoded" }
+		});
+		if (response.ok) {
+		  connectedStatus = true;
+		} else {
+		  connectedStatus = false;
+		  err =
+			"Echec de la connexion. Veuillez vérifier votre identifiant et votre mot de passe. Si le problème persiste, merci de contacter l'administrateur.";
+		}
+	}
+	catch(error) {
+		err = "Problème réseau: impossible de contacter le serveur";
+	}
   }
 </script>
 
