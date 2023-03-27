@@ -2,6 +2,7 @@ package api
 
 import (
 	"admin/model"
+	"admin/model/secure"
 	"encoding/base64"
 	"fmt"
 	"net"
@@ -90,7 +91,7 @@ func isAuth(r *http.Request) bool {
 		return false
 	}
 
-	auth, err := model.CheckToken(string(token), ipAddress(r))
+	auth, err := secure.CheckToken(string(token), ipAddress(r))
 	if err != nil {
 		return false
 	}

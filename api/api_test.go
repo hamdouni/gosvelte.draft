@@ -9,6 +9,7 @@ package api_test
 import (
 	"admin/api"
 	"admin/model"
+	"admin/model/secure"
 	"admin/store/ram"
 	"bytes"
 	"encoding/base64"
@@ -136,7 +137,7 @@ func TestAuthEndpoint(t *testing.T) {
 			}
 			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			req.RemoteAddr = "1.2.3.4"
-			token, err := model.NewToken("fakejeton", req.RemoteAddr)
+			token, err := secure.NewToken("fakejeton", req.RemoteAddr)
 			if err != nil {
 				t.Errorf("NewToken should not err but got %s", err)
 			}
@@ -183,7 +184,7 @@ func TestAuthEndpointBadRequest(t *testing.T) {
 				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			req.RemoteAddr = "1.2.3.4"
-			token, err := model.NewToken("fakejeton", req.RemoteAddr)
+			token, err := secure.NewToken("fakejeton", req.RemoteAddr)
 			if err != nil {
 				t.Errorf("NewToken should not err but got %s", err)
 			}
