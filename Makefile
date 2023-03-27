@@ -1,11 +1,14 @@
 ifndef VERBOSE
 .SILENT:
 endif
-.PHONY: default restart start stop clean
+.PHONY: default restart start stop clean test
 
 default: start
 
 restart: stop start
+
+test:
+	go test ./...
 
 install:
 	cd client && npm -s i
