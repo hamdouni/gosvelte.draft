@@ -1,4 +1,4 @@
-module admin
+module webtoolkit
 
 go 1.17
 

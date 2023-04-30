@@ -1,8 +1,8 @@
 package secure_test
 
 import (
-	"admin/model/secure"
 	"testing"
+	"webtoolkit/metier/secure"
 )
 
 // Robert C. Martin - 2019

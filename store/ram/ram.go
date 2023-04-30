@@ -1,17 +1,15 @@
 package ram
 
-import (
-	"admin/model"
-)
+import "webtoolkit/metier/user"
 
 type RAM struct {
 	historic []string
-	users    map[string]model.User
+	users    map[string]user.User
 }
 
 // New retourne une RAM pouvant stocker des données
 func New() (RAM, error) {
 	var rs RAM
-	rs.users = make(map[string]model.User)
+	rs.users = make(map[string]user.User)
 	return rs, nil
 }

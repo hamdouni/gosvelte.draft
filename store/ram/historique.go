@@ -1,9 +1,9 @@
 package ram
 
-func (rs *RAM) StockHistorique(s string) {
+func (rs *RAM) Save(s string) {
 	rs.historic = append(rs.historic, s)
 }
 
-func (rs RAM) ListeHistorique() []string {
+func (rs RAM) List() []string {
 	return rs.historic
 }

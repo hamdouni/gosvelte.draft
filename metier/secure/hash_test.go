@@ -1,8 +1,8 @@
 package secure_test
 
 import (
-	"admin/model/secure"
 	"testing"
+	"webtoolkit/metier/secure"
 )
 
 func TestHash(t *testing.T) {

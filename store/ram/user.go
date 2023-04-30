@@ -1,16 +1,16 @@
 package ram
 
-import "admin/model"
+import "webtoolkit/metier/user"
 
-func (rs *RAM) AddUser(user model.User) error {
-	rs.users[user.Username] = model.User{
-		Username: user.Username,
-		Password: user.Password,
-		Role:     user.Role,
+func (rs *RAM) Add(u user.User) error {
+	rs.users[u.Username] = user.User{
+		Username: u.Username,
+		Password: u.Password,
+		Role:     u.Role,
 	}
 	return nil
 }
 
-func (rs *RAM) GetPasswordUser(username string) (encryptedPassword string) {
+func (rs *RAM) GetPassword(username string) (encryptedPassword string) {
 	return rs.users[username].Password
 }

@@ -1,13 +1,14 @@
 package main
 
 import (
-	"admin/api"
-	"admin/model"
-	"admin/store/ram"
 	"flag"
 	"fmt"
 	"log"
 	"os"
+	"webtoolkit/api"
+	"webtoolkit/metier"
+	"webtoolkit/metier/user"
+	"webtoolkit/store/ram"
 )
 
 func main() {
@@ -37,15 +38,15 @@ func run(args []string) error {
 		return err
 	}
 
-	// configure le modèle avec le storage
+	// configure le métier avec le storage
 	// ici on utilise le même storage pour l'historique et les users
 	// mais on peut imaginer d'avoir un système de stockage différencié
-	model.Init(&storage, &storage)
+	metier.Configure(&storage, &storage)
 
 	// ajoute un user de test
-	err = model.AddUser("test", "test", model.Administrator)
+	err = user.Add("test", "test", user.Administrator)
 	if err != nil {
-		return fmt.Errorf("impossible de créer un utilisateur de test : %s", err)
+		return fmt.Errorf("impossible de créer un utilisateur de test : %w", err)
 	}
 
 	// initialise le serveur api

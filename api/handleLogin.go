@@ -1,9 +1,9 @@
 package api
 
 import (
-	"admin/model"
 	"encoding/base64"
 	"net/http"
+	"webtoolkit/metier"
 )
 
 /*
@@ -22,7 +22,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	pass := r.Form.Get("password")
 	address := ipAddress(r)
 
-	token, err := model.Auth(user, pass, address)
+	token, err := metier.Auth(user, pass, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return

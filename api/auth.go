@@ -1,11 +1,11 @@
 package api
 
 import (
-	"admin/model/secure"
 	"encoding/base64"
 	"net"
 	"net/http"
 	"strings"
+	"webtoolkit/metier/secure"
 )
 
 const authCookieName = "jeton"

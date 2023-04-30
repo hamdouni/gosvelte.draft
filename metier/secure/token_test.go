@@ -1,13 +1,13 @@
 package secure_test
 
 import (
-	"admin/model"
-	"admin/model/secure"
 	"testing"
+	"webtoolkit/metier"
+	"webtoolkit/metier/secure"
 )
 
 func TestToken(t *testing.T) {
-	model.Init(nil, nil)
+	metier.Configure(nil, nil)
 	token, err := secure.NewToken("fakeuser", "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)

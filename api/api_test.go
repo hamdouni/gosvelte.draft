@@ -7,10 +7,6 @@ chaine de caractères "Fake Biz" (cf web_test.go).
 package api_test
 
 import (
-	"admin/api"
-	"admin/model"
-	"admin/model/secure"
-	"admin/store/ram"
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
@@ -19,12 +15,17 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"webtoolkit/api"
+	"webtoolkit/metier"
+	"webtoolkit/metier/secure"
+	"webtoolkit/metier/user"
+	"webtoolkit/store/ram"
 )
 
 func init() {
 	fakeStore, _ := ram.New()
-	model.Init(&fakeStore, &fakeStore)
-	model.AddUser("samething", "samething", 1)
+	metier.Configure(&fakeStore, &fakeStore)
+	user.Add("samething", "samething", 1)
 	api.Routes()
 }
 
