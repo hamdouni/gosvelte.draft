@@ -8,27 +8,23 @@ import (
 // server sert des pages dynamiques et statiques depuis le dossier RootDir en
 // écoutant sur Address de la forme `host:port` par exemple `acme.com:80`.
 type server struct {
-	RootDir string
-	Address string
+	rootdir string
+	address string
 }
 
-// New retourne un serveur à partir d'un dossier, d'un host et d'un port
-func New(dir, host string, port int) server {
+// New retourne un serveur prêt à servir des fichiers
+// statiques ou des routes dynamiques
+func New(static, host string, port int) server {
+
+	Routes(static) // initialise les routes statiques et dynamiques
+
 	return server{
-		RootDir: dir,
-		Address: fmt.Sprintf("%s:%d", host, port),
+		rootdir: static,
+		address: fmt.Sprintf("%s:%d", host, port),
 	}
 }
 
-// Run exécute le serveur qui sert les fichiers statiques et les routes.
-// Pour les fichiers statiques (html, js, images, ...), la librairie standard
-// propose une fonction FileServer. Pour les traitements dynamiques, on déclare
-// les routes en gérant le fait qu'elles doivent être authentifiées ou non.
+// Run exécute le serveur
 func (s server) Run() error {
-	fs := http.FileServer(http.Dir(s.RootDir))
-	http.Handle("/", fs)
-
-	Routes()
-
-	return http.ListenAndServe(s.Address, nil)
+	return http.ListenAndServe(s.address, nil)
 }

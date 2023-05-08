@@ -11,11 +11,11 @@ test:
 	go test ./...
 
 install:
-	cd client && npm -s i
+	cd cmd/client && npm -s i
 
 start:
 	docker-compose up -d
-	cd client && npm run dev
+	cd cmd/client && npm run dev
 
 stop:
 	echo "Stopping dev env"
@@ -28,7 +28,7 @@ clean:
 
 build-client:
 	echo "build client"
-	cd client && npm -s run build
+	cd cmd/client && npm -s run build
 
 build-server:
 	echo "build server"

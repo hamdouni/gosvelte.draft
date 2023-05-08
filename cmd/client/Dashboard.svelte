@@ -31,7 +31,7 @@
     </label>
     <div class="brand">
       <span class="icon">
-        <i class="las la-couch la-2x" />
+        <i class="las la-cube la-fw" />
       </span>
       <span>Webtoolkit</span>
     </div>

@@ -24,7 +24,11 @@ var routes = []struct {
 }
 
 // Routes initalise les routes
-func Routes() {
+func Routes(static string) {
+
+	// Pour les traitements dynamiques, on déclare les
+	// routes en gérant le fait qu'elles doivent être
+	// authentifiées ou non.
 	for _, route := range routes {
 		if route.auth {
 			http.HandleFunc(route.endpoint, auth(route.handler))
@@ -32,4 +36,9 @@ func Routes() {
 			http.HandleFunc(route.endpoint, route.handler)
 		}
 	}
+
+	// Pour les fichiers statiques (html, js, images, ...), la librairie standard
+	// propose une fonction FileServer.
+	fs := http.FileServer(http.Dir(static))
+	http.Handle("/", fs)
 }

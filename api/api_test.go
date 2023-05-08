@@ -26,7 +26,7 @@ func init() {
 	fakeStore, _ := ram.New()
 	metier.Configure(&fakeStore, &fakeStore)
 	user.Add("samething", "samething", 1)
-	api.Routes()
+	api.Routes(".")
 }
 
 func TestPassword(t *testing.T) {

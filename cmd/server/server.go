@@ -20,7 +20,7 @@ func main() {
 func run(args []string) error {
 	host := flag.String("host", "0.0.0.0", "host name to listen on")
 	port := flag.Int("port", 80, "port to listen on")
-	static := flag.String("static", "./client/static", "static files folder")
+	static := flag.String("static", "./cmd/client/static", "static files folder")
 	help := flag.Bool("help", false, "show command usage")
 	flag.Parse()
 

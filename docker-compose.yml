@@ -5,7 +5,7 @@ services:
             dockerfile: ./Dockerfile
             context: ./
         volumes:
-            - ./client/static:/client/static
-        command: /server -host=0.0.0.0 -port=80 -static=/client/static
+            - ./cmd/client/static:/cmd/client/static
+        command: /server -host=0.0.0.0 -port=80 -static=/cmd/client/static
         ports:
             - 80:80
