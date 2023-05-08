@@ -16,7 +16,7 @@ import (
 // the data and provides a check that it hasn't been altered. Output takes the
 // form nonce|ciphertext|tag where '|' indicates concatenation.
 func Encrypt(plaintext string) (ciphertext string, err error) {
-	block, err := aes.NewCipher(Secure.key[:])
+	block, err := aes.NewCipher(securestore.key[:])
 	if err != nil {
 		return "", err
 	}
@@ -38,7 +38,7 @@ func Encrypt(plaintext string) (ciphertext string, err error) {
 // Decrypt decrypts data using 256-bit AES-GCM. Expects input
 // form nonce|ciphertext|tag where '|' indicates concatenation.
 func Decrypt(ciphertext string) (plaintext string, err error) {
-	block, err := aes.NewCipher(Secure.key[:])
+	block, err := aes.NewCipher(securestore.key[:])
 	if err != nil {
 		return "", err
 	}

@@ -5,8 +5,8 @@ import (
 	"io"
 )
 
-// Secure store key
-var Secure struct {
+// securestore store key
+var securestore struct {
 	key *[32]byte
 }
 
@@ -16,7 +16,7 @@ func Init() error {
 	if err != nil {
 		return err
 	}
-	Secure.key = key
+	securestore.key = key
 	return nil
 }
 
