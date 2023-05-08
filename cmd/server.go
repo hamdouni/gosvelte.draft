@@ -18,17 +18,14 @@ func main() {
 }
 
 func run(args []string) error {
-	flags := flag.NewFlagSet(args[0], flag.ExitOnError)
-	host := flags.String("host", "0.0.0.0", "host name to listen on")
-	port := flags.Int("port", 80, "port to listen on")
-	static := flags.String("static", "./client/static", "static files folder")
-	help := flags.Bool("help", false, "show command usage")
-	if err := flags.Parse(args[1:]); err != nil {
-		return err
-	}
+	host := flag.String("host", "0.0.0.0", "host name to listen on")
+	port := flag.Int("port", 80, "port to listen on")
+	static := flag.String("static", "./client/static", "static files folder")
+	help := flag.Bool("help", false, "show command usage")
+	flag.Parse()
 
 	if *help {
-		flags.Usage()
+		flag.Usage()
 		return nil
 	}
 
