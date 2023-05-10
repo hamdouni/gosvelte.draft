@@ -14,6 +14,9 @@ func Add(username, password string, role Role) error {
 	if err != nil {
 		return err
 	}
+	if store.ExistUsername(username) {
+		return ErrUsernameUsed
+	}
 	u, err := New(username, hashed, role)
 	if err != nil {
 		return err

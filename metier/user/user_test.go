@@ -2,7 +2,9 @@ package user_test
 
 import (
 	"testing"
+	"webtoolkit/metier"
 	"webtoolkit/metier/user"
+	"webtoolkit/store/ram"
 )
 
 func TestCreateUser(t *testing.T) {
@@ -46,5 +48,28 @@ func TestCreateUser(t *testing.T) {
 		if err != test.err {
 			t.Fatalf("Waiting %v but got %v", test.err, err)
 		}
+	}
+}
+
+func TestDuplicateUser(t *testing.T) {
+	// composant de stockage en RAM
+	storage, err := ram.New()
+	if err != nil {
+		t.Fatalf("Initializing ram")
+	}
+
+	// configure le métier avec le storage
+	metier.Configure(&storage, &storage)
+
+	// ajoute un user de test
+	err = user.Add("test", "test", user.Administrator)
+	if err != nil {
+		t.Fatalf("Creating test user: %s", err)
+	}
+
+	// ajoute le même user
+	err = user.Add("test", "test", user.Administrator)
+	if err != user.ErrUsernameUsed {
+		t.Fatalf("waiting %s got %s", user.ErrUsernameUsed, err)
 	}
 }

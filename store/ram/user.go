@@ -14,3 +14,8 @@ func (rs *RAM) Add(u user.User) error {
 func (rs *RAM) GetPassword(username string) (encryptedPassword string) {
 	return rs.users[username].Password
 }
+
+func (rs *RAM) ExistUsername(username string) bool {
+	_, exists := rs.users[username]
+	return exists
+}

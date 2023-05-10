@@ -11,5 +11,6 @@ func UseStore(s Storage) {
 // Contrat avec le service de stockage
 type Storage interface {
 	GetPassword(username string) (encryptedPassword string)
+	ExistUsername(username string) bool
 	Add(user User) error
 }
