@@ -1,9 +1,8 @@
 .watcherignore
 .git
-client
-static
 *.md
 *.yml
 *.sh
 *.mod
 *.sum
+cmd/client
