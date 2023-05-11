@@ -15,7 +15,7 @@ install:
 
 start:
 	docker-compose up -d
-	cd cmd/client && npm run dev
+	cd cmd/client && npm run build
 
 stop:
 	echo "Stopping dev env"
