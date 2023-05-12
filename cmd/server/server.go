@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"webtoolkit/api"
 	"webtoolkit/metier"
 	"webtoolkit/metier/user"
@@ -44,6 +45,15 @@ func run(args []string) error {
 	err = user.Add("test", "test", "test", user.Administrator)
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %w", err)
+	}
+
+	// ajoute 5 fake user dans realm test
+	for i := 1; i <= 5; i++ {
+		err = user.Add("test", "test"+strconv.Itoa(i), "test", user.Customer)
+	}
+	// ajoute 5 fake user dans realm fakerealm
+	for i := 1; i <= 5; i++ {
+		err = user.Add("fakerealm", "test"+strconv.Itoa(i), "test", user.Customer)
 	}
 
 	// initialise le serveur api
