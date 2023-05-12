@@ -41,7 +41,7 @@ func run(args []string) error {
 	metier.Configure(&storage, &storage)
 
 	// ajoute un user de test
-	err = user.Add("test", "test", user.Administrator)
+	err = user.Add("test", "test", "test", user.Administrator)
 	if err != nil {
 		return fmt.Errorf("impossible de créer un utilisateur de test : %w", err)
 	}

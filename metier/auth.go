@@ -7,8 +7,8 @@ import (
 )
 
 // Auth vérifie l'authentification de l'utilisateur et retourne un token signé.
-func Auth(username, password, address string) (string, error) {
-	if !user.CheckPassword(username, password) {
+func Auth(realm, username, password, address string) (string, error) {
+	if !user.CheckPassword(realm, username, password) {
 		return "", fmt.Errorf("not authorized")
 	}
 	t, err := secure.NewToken(username, address)

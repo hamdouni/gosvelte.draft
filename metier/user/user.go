@@ -5,6 +5,7 @@ type User struct {
 	Username string
 	Password string
 	Role     Role
+	Realm    string
 }
 
 // Role définie le role que peut avoir un user
@@ -18,7 +19,7 @@ const (
 )
 
 // New retourne un utilisateur validé
-func New(un, pw string, ro Role) (*User, error) {
+func New(realm, un, pw string, ro Role) (*User, error) {
 	if len(un) < 4 {
 		return nil, ErrUsernameTooShort
 	}
@@ -33,6 +34,7 @@ func New(un, pw string, ro Role) (*User, error) {
 		Username: un,
 		Password: pw,
 		Role:     ro,
+		Realm:    realm,
 	}
 	return u, nil
 }

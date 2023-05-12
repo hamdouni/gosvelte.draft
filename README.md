@@ -77,13 +77,13 @@ Docker va nous servir à la fois de simulateur d'infrastructure de production et
 
 ```sh
 # On s'authentifie en POST et on sauvegarde le cookie dans un fichier
-curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://localhost:80/login
+curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://test.localhost:80/login
 # On peut appeler un service en POST en réutilisant le fichier cookie
-curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://localhost:80/upper
+curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://test.localhost:80/upper
 # Ou alors en simple GET (parametres dans l'URL)
-curl -v -b /tmp/cookie.txt http://localhost:80/hello\?nom\=le%20monde
-curl -v -b /tmp/cookie.txt http://localhost:80/lower\?nom\=The%20Universe
-curl -v -b /tmp/cookie.txt http://localhost:80/historic
+curl -v -b /tmp/cookie.txt http://test.localhost:80/hello\?nom\=le%20monde
+curl -v -b /tmp/cookie.txt http://test.localhost:80/lower\?nom\=The%20Universe
+curl -v -b /tmp/cookie.txt http://test.localhost:80/historic
 # On se déconnecte en modifiant le fichier cookie
-curl -v -c /tmp/cookie.txt http://localhost:80/logout
+curl -v -c /tmp/cookie.txt http://test.localhost:80/logout
 ```

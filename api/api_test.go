@@ -25,19 +25,21 @@ import (
 func init() {
 	fakeStore, _ := ram.New()
 	metier.Configure(&fakeStore, &fakeStore)
-	user.Add("samething", "samething", 1)
+	user.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }
 
 func TestPassword(t *testing.T) {
 	tt := []struct {
 		name     string
+		realm    string
 		username string
 		password string
 		status   int
 	}{
-		{"Bad Password", "toto", "titi", http.StatusUnauthorized},
-		{"Good Password", "samething", "samething", http.StatusOK},
+		{"Bad Password", "FakeRealm", "toto", "titi", http.StatusUnauthorized},
+		{"Good Password wrong realm", "WrongRealm", "samething", "samething", http.StatusUnauthorized},
+		{"Good Password", "FakeRealm", "samething", "samething", http.StatusOK},
 	}
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
@@ -50,6 +52,7 @@ func TestPassword(t *testing.T) {
 				t.Errorf("Should be able to create a request but got %s", err)
 			}
 			req.Form = form
+			req.Host = tc.realm + ".localhost"
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)
 			if rw.Code != tc.status {
@@ -204,7 +207,7 @@ func TestUnauthResponses(t *testing.T) {
 		status   int
 		result   string
 	}{
-		{"hello", "/hello", http.StatusOK, "Bonjour  depuis le business !"},
+		{"hello", "/hello", http.StatusOK, "Bonjour  depuis le métier !"},
 		{"login", "/login", http.StatusMethodNotAllowed, "method not allowed"},
 		{"logout", "/logout", http.StatusFound, "redirected"},
 	}

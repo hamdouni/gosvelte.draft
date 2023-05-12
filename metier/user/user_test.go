@@ -9,6 +9,7 @@ import (
 
 func TestCreateUser(t *testing.T) {
 	testcases := []struct {
+		realm    string
 		name     string
 		username string
 		password string
@@ -16,6 +17,7 @@ func TestCreateUser(t *testing.T) {
 		err      error
 	}{
 		{
+			realm:    "FakeRealm",
 			name:     "Correct username and password length",
 			username: "username",
 			password: "password",
@@ -23,18 +25,21 @@ func TestCreateUser(t *testing.T) {
 			err:      nil,
 		},
 		{
+			realm:    "FakeRealm",
 			name:     "Username too short ie less than 4 chars",
 			username: "abc",
 			password: "12345678",
 			err:      user.ErrUsernameTooShort,
 		},
 		{
+			realm:    "FakeRealm",
 			name:     "Password too short ie less than 4 chars",
 			username: "abcdefgh",
 			password: "123",
 			err:      user.ErrPasswordTooShort,
 		},
 		{
+			realm:    "FakeRealm",
 			name:     "Role undefined",
 			username: "username",
 			password: "password",
@@ -44,7 +49,7 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	for _, test := range testcases {
-		_, err := user.New(test.username, test.password, test.role)
+		_, err := user.New(test.realm, test.username, test.password, test.role)
 		if err != test.err {
 			t.Fatalf("Waiting %v but got %v", test.err, err)
 		}
@@ -62,13 +67,13 @@ func TestDuplicateUser(t *testing.T) {
 	metier.Configure(&storage, &storage)
 
 	// ajoute un user de test
-	err = user.Add("test", "test", user.Administrator)
+	err = user.Add("FakeRealm", "test", "test", user.Administrator)
 	if err != nil {
 		t.Fatalf("Creating test user: %s", err)
 	}
 
 	// ajoute le même user
-	err = user.Add("test", "test", user.Administrator)
+	err = user.Add("FakeRealm", "test", "test", user.Administrator)
 	if err != user.ErrUsernameUsed {
 		t.Fatalf("waiting %s got %s", user.ErrUsernameUsed, err)
 	}

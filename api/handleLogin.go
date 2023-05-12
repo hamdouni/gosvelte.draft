@@ -3,11 +3,12 @@ package api
 import (
 	"encoding/base64"
 	"net/http"
+	"strings"
 	"webtoolkit/metier"
 )
 
 /*
-	handleLogin est en charge de l'url "/login".
+handleLogin est en charge de l'url "/login".
 */
 func handleLogin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
@@ -18,11 +19,12 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		respond(w, http.StatusBadRequest, err.Error())
 		return
 	}
+	realm := strings.Split(r.Host, ".")[0] // realm est la 1ère partie de l'url
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 	address := ipAddress(r)
 
-	token, err := metier.Auth(user, pass, address)
+	token, err := metier.Auth(realm, user, pass, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
