@@ -21,6 +21,7 @@ var routes = []struct {
 	{"/upper", handleUpper, true},
 	{"/lower", handleLower, true},
 	{"/historic", handleHistoric, true},
+	{"/list", handleListUsers, true},
 }
 
 // Routes initalise les routes
