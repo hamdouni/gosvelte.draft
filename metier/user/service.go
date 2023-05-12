@@ -21,7 +21,18 @@ func Add(realm, username, password string, role Role) error {
 	if err != nil {
 		return err
 	}
-	store.Add(*u)
+	return store.Add(*u)
+}
 
-	return nil
+// List retourne la liste des utilisateurs sans le password pour un realm donné
+func List(realm string) (users []User, err error) {
+	users, err = store.ListUsers(realm)
+	if err != nil {
+		return users, err
+	}
+	// purge password
+	for i := range users {
+		users[i].Password = ""
+	}
+	return users, nil
 }

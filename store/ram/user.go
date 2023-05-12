@@ -26,3 +26,12 @@ func (rs *RAM) ExistUsername(realm, username string) bool {
 	_, exists := rs.users[k]
 	return exists
 }
+
+func (rs *RAM) ListUsers(realm string) (users []user.User, err error) {
+	for _, u := range rs.users {
+		if u.Realm == realm {
+			users = append(users, u)
+		}
+	}
+	return users, nil
+}

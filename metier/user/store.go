@@ -13,4 +13,5 @@ type Storage interface {
 	GetPassword(realm, username string) (encryptedPassword string)
 	ExistUsername(realm, username string) bool
 	Add(user User) error
+	ListUsers(realm string) ([]User, error)
 }
