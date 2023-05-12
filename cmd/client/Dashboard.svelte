@@ -4,13 +4,15 @@
   import Min from "./Min.svelte";
   import Historic from "./Historic.svelte";
   import Table from "./Table.svelte";
+  import List from "./List.svelte";
 
   let Menu = [
     { id: "bonjour", component: Bonjour, icon: "la-handshake", label: "Bonjour" },
     { id: "maj", component: Maj, icon: "la-chart-bar", label: "Majuscule" },
     { id: "min", component: Min, icon: "la-compass", label: "Minuscule" },
     { id: "historic", component: Historic, icon: "la-credit-card", label: "Historique" },
-    { id: "table", component: Table, icon: "la-cubes", label:" Table" }
+    { id: "table", component: Table, icon: "la-cubes", label:" Table" },
+	{ id: "list", component: List, icon: "la-users", label: "Utilisateurs" }
   ];
 
   let showNavbarMenu = false;

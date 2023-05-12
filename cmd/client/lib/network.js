@@ -37,3 +37,6 @@ export async function callMin(nom) {
 export async function callHistoric() {
     return await callApi("/historic");
 }
+export async function callGetUsers() {
+	return await callApi("/list");
+}
