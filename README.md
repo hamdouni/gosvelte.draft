@@ -1,6 +1,14 @@
 # WebToolKit
 
-Ceci est un modèle d'application web en Go pour la partie serveur et Svelte pour la partie cliente, avec Docker Compose comme orchestrateur. Il peut servir de base pour construire rapidement une application utilisant ces technologies.
+Ceci est un modèle d'application web multi-tenants en Go pour la partie serveur et Svelte pour la partie cliente, avec Docker Compose comme orchestrateur. Il peut servir de base pour construire rapidement une application utilisant ces technologies.
+
+Le multi-tenants est assuré par le host dans l'url d'accès au service. Par exemple :
+
+`http://realm.local.tld`
+
+utilisera le tenant "realm" dans le reste de l'application (login, handlers, ...)
+
+Donc, pour tester, il faut utiliser http://test.localhost (le tenant 'test' est défini dans server.go)
 
 ## Pré-requis
 
