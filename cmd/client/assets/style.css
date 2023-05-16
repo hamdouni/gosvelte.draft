@@ -183,37 +183,11 @@ input, select {
     border-radius: 0.3rem;
 }
 
-button {
-    cursor: pointer;
-    box-shadow: 1px 1px 1px 0px;
-    padding: 0.75rem 0.5rem;
-    border: 0;
-    border-radius: 0.3rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: var(--bg-color);
-}
-
-button:focus {
-    color:  var(--bg-color);
-    background-color: #fff;
-}
-
 .action {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
-}
-
-.action button {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5rem;
-}
-
-.action button:first-child {
-    margin-left: 0;
 }
 
 /* field input with icon */
