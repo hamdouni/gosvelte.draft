@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"net"
 	"net/http"
+	"webtoolkit/biz/secure"
 	"strings"
-	"webtoolkit/metier/secure"
 )
 
 const authCookieName = "jeton"
@@ -14,7 +14,7 @@ const authCookieName = "jeton"
 func auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !isAuth(r) {
-			respond(w, http.StatusUnauthorized, "Non autorisé.")
+			respond(w, http.StatusUnauthorized, "not authorized")
 			return
 		}
 		next(w, r)

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"webtoolkit/api"
-	"webtoolkit/metier"
-	"webtoolkit/metier/user"
+	"webtoolkit/biz"
+	"webtoolkit/biz/user"
 	"webtoolkit/store/ram"
+	"strconv"
 )
 
 func main() {
@@ -37,9 +37,8 @@ func run(args []string) error {
 	}
 
 	// configure le métier avec le storage
-	// ici on utilise le même storage pour l'historique et les users
 	// mais on peut imaginer d'avoir un système de stockage différencié
-	metier.Configure(&storage, &storage)
+	biz.Configure(&storage)
 
 	// ajoute un user de test
 	err = user.Add("test", "test", "test", user.Administrator)

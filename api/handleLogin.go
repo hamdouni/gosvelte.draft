@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"net/http"
 	"strings"
-	"webtoolkit/metier"
+	"webtoolkit/biz"
 )
 
 /*
@@ -24,7 +24,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	pass := r.Form.Get("password")
 	address := ipAddress(r)
 
-	token, err := metier.Auth(realm, user, pass, address)
+	token, err := biz.Auth(realm, user, pass, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return

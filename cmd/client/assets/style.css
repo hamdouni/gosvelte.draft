@@ -247,8 +247,3 @@ button:focus {
 .login h1 .icon {
     font-size: 3rem;
 }
-article.alert {
-    max-width: 15rem;
-    color: var(--text-alert-color);
-    font-weight: bold;
-}

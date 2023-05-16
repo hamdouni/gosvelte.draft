@@ -1,16 +1,21 @@
 <script>
 	import * as net from "./lib/network.js";
+    import Error from "./components/Error.svelte";
 
-	let users = "rien"; 
+	let users = []; 
 	async function list() {
-		let res = await fetch("/list")
-		if(res.ok) {
-			users = await res.json();
+		let res = await net.callGetUsers()
+		if (res.error != null) {
+			console.log("error:", res.error);
+			return
 		}
+		users = res.response;
 	}
 	list();
 
 </script>
+
+<Error message=""/>
 
 <h1>Liste des utilisateurs</h1>
 

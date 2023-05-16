@@ -1,9 +1,11 @@
 <script>
+  import Error from "./components/Error.svelte";
+
   export let connectedStatus = "";
 
   let username;
   let password;
-  let err;
+  let errMessage;
 
   async function login() {
 	try {
@@ -16,18 +18,23 @@
 		  connectedStatus = true;
 		} else {
 		  connectedStatus = false;
-		  err =
+		  errMessage =
 			"Echec de la connexion. Veuillez vérifier votre identifiant et votre mot de passe. Si le problème persiste, merci de contacter l'administrateur.";
 		}
 	}
 	catch(error) {
-		err = "Problème réseau: impossible de contacter le serveur";
+		errMessage = "Problème réseau: impossible de contacter le serveur";
 	}
   }
 </script>
 
 <section >
   <main class="login">
+
+{#if errMessage}
+<Error message="{errMessage}"/>
+{/if}
+
     <h1>
       <span class="icon">
         <i class="las la-cube la-fw" />
@@ -51,11 +58,6 @@
           Connecter
         </button>
       </div>
-      {#if err}
-        <article class="message alert">
-          {err}
-        </article>
-      {/if}
     </form>
   </main>
 </section>

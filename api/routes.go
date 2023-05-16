@@ -14,13 +14,10 @@ var routes = []struct {
 	handler  http.HandlerFunc // fonction en charge
 	auth     bool             // indicateur fonction authentifiée
 }{
-	{"/hello", handleHello, false},
 	{"/login", handleLogin, false},
 	{"/logout", handleLogout, false},
 	{"/check", handleLoginCheck, false},
-	{"/upper", handleUpper, true},
-	{"/lower", handleLower, true},
-	{"/historic", handleHistoric, true},
+	{"/hello", handleHello, true},
 	{"/list", handleListUsers, true},
 }
 

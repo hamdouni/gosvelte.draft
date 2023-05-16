@@ -1,6 +1,6 @@
 package ram
 
-import "webtoolkit/metier/user"
+import "webtoolkit/biz/user"
 
 type RAM struct {
 	historic []string

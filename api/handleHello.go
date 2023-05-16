@@ -2,8 +2,7 @@ package api
 
 import (
 	"net/http"
-	"webtoolkit/metier"
-	"webtoolkit/metier/historic"
+	"webtoolkit/biz"
 )
 
 /*
@@ -17,7 +16,6 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := metier.Hello(nom)
-	historic.Save(message)
+	message := biz.Hello(nom)
 	respond(w, http.StatusOK, message)
 }

@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 	"strings"
-	"webtoolkit/metier/user"
+	"webtoolkit/biz/user"
 )
 
 func handleListUsers(w http.ResponseWriter, r *http.Request) {

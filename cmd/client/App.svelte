@@ -12,7 +12,6 @@
 	// vérifie périodiquement que la connexion est toujours ok
 	function periodicCheck() {
 		callCheckConnexion().then(response => { 
-			console.log("checking connexion:", response);
 			connectedStatus = response; 
 			if (connectedStatus) {
 				setTimeout(periodicCheck, 5000);
