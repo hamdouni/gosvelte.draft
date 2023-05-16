@@ -1,8 +1,9 @@
 <script>
-	import Login from './Login.svelte';
-	import Dashboard from './Dashboard.svelte';
 	import { getCookie } from './lib/cookie.js';
 	import { callCheckConnexion } from "./lib/network.js";
+
+	import Login from './functions/Login.svelte';
+	import Dashboard from './functions/Dashboard.svelte';
 
 	// pas de jeton => l'utilisateur n'est pas connecté
 	// si on a un jeton, on vérifie auprès du serveur

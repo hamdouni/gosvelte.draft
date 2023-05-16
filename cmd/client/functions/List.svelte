@@ -1,6 +1,6 @@
 <script>
-	import * as net from "./lib/network.js";
-    import Error from "./components/Error.svelte";
+	import * as net from "../lib/network.js";
+    import Error from "../components/Error.svelte";
 
 	let users = []; 
 	async function list() {

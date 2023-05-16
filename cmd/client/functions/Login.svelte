@@ -1,13 +1,16 @@
 <script>
-  import Error from "./components/Error.svelte";
+  import Error from "../components/Error.svelte";
+  import Input from "../components/Input.svelte";
+  import Button from "../components/Button.svelte";
 
-  export let connectedStatus = "";
+  export let connectedStatus = false;
 
   let username;
   let password;
   let errMessage;
 
   async function login() {
+    errMessage = "";
 	try {
 		let response = await fetch("/login", {
 		  method: "POST",
@@ -41,22 +44,16 @@
       </span>
       <span>Webtoolkit</span>
     </h1>
-    <!-- svelte-ignore a11y-autofocus-->
     <form on:submit|preventDefault={login} action="/login" method="post" class="box">
-      <label for="username" class="label">E-mail</label>
-      <div class="field icon">
-        <input type="email" name="username" bind:value={username} autofocus="autofocus" />
-        <i class="las la-user" />
-      </div>
-      <label for="password" class="label">Mot de passe</label>
-      <div class="field icon">
-          <input type="password" name="password" bind:value={password} />
-            <i class="las la-unlock" />
-      </div>
+
+	  <Input libelle="Identifiant" name="username" icon="las la-user" bind:value={username} autofocus />
+
+	  <Input type="password" libelle="Mot de passe" name="password" icon="las la-unlock" bind:value="{password}" />
+
       <div class="field">
-        <button on:click|preventDefault={login}>
+        <Button>
           Connecter
-        </button>
+        </Button>
       </div>
     </form>
   </main>
