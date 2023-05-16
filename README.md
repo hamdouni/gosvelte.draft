@@ -10,6 +10,8 @@ utilisera le tenant "realm" dans le reste de l'application (login, handlers, ...
 
 Donc, pour tester, il faut utiliser http://test.localhost (le tenant 'test' est défini dans server.go)
 
+La partie css est gérée par Tailwindcss.
+
 ## Pré-requis
 
 - Go
