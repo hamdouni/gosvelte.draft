@@ -15,7 +15,7 @@ install:
 
 start:
 	docker-compose up -d
-	cd cmd/client && npm run build
+	cd cmd/client && npm run dev
 
 stop:
 	echo "Stopping dev env"
@@ -32,7 +32,7 @@ build-client:
 
 build-server:
 	echo "build server"
-	go build cmd/server.go
+	go build -o ./build/ cmd/server/server.go
 
 build: build-client build-server
 

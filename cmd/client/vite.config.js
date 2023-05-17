@@ -8,7 +8,10 @@ export default defineConfig({
   	preprocess: preprocess(),
   })],
   build: {
-	  outDir: "./static/",
-	  watch: true,
+	  manifest: true,
+	  outDir: "../../build/client",
+	  rollupOptions: {
+		  input: 'boot.js',
+	  },
   },
 })

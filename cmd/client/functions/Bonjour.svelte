@@ -16,29 +16,26 @@
 	}
     let res = await net.callBonjour(nom);
 	if (res.error != null) {
-		console.log("error:", res.error);
+		errMessage = res.error;
 		return
 	}
 	resultat = res.response;
   }
 </script>
 
-<div>
+<h1>Bonjour</h1>
 
-  <h1>Bonjour</h1>
+{#if errMessage}
+<Error message={errMessage}/>
+{/if}
 
-  {#if errMessage}
-  <Error message={errMessage}/>
-  {/if}
-
-  <form on:submit|preventDefault={bonjour}>
-	  <Input libelle="Entrer un prénom" placeholder="Prénom..." bind:value={nom} name="name" icon="las la-user" autofocus />
-	  <Button>
-		Bonjour
-	  </Button>
-  </form>
-  {#if resultat}
-    <hr />
-    {resultat}
-  {/if}
-</div>
+<form on:submit|preventDefault={bonjour}>
+  <Input libelle="Entrer un prénom" placeholder="Prénom..." bind:value={nom} name="name" icon="las la-user" autofocus />
+  <Button>
+	Bonjour
+  </Button>
+</form>
+{#if resultat}
+<hr />
+{resultat}
+{/if}
