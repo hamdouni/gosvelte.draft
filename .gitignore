@@ -6,3 +6,6 @@ tmp
 app.js 
 app.js.map
 build
+database.db
+database.db-shm
+database.db-wal

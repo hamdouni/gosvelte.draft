@@ -34,8 +34,8 @@ func run(args []string) error {
 
 	var initSchema = false
 
-	storage, initSchema, err := useRamDB()
-	// storage, initSchema, err := useSqliteDB()
+	// storage, initSchema, err := useRamDB()
+	storage, initSchema, err := useSqliteDB()
 
 	// configure le métier avec le storage
 	// mais on peut imaginer d'avoir un système de stockage différencié
