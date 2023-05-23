@@ -13,18 +13,18 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
+	"testing"
 	"webtoolkit/api"
 	"webtoolkit/biz"
 	"webtoolkit/biz/secure"
 	"webtoolkit/biz/user"
 	"webtoolkit/store/ram"
-	"strings"
-	"testing"
 )
 
 func init() {
 	fakeStore, _ := ram.New()
-	biz.Configure(&fakeStore)
+	biz.Intialize(&fakeStore)
 	user.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }

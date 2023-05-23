@@ -4,9 +4,9 @@ COPY . /src
 ENV CGO_ENABLED=0
 ENV GOARCH=amd64
 ENV GOOS=linux
-RUN go build -o server cmd/main.go
+RUN go build -o ./build/ cmd/srv/server.go
 
 FROM scratch
-COPY --from=build-go /src/server /
+COPY --from=build-go server /
 CMD ["/server"]
 EXPOSE 80

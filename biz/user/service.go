@@ -4,7 +4,7 @@ import "webtoolkit/biz/secure"
 
 // ValidatePassword vérifie la conformité de l'identifiant et mot de passe
 func CheckPassword(realm, username, password string) bool {
-	hashed := store.GetPassword(realm, username)
+	hashed := config.store.GetPassword(realm, username)
 	return secure.CheckPassword(password, hashed)
 }
 
@@ -14,19 +14,19 @@ func Add(realm, username, password string, role Role) error {
 	if err != nil {
 		return err
 	}
-	if store.ExistUsername(realm, username) {
+	if config.store.ExistUsername(realm, username) {
 		return ErrUsernameUsed
 	}
 	u, err := New(realm, username, hashed, role)
 	if err != nil {
 		return err
 	}
-	return store.Add(*u)
+	return config.store.Add(*u)
 }
 
 // List retourne la liste des utilisateurs sans le password pour un realm donné
 func List(realm string) (users []User, err error) {
-	users, err = store.ListUsers(realm)
+	users, err = config.store.ListUsers(realm)
 	if err != nil {
 		return users, err
 	}

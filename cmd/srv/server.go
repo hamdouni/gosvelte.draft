@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"webtoolkit/api"
+	"strconv"
 	"webtoolkit/biz"
 	"webtoolkit/biz/user"
-	"webtoolkit/store/ram"
-	"strconv"
+	"webtoolkit/cmd/api"
+	"webtoolkit/infra/store/ram"
 )
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 func run(args []string) error {
 	host := flag.String("host", "0.0.0.0", "host name to listen on")
 	port := flag.Int("port", 80, "port to listen on")
-	static := flag.String("static", "./cmd/client/", "static files folder")
+	static := flag.String("static", "./cmd/cli/", "static files folder")
 	help := flag.Bool("help", false, "show command usage")
 	flag.Parse()
 
@@ -38,7 +38,7 @@ func run(args []string) error {
 
 	// configure le métier avec le storage
 	// mais on peut imaginer d'avoir un système de stockage différencié
-	biz.Configure(&storage)
+	biz.Intialize(&storage)
 
 	// ajoute un user de test
 	err = user.Add("test", "test", "test", user.Administrator)

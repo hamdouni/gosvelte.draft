@@ -5,7 +5,7 @@ import (
 	"webtoolkit/biz/user"
 )
 
-func Configure(s user.Storage) error {
+func Intialize(s user.Storage) error {
 
 	// initialise le composant de sécurité
 	err := secure.Init()
@@ -13,7 +13,7 @@ func Configure(s user.Storage) error {
 		return err
 	}
 
-	user.UseStore(s)
+	user.WithRepo(s)
 
 	return nil
 }
