@@ -6,4 +6,5 @@ type Storage interface {
 	ExistUsername(realm, username string) bool
 	Add(user User) error
 	ListUsers(realm string) ([]User, error)
+	InitSchema() error
 }

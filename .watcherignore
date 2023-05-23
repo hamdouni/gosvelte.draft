@@ -6,3 +6,4 @@
 *.mod
 *.sum
 cmd/client
+database.*

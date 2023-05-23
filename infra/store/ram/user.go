@@ -5,6 +5,7 @@ import "wtk/biz/user"
 func key(realm, username string) string {
 	return realm + ":" + username
 }
+
 func (rs *RAM) Add(u user.User) error {
 	k := key(u.Realm, u.Username)
 	rs.users[k] = user.User{
@@ -34,4 +35,9 @@ func (rs *RAM) ListUsers(realm string) (users []user.User, err error) {
 		}
 	}
 	return users, nil
+}
+
+// ram does not use schema
+func (rs *RAM) InitSchema() error {
+	return nil
 }
