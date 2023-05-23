@@ -14,8 +14,7 @@ install:
 	cd cmd/cli && npm -s i
 
 start:
-	docker-compose up -d
-	cd cmd/cli && npm run dev
+	tmux send-keys 'watcher -run cmd/srv/server.go' C-m \; split-window -h \; send-keys 'cd cmd/cli && npm run dev' C-m \;
 
 stop:
 	echo "Stopping dev env"

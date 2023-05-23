@@ -17,6 +17,7 @@ La partie css est gérée par Tailwindcss.
 - Go
 - Docker et Docker Compose
 - npm
+- [Watcher](https://github.com/sipkg/watcher) 
 
 ## Installation
 
