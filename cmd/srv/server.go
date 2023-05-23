@@ -36,6 +36,15 @@ func run(args []string) error {
 
 	// storage, initSchema, err := useRamDB()
 	storage, initSchema, err := useSqliteDB()
+	if err != nil {
+		return fmt.Errorf("impossible d'obtenir une base: %w", err)
+	}
+	defer func() {
+		err := storage.Close()
+		if err != nil {
+			log.Fatalf("closing database: %s", err)
+		}
+	}()
 
 	// configure le métier avec le storage
 	// mais on peut imaginer d'avoir un système de stockage différencié

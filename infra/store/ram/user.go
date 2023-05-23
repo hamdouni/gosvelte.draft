@@ -41,3 +41,8 @@ func (rs *RAM) ListUsers(realm string) (users []user.User, err error) {
 func (rs *RAM) InitSchema() error {
 	return nil
 }
+
+// ram does not close
+func (rs *RAM) Close() error {
+	return nil
+}

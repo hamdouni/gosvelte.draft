@@ -7,4 +7,5 @@ type Storage interface {
 	Add(user User) error
 	ListUsers(realm string) ([]User, error)
 	InitSchema() error
+	Close() error
 }
