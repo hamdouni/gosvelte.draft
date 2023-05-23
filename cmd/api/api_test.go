@@ -24,7 +24,7 @@ import (
 
 func init() {
 	fakeStore, _ := ram.New()
-	biz.Intialize(&fakeStore)
+	biz.Initialize(&fakeStore)
 	user.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }

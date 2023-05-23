@@ -7,7 +7,7 @@ import (
 )
 
 func TestToken(t *testing.T) {
-	biz.Intialize(nil)
+	biz.Initialize(nil)
 	token, err := secure.NewToken("fakeuser", "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)

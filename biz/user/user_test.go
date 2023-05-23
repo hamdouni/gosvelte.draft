@@ -64,7 +64,7 @@ func TestDuplicateUser(t *testing.T) {
 	}
 
 	// configure le métier avec le storage
-	biz.Intialize(&storage)
+	biz.Initialize(&storage)
 
 	// ajoute un user de test
 	err = user.Add("FakeRealm", "test", "test", user.Administrator)
