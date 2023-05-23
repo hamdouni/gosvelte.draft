@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"net"
 	"net/http"
-	"webtoolkit/biz/secure"
 	"strings"
+	"wtk/biz/secure"
 )
 
 const authCookieName = "jeton"

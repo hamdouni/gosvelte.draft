@@ -2,9 +2,9 @@ package user_test
 
 import (
 	"testing"
-	"webtoolkit/biz"
-	"webtoolkit/biz/user"
-	"webtoolkit/store/ram"
+	"wtk/biz"
+	"wtk/biz/user"
+	"wtk/infra/store/ram"
 )
 
 func TestCreateUser(t *testing.T) {

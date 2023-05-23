@@ -2,7 +2,7 @@ package biz_test
 
 import (
 	"testing"
-	"webtoolkit/biz"
+	"wtk/biz"
 )
 
 func TestBonjour(t *testing.T) {

@@ -15,11 +15,11 @@ import (
 	"net/url"
 	"strings"
 	"testing"
-	"webtoolkit/api"
-	"webtoolkit/biz"
-	"webtoolkit/biz/secure"
-	"webtoolkit/biz/user"
-	"webtoolkit/store/ram"
+	"wtk/biz"
+	"wtk/biz/secure"
+	"wtk/biz/user"
+	"wtk/cmd/api"
+	"wtk/infra/store/ram"
 )
 
 func init() {

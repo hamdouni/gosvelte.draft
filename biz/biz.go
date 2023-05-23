@@ -1,8 +1,8 @@
 package biz
 
 import (
-	"webtoolkit/biz/secure"
-	"webtoolkit/biz/user"
+	"wtk/biz/secure"
+	"wtk/biz/user"
 )
 
 func Intialize(s user.Storage) error {

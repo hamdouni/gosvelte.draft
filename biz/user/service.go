@@ -1,6 +1,6 @@
 package user
 
-import "webtoolkit/biz/secure"
+import "wtk/biz/secure"
 
 // ValidatePassword vérifie la conformité de l'identifiant et mot de passe
 func CheckPassword(realm, username, password string) bool {

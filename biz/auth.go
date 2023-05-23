@@ -2,8 +2,8 @@ package biz
 
 import (
 	"fmt"
-	"webtoolkit/biz/secure"
-	"webtoolkit/biz/user"
+	"wtk/biz/secure"
+	"wtk/biz/user"
 )
 
 // Auth vérifie l'authentification de l'utilisateur et retourne un token signé.

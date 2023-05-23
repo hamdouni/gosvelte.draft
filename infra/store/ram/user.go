@@ -1,6 +1,6 @@
 package ram
 
-import "webtoolkit/biz/user"
+import "wtk/biz/user"
 
 func key(realm, username string) string {
 	return realm + ":" + username

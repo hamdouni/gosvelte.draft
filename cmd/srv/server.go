@@ -6,10 +6,10 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"webtoolkit/biz"
-	"webtoolkit/biz/user"
-	"webtoolkit/cmd/api"
-	"webtoolkit/infra/store/ram"
+	"wtk/biz"
+	"wtk/biz/user"
+	"wtk/cmd/api"
+	"wtk/infra/store/ram"
 )
 
 func main() {

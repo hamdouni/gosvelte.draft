@@ -1,4 +1,4 @@
-module webtoolkit
+module wtk
 
 go 1.20
 

@@ -2,8 +2,8 @@ package secure_test
 
 import (
 	"testing"
-	"webtoolkit/biz"
-	"webtoolkit/biz/secure"
+	"wtk/biz"
+	"wtk/biz/secure"
 )
 
 func TestToken(t *testing.T) {

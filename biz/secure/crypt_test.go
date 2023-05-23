@@ -2,7 +2,7 @@ package secure_test
 
 import (
 	"testing"
-	"webtoolkit/biz/secure"
+	"wtk/biz/secure"
 )
 
 // Robert C. Martin - 2019
