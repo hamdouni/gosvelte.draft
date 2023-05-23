@@ -14,7 +14,7 @@ install:
 	cd cmd/cli && npm -s i
 
 start:
-	tmux send-keys 'watcher -run cmd/srv/server.go' C-m \; split-window -h \; send-keys 'cd cmd/cli && npm run dev' C-m \;
+	tmux send-keys 'watcher -run cmd/srv/*.go' C-m \; split-window -h \; send-keys 'cd cmd/cli && npm run dev' C-m \;
 
 stop:
 	echo "Stopping dev env"
@@ -31,7 +31,7 @@ build-client:
 
 build-server:
 	echo "build server"
-	go build -o ./build/ cmd/srv/server.go
+	go build -o ./build/ cmd/srv/*.go
 
 build: build-client build-server
 
