@@ -19,7 +19,7 @@
 		errMessage = res.error;
 		return
 	}
-	resultat = res.response;
+	resultat = res.data;
   }
 </script>
 
@@ -30,7 +30,7 @@
 {/if}
 
 <form on:submit|preventDefault={bonjour}>
-  <Input libelle="Entrer un prénom" placeholder="Prénom..." bind:value={nom} name="name" icon="las la-user" autofocus />
+  <Input libelle="Entrer un prénom" placeholder="Prénom..." bind:value={nom} name="name" icon="las la-user" autofocus="autofocus" />
   <Button>
 	Bonjour
   </Button>

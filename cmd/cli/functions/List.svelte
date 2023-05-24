@@ -9,7 +9,7 @@
 			console.log("error:", res.error);
 			return
 		}
-		users = res.response;
+		users = res.data;
 	}
 	list();
 
@@ -19,8 +19,10 @@
 
 <h1>Liste des utilisateurs</h1>
 
-<ul>
+<div class="grid grid-cols-3 gap-4">
 {#each users as user}
-<li> {user.Username}	{user.Role}	{user.Realm} </li>
+	<div> {user.Username} </div>
+	<div> {user.Role} </div>
+	<div> {user.Realm} </div>
 {/each}
-</ul>
+</div>

@@ -1,20 +1,21 @@
 export async function callApi(url) {
     try {
         let response = await fetch(url);
+		let data = await response.json()
         if(response.ok) {
             return {
 				error: null,
-				response: await response.json()
+				data: data
 			};
         }
 		return {
 				error: response.status,
-				response: null
+				data: null
 		};
     } catch (error) {
 		return {
 				error: error,
-				response: null
+				data: null
 		};
     }
 }
