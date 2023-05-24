@@ -3,19 +3,21 @@
     import Error from "../components/Error.svelte";
 
 	let users = []; 
+	let errMessage;
 	async function list() {
 		let res = await net.callGetUsers()
 		if (res.error != null) {
-			console.log("error:", res.error);
+			errMessage = res.error;
 			return
 		}
 		users = res.data;
 	}
 	list();
-
 </script>
 
-<Error message=""/>
+{#if errMessage}
+<Error>{errMessage}</Error>
+{/if}
 
 <h1>Liste des utilisateurs</h1>
 

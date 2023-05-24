@@ -32,7 +32,7 @@
   <main class="login">
 
 {#if errMessage}
-<Error message="{errMessage}"/>
+<Error>{errMessage}</Error>
 {/if}
 
     <h1>

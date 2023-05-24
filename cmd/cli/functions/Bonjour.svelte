@@ -26,7 +26,7 @@
 <h1>Bonjour</h1>
 
 {#if errMessage}
-<Error message={errMessage}/>
+<Error>{errMessage}</Error>
 {/if}
 
 <form on:submit|preventDefault={bonjour}>
