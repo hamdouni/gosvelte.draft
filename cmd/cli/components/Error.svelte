@@ -2,7 +2,7 @@
 export let message = "une erreur inconnue s'est produite";
 </script>
 
-<div role="alert">
+<div role="alert" class="max-w-xs">
   <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
     Erreur
   </div>
