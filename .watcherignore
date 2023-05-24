@@ -5,5 +5,5 @@
 *.sh
 *.mod
 *.sum
-cmd/client
+cmd/cli
 database.*
