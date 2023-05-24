@@ -14,16 +14,21 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		respond(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
 	}
-	if err := r.ParseForm(); err != nil {
+
+	realm := getRealm(r)
+	address := ipAddress(r)
+
+	var credential struct {
+		Username string
+		Password string
+	}
+
+	if err := decodeJson(r, &credential); err != nil {
 		respond(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	realm := getRealm(r)
-	user := r.Form.Get("username")
-	pass := r.Form.Get("password")
-	address := ipAddress(r)
 
-	token, err := biz.Auth(realm, user, pass, address)
+	token, err := biz.Auth(realm, credential.Username, credential.Password, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
