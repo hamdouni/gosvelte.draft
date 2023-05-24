@@ -3,7 +3,6 @@ package api
 import (
 	"encoding/base64"
 	"net/http"
-	"strings"
 	"wtk/biz"
 )
 
@@ -19,7 +18,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		respond(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	realm := strings.Split(r.Host, ".")[0] // realm est la 1ère partie de l'url
+	realm := getRealm(r)
 	user := r.Form.Get("username")
 	pass := r.Form.Get("password")
 	address := ipAddress(r)
