@@ -11,6 +11,7 @@ test:
 	go test ./...
 
 install:
+	go mod tidy
 	cd cmd/cli && npm -s i
 
 start:
