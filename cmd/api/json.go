@@ -10,11 +10,16 @@ import (
 var ErrJsonPayloadEmpty = errors.New("Empty Json Payload")
 
 func decodeJson(r *http.Request, v interface{}) error {
+	if r.Body == nil {
+		return ErrJsonPayloadEmpty
+	}
+
 	content, err := ioutil.ReadAll(r.Body)
-	r.Body.Close()
 	if err != nil {
 		return err
 	}
+	defer r.Body.Close()
+
 	if len(content) == 0 {
 		return ErrJsonPayloadEmpty
 	}

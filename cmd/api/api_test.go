@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -45,15 +46,11 @@ func TestPassword(t *testing.T) {
 	}
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			form := url.Values{}
-			form.Add("username", tc.username)
-			form.Add("password", tc.password)
-			body := strings.NewReader(form.Encode())
-			req, err := http.NewRequest("POST", "/login", body)
+			payload := fmt.Sprintf(`{"username":"%s","password":"%s"}`, tc.username, tc.password)
+			req, err := http.NewRequest("POST", "/login", strings.NewReader(payload))
 			if err != nil {
 				t.Errorf("Should be able to create a request but got %s", err)
 			}
-			req.Form = form
 			req.Host = tc.realm + ".localhost"
 			rw := httptest.NewRecorder()
 			http.DefaultServeMux.ServeHTTP(rw, req)

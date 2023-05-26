@@ -79,7 +79,7 @@ func run(args []string) error {
 }
 
 // composant de stockage en RAM
-func useRamDB() (store user.Storage, needSchema bool, err error) {
+func useRamDB() (store biz.Storage, needSchema bool, err error) {
 	st, err := ram.New()
 	if err != nil {
 		return store, false, err
@@ -88,7 +88,7 @@ func useRamDB() (store user.Storage, needSchema bool, err error) {
 }
 
 // composant de stockage sqlite
-func useSqliteDB() (store user.Storage, needSchema bool, err error) {
+func useSqliteDB() (store biz.Storage, needSchema bool, err error) {
 	const pragma = "_pragma=foreign_keys(1)&_pragma=journal_mode(WAL)&_pragma=synchronous(NORMAL)&_pragma=busy_timeout(8000)&_pragma=journal_size_limit(100000000)"
 	const databasePath = "database.db"
 	_, err = os.Stat(databasePath)

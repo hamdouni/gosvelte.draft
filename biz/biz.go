@@ -5,7 +5,7 @@ import (
 	"wtk/biz/user"
 )
 
-func Initialize(s user.Storage) error {
+func Initialize(s Storage) error {
 
 	// initialise le composant de sécurité
 	err := secure.Init()
