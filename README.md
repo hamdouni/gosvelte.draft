@@ -1,70 +1,58 @@
 # WebToolKit
 
-Ceci est un modèle d'application web multi-tenants en Go pour la partie serveur et Svelte pour la partie cliente, avec Docker Compose comme orchestrateur. Il peut servir de base pour construire rapidement une application utilisant ces technologies.
+Ceci est un modèle d'application web multi-tenants en Go pour la partie serveur et Svelte pour la partie cliente.
 
-Le multi-tenants est assuré par le host dans l'url d'accès au service. Par exemple :
+Le multi-tenant est assuré par le host dans l'url d'accès au service. Par exemple :
 
 `http://realm.local.tld`
 
 utilisera le tenant "realm" dans le reste de l'application (login, handlers, ...)
 
-Donc, pour tester, il faut utiliser http://test.localhost (le tenant 'test' est défini dans server.go)
+Pour tester, il faut utiliser http://test.localhost:8000 (le tenant 'test' est défini dans server.go)
 
 La partie css est gérée par Tailwindcss.
 
 ## Pré-requis
 
-- Go
-- Docker et Docker Compose
-- npm
-- [Watcher](https://github.com/sipkg/watcher) 
+- Go : pour gérer le code en Go
+
+- npm : pour gérer le code en Javascript pour Svelte
+
+- Docker et Docker Compose : pour "packager" l'application et en faciliter le déploiement. Peut aussi éviter d'installer Go car le Dockerfile contient ce qu'il faut pour compiler du Go via un container dédié.
+
+- [Watcher](https://github.com/sipkg/watcher) : recompile le code Go dès qu'un fichier est modifié.
+
+- [GoConvey](https://github.com/smartystreets/goconvey) : relance les tests et affiche le résultat dans le navigateur à chaque modification.
 
 ## Installation
-
-Pour la partie cliente Svelte uniquement :
 
 ```
 make install
 ```
 
-## Utilisation
+Installe les dépendances Go (backend) et Javascript (frontend).
 
-Le client et le serveur sont automatiquement recompilés à chaque modification de leur code respectif.
+## Utilisation
 
 ```
 make
 ```
 
-Le dossier **client** contient le code source pour la partie cliente (Svelte). La construction de cette partie génère les fichiers app.js et app.css dans le sous-dossier "static".
+Lance dans 3 panels tmux :
+
+- GoConvey pour lancer automatiquement les tests Go
+- Watcher pour compiler et lancer le backend 
+- Svelte via 'npm' pour bundler et lancer le frontend
+
+A chaque modification, le composant correspondant (front ou back) est recompilé et relancé.
 
 L'architecture côté serveur respecte les principes de séparation des responsabilités :
 
-- **model** est en charge de la logique métier et de la structuration des données. On y trouve toutes les fonctions purement métiers, que l'on pourrait réutiliser dans d'autres projets. 
-Des interfaces sont définies pour intéragir avec le stockage des données et une injection de cette dépendance est nécessaire au démarrage. Une implémentation en RAM est fournie dans le paquet `store/ram`.
-Cette couche internalise les fonctions de sécurité dans le sous paquet `secure`. 
+- 'biz' est en charge de la logique métier et de la structuration des données. C'est ici qu'on devrait trouver ce qui fait la particularité de l'application.
 
-- **api** regroupe l'ensemble des fonctions en interaction avec l'extérieur (par exemple, l'application Svelte), et est responsable des échanges de données à travers le protocol HTTP. On y trouvera tous les points d'entrées, avec la mécanique pour décoder les demandes (request), retourner les données en réponses (response au format JSON) et utilise le chiffrement des données (cookie et hash mot de passe) mis à disposition par le métier.
+- 'cmd' contient les commandes permettant de démarrer et d'intéragir avec l'application. On y retrouve l'api et le client web, ainsi que le serveur.
 
-- **store** contient les différents magasins de données possibles. Un magasin en mémoire (ram) est utilisé en exemple et permet de remplir le contrat d'interface du métier pour le stockage des utilisateurs et de l'historique.
-
-## Reste à faire 
-
-- [x] découple l'api du biz en mettant une interface listant les fonctions attendues par api 
-- [x] montre comment on gère les données persistantes avec un store en mémoire
-- [x] ajoute un middleware côté client pour centraliser tous les accès réseaux et pouvoir capturer les erreurs et les déconnexions
-- [ ] ajoute des tests et montrer l'intérêt des interfaces
-- [x] gére la connexion/déconnexion et les zones publiques/privées
-    - [x] étoffe le storage pour stocker les users
-    - [x] implémente une 1ère vérification d'identifiant/mot de passe
-    - [x] crée un package séparé pour la sécurité (par ex. "sec")
-    - [x] gére la connexion côté IHM [en cours...]
-        - [x] connexion
-        - [x] déconnexion
-        - [x] détection déconnexion backend en testant la connexion toutes les 5s
-    - [x] implémente la stratégie d'authentification avec jeton (cf plus bas)
-        - [x] enregistre les infos dans le cookie
-        - [x] contrôle à chaque requête sa validité
-- [x] ajoute un Makefile pour faciliter l'installation et le lancement
+- 'ext' regroupe les éléments externes à l'application, comme le stockage des données.
 
 ## Stratégie d'authentification avec jeton (token)
 
@@ -80,21 +68,13 @@ Le jeton est envoyé au navigateur de l'utilisateur sous la forme d'un 'cookie' 
 2. on vérifie que l'adresse IP est toujours celle de connexion
 3. on vérifie que cela ne fait pas trop longtemps que la connexion a eu lieu
 
-## Docker
-
-Docker va nous servir à la fois de simulateur d'infrastructure de production et de stratégie de déploiement. 
-
 ## Test de l'API avec curl
 
 ```sh
-# On s'authentifie en POST et on sauvegarde le cookie dans un fichier
-curl -v -c /tmp/cookie.txt -d 'username=test&password=test' http://test.localhost:80/login
-# On peut appeler un service en POST en réutilisant le fichier cookie
-curl -v -b /tmp/cookie.txt -d 'nom=la%20galaxy' http://test.localhost:80/upper
-# Ou alors en simple GET (parametres dans l'URL)
-curl -v -b /tmp/cookie.txt http://test.localhost:80/hello\?nom\=le%20monde
-curl -v -b /tmp/cookie.txt http://test.localhost:80/lower\?nom\=The%20Universe
-curl -v -b /tmp/cookie.txt http://test.localhost:80/historic
+# On s'authentifie en envoyant un JSON et on sauvegarde le cookie dans un fichier
+curl -v -c /tmp/cookie.txt -d '{"username":"test","password":"test"}' http://test.localhost:8000/login
+# On peut appeler un service en réutilisant le fichier cookie
+curl -v -b /tmp/cookie.txt http://test.localhost:8000/hello\?nom\=le%20monde
 # On se déconnecte en modifiant le fichier cookie
-curl -v -c /tmp/cookie.txt http://test.localhost:80/logout
+curl -v -c /tmp/cookie.txt http://test.localhost:8000/logout
 ```
