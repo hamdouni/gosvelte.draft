@@ -4,7 +4,7 @@ import (
 	"testing"
 	"wtk/biz"
 	"wtk/biz/user"
-	"wtk/infra/store/ram"
+	"wtk/ext/store/ram"
 )
 
 func TestCreateUser(t *testing.T) {

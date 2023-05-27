@@ -3,8 +3,7 @@ package ram
 import "wtk/biz/user"
 
 type RAM struct {
-	historic []string
-	users    map[string]user.User
+	users map[string]user.User
 }
 
 // New retourne une RAM pouvant stocker des données

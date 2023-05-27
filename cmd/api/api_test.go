@@ -20,7 +20,7 @@ import (
 	"wtk/biz/secure"
 	"wtk/biz/user"
 	"wtk/cmd/api"
-	"wtk/infra/store/ram"
+	"wtk/ext/store/ram"
 )
 
 func init() {

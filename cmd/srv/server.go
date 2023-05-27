@@ -10,8 +10,8 @@ import (
 	"wtk/biz"
 	"wtk/biz/user"
 	"wtk/cmd/api"
-	"wtk/infra/store/ram"
-	"wtk/infra/store/sqlite"
+	"wtk/ext/store/ram"
+	"wtk/ext/store/sqlite"
 )
 
 func main() {
