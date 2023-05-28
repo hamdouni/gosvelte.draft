@@ -2,22 +2,22 @@ package secure_test
 
 import (
 	"testing"
-	"wtk/biz/secure"
+	"wtk/ext/secure"
 )
 
 func TestHash(t *testing.T) {
-	err := secure.Init()
+	sec, err := secure.New()
 	if err != nil {
 		t.Errorf("cannot initialize security: %s", err)
 	}
 
 	testpass := "CKVght324!"
 
-	hashedtext, err := secure.HashPassword(testpass)
+	hashedtext, err := sec.Hash(testpass)
 	if err != nil {
 		t.Errorf("cannot hash: %s", err)
 	}
-	if !secure.CheckPassword(testpass, hashedtext) {
+	if !sec.CheckHash(testpass, hashedtext) {
 		t.Errorf("expected check password to be true")
 	}
 }

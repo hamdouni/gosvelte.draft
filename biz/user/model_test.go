@@ -4,6 +4,7 @@ import (
 	"testing"
 	"wtk/biz"
 	"wtk/biz/user"
+	"wtk/ext/secure"
 	"wtk/ext/store/ram"
 )
 
@@ -60,11 +61,17 @@ func TestDuplicateUser(t *testing.T) {
 	// composant de stockage en RAM
 	storage, err := ram.New()
 	if err != nil {
-		t.Fatalf("Initializing ram")
+		t.Fatalf("Initializing ram: %s", err)
 	}
 
-	// configure le métier avec le storage
-	biz.Initialize(&storage)
+	// composant de sécurité
+	secure, err := secure.New()
+	if err != nil {
+		t.Fatalf("Initializing security: %s", err)
+	}
+
+	// configure le métier avec le storage et la sécurité
+	biz.Initialize(&storage, secure)
 
 	// ajoute un user de test
 	err = user.Add("FakeRealm", "test", "test", user.Administrator)

@@ -17,15 +17,16 @@ import (
 	"strings"
 	"testing"
 	"wtk/biz"
-	"wtk/biz/secure"
 	"wtk/biz/user"
+	"wtk/ext/secure"
 	"wtk/ext/store/ram"
 	"wtk/ui/api"
 )
 
 func init() {
 	fakeStore, _ := ram.New()
-	biz.Initialize(&fakeStore)
+	fakeSecure, _ := secure.New()
+	biz.Initialize(&fakeStore, fakeSecure)
 	user.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }
@@ -135,9 +136,9 @@ func TestAuthEndpoint(t *testing.T) {
 			// forge une requête avec un jeton valide
 			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			req.RemoteAddr = "1.2.3.4"
-			token, err := secure.NewToken("fakejeton", req.RemoteAddr)
+			token, err := user.Token("fakejeton", req.RemoteAddr)
 			if err != nil {
-				t.Errorf("NewToken should not err but got %s", err)
+				t.Errorf("Token should not err but got %s", err)
 			}
 			fakeCookie := base64.StdEncoding.EncodeToString([]byte(token))
 			req.AddCookie(&http.Cookie{Name: "jeton", Value: fakeCookie})

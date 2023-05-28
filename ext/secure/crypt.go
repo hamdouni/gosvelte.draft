@@ -15,8 +15,8 @@ import (
 // Encrypt encrypts data using 256-bit AES-GCM.  This both hides the content of
 // the data and provides a check that it hasn't been altered. Output takes the
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func Encrypt(plaintext string) (ciphertext string, err error) {
-	block, err := aes.NewCipher(securestore.key[:])
+func (sec SecureStore) Encrypt(plaintext string) (ciphertext string, err error) {
+	block, err := aes.NewCipher(sec.key[:])
 	if err != nil {
 		return "", err
 	}
@@ -37,8 +37,8 @@ func Encrypt(plaintext string) (ciphertext string, err error) {
 
 // Decrypt decrypts data using 256-bit AES-GCM. Expects input
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func Decrypt(ciphertext string) (plaintext string, err error) {
-	block, err := aes.NewCipher(securestore.key[:])
+func (sec SecureStore) Decrypt(ciphertext string) (plaintext string, err error) {
+	block, err := aes.NewCipher(sec.key[:])
 	if err != nil {
 		return "", err
 	}

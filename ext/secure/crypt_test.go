@@ -1,24 +1,23 @@
-package secure_test
+package secure
 
 import (
 	"testing"
-	"wtk/biz/secure"
 )
 
 // Robert C. Martin - 2019
 var ciphertext = "Only test the parts of the application that you want to work"
 
 func TestCrypt(t *testing.T) {
-	err := secure.Init()
+	sec, err := New()
 	if err != nil {
 		t.Errorf("cannot initialize security: %s", err)
 	}
 
-	cryptedtext, err := secure.Encrypt(ciphertext)
+	cryptedtext, err := sec.Encrypt(ciphertext)
 	if err != nil {
 		t.Errorf("cannot crypt: %s", err)
 	}
-	decriptedtext, err := secure.Decrypt(cryptedtext)
+	decriptedtext, err := sec.Decrypt(cryptedtext)
 	if err != nil {
 		t.Errorf("cannot decrypt: %s", err)
 	}

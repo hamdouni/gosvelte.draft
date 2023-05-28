@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/base64"
 	"net/http"
-	"wtk/biz/secure"
+	"wtk/biz/user"
 )
 
 const authCookieName = "jeton"
@@ -31,7 +31,7 @@ func isAuth(r *http.Request) bool {
 		return false
 	}
 
-	auth, err := secure.CheckToken(string(token), ipAddress(r))
+	auth, err := user.CheckToken(string(token), ipAddress(r))
 	if err != nil {
 		return false
 	}

@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"wtk/biz"
 	"wtk/biz/user"
+	"wtk/ext/secure"
 	"wtk/ext/store/ram"
 	"wtk/ext/store/sqlite"
 	"wtk/ui/api"
@@ -32,6 +33,8 @@ func run(args []string) error {
 		return nil
 	}
 
+	secure, err := secure.New()
+
 	var initSchema = false
 
 	// storage, initSchema, err := useRamDB()
@@ -48,7 +51,7 @@ func run(args []string) error {
 
 	// configure le métier avec le storage
 	// mais on peut imaginer d'avoir un système de stockage différencié
-	biz.Initialize(storage)
+	biz.Initialize(storage, secure)
 
 	if initSchema {
 		err = storage.InitSchema()

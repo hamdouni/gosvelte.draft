@@ -1,19 +1,14 @@
 package biz
 
 import (
-	"wtk/biz/secure"
 	"wtk/biz/user"
 )
 
-func Initialize(s Storage) error {
+func Initialize(sto Storage, sec Security) error {
 
-	// initialise le composant de sécurité
-	err := secure.Init()
-	if err != nil {
-		return err
-	}
+	user.WithSecurity(sec)
 
-	user.WithRepo(s)
+	user.WithRepo(sto)
 
 	return nil
 }

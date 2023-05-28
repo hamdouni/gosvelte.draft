@@ -1,25 +1,23 @@
-package secure_test
+package user_test
 
 import (
 	"testing"
-	"wtk/biz"
-	"wtk/biz/secure"
+	"wtk/biz/user"
 )
 
 func TestToken(t *testing.T) {
-	biz.Initialize(nil)
-	token, err := secure.NewToken("fakeuser", "fakelocalisation")
+	token, err := user.Token("fakeuser", "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
-	ok, err := secure.CheckToken(token, "otherlocalisation")
+	ok, err := user.CheckToken(token, "otherlocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
 	if ok {
 		t.Fatalf("Expecting check token to return false got %v", ok)
 	}
-	ok, err = secure.CheckToken(token, "fakelocalisation")
+	ok, err = user.CheckToken(token, "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}

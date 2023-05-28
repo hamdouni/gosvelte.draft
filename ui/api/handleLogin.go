@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/base64"
 	"net/http"
-	"wtk/biz"
+	"wtk/biz/user"
 )
 
 /*
@@ -28,7 +28,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := biz.Auth(realm, credential.Username, credential.Password, address)
+	token, err := user.Auth(realm, credential.Username, credential.Password, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
