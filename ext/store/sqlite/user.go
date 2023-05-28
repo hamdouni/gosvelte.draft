@@ -1,8 +1,8 @@
 package sqlite
 
-import "wtk/biz/user"
+import "wtk/biz/credential"
 
-func (store Store) Add(u user.User) error {
+func (store Store) Add(u credential.Credential) error {
 	q := `INSERT INTO user (username, password, role, realm) VALUES(?,?,?,?)`
 	_, err := store.database.Exec(q, u.Username, u.Password, u.Role, u.Realm)
 	return err
@@ -27,7 +27,7 @@ func (store Store) ExistUsername(realm, username string) (exists bool) {
 	return exists
 }
 
-func (store Store) ListUsers(realm string) (users []user.User, err error) {
+func (store Store) ListUsers(realm string) (users []credential.Credential, err error) {
 	q := `SELECT username, role FROM user WHERE realm=?`
 	rows, err := store.database.Query(q, realm)
 	if err != nil {
@@ -35,7 +35,7 @@ func (store Store) ListUsers(realm string) (users []user.User, err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-		var u user.User
+		var u credential.Credential
 		if err := rows.Scan(&u.Username, &u.Role); err != nil {
 			return users, err
 		}

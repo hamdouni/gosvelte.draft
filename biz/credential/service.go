@@ -1,4 +1,4 @@
-package user
+package credential
 
 // ValidatePassword vérifie la conformité de l'identifiant et mot de passe
 func CheckPassword(realm, username, password string) bool {
@@ -35,7 +35,7 @@ func Add(realm, username, password string, role Role) error {
 }
 
 // List retourne la liste des utilisateurs sans le password pour un realm donné
-func List(realm string) (users []User, err error) {
+func List(realm string) (users []Credential, err error) {
 	users, err = store.ListUsers(realm)
 	if err != nil {
 		return users, err

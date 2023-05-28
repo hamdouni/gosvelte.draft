@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/base64"
 	"net/http"
-	"wtk/biz/user"
+	"wtk/biz/credential"
 )
 
 /*
@@ -18,17 +18,17 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	realm := getRealm(r)
 	address := ipAddress(r)
 
-	var credential struct {
+	var creds struct {
 		Username string
 		Password string
 	}
 
-	if err := decodeJson(r, &credential); err != nil {
+	if err := decodeJson(r, &creds); err != nil {
 		respond(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	token, err := user.Auth(realm, credential.Username, credential.Password, address)
+	token, err := credential.Auth(realm, creds.Username, creds.Password, address)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return

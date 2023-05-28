@@ -17,7 +17,7 @@ import (
 	"strings"
 	"testing"
 	"wtk/biz"
-	"wtk/biz/user"
+	"wtk/biz/credential"
 	"wtk/ext/secure"
 	"wtk/ext/store/ram"
 	"wtk/ui/api"
@@ -27,7 +27,7 @@ func init() {
 	fakeStore, _ := ram.New()
 	fakeSecure, _ := secure.New()
 	biz.Initialize(&fakeStore, fakeSecure)
-	user.Add("FakeRealm", "samething", "samething", 1)
+	credential.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }
 
@@ -136,7 +136,7 @@ func TestAuthEndpoint(t *testing.T) {
 			// forge une requête avec un jeton valide
 			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			req.RemoteAddr = "1.2.3.4"
-			token, err := user.Token("fakejeton", req.RemoteAddr)
+			token, err := credential.Token("fakejeton", req.RemoteAddr)
 			if err != nil {
 				t.Errorf("Token should not err but got %s", err)
 			}

@@ -1,4 +1,4 @@
-package user
+package credential
 
 import "errors"
 

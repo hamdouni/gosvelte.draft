@@ -1,14 +1,14 @@
 package ram
 
-import "wtk/biz/user"
+import "wtk/biz/credential"
 
 func key(realm, username string) string {
 	return realm + ":" + username
 }
 
-func (rs *RAM) Add(u user.User) error {
+func (rs *RAM) Add(u credential.Credential) error {
 	k := key(u.Realm, u.Username)
-	rs.users[k] = user.User{
+	rs.users[k] = credential.Credential{
 		Username: u.Username,
 		Password: u.Password,
 		Role:     u.Role,
@@ -28,7 +28,7 @@ func (rs *RAM) ExistUsername(realm, username string) bool {
 	return exists
 }
 
-func (rs *RAM) ListUsers(realm string) (users []user.User, err error) {
+func (rs *RAM) ListUsers(realm string) (users []credential.Credential, err error) {
 	for _, u := range rs.users {
 		if u.Realm == realm {
 			users = append(users, u)

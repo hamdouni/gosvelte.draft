@@ -1,14 +1,14 @@
 package ram
 
-import "wtk/biz/user"
+import "wtk/biz/credential"
 
 type RAM struct {
-	users map[string]user.User
+	users map[string]credential.Credential
 }
 
 // New retourne une RAM pouvant stocker des données
 func New() (RAM, error) {
 	var rs RAM
-	rs.users = make(map[string]user.User)
+	rs.users = make(map[string]credential.Credential)
 	return rs, nil
 }

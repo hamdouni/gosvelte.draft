@@ -1,23 +1,23 @@
-package user_test
+package credential_test
 
 import (
 	"testing"
-	"wtk/biz/user"
+	"wtk/biz/credential"
 )
 
 func TestToken(t *testing.T) {
-	token, err := user.Token("fakeuser", "fakelocalisation")
+	token, err := credential.Token("fakeuser", "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
-	ok, err := user.CheckToken(token, "otherlocalisation")
+	ok, err := credential.CheckToken(token, "otherlocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}
 	if ok {
 		t.Fatalf("Expecting check token to return false got %v", ok)
 	}
-	ok, err = user.CheckToken(token, "fakelocalisation")
+	ok, err = credential.CheckToken(token, "fakelocalisation")
 	if err != nil {
 		t.Fatalf("Not expecting error:%s", err)
 	}

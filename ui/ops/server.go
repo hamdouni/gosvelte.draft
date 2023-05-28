@@ -8,7 +8,7 @@ import (
 	"os"
 	"strconv"
 	"wtk/biz"
-	"wtk/biz/user"
+	"wtk/biz/credential"
 	"wtk/ext/secure"
 	"wtk/ext/store/ram"
 	"wtk/ext/store/sqlite"
@@ -34,6 +34,9 @@ func run(args []string) error {
 	}
 
 	secure, err := secure.New()
+	if err != nil {
+		return fmt.Errorf("impossible d'initialiser le module de sécurité: %w", err)
+	}
 
 	var initSchema = false
 
@@ -59,18 +62,18 @@ func run(args []string) error {
 			return fmt.Errorf("impossible de créer le schéma de la base: %w", err)
 		}
 		// ajoute un user de test
-		err = user.Add("test", "test", "test", user.Administrator)
+		err = credential.Add("test", "test", "test", credential.Administrator)
 		if err != nil {
 			return fmt.Errorf("impossible de créer un utilisateur de test: %w", err)
 		}
 
 		// ajoute 5 fake user dans realm test
 		for i := 1; i <= 5; i++ {
-			err = user.Add("test", "test"+strconv.Itoa(i), "test", user.Customer)
+			err = credential.Add("test", "test"+strconv.Itoa(i), "test", credential.Customer)
 		}
 		// ajoute 5 fake user dans realm fakerealm
 		for i := 1; i <= 5; i++ {
-			err = user.Add("fakerealm", "test"+strconv.Itoa(i), "test", user.Customer)
+			err = credential.Add("fakerealm", "test"+strconv.Itoa(i), "test", credential.Customer)
 		}
 	}
 
