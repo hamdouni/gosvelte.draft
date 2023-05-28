@@ -9,9 +9,9 @@ import (
 	"strconv"
 	"wtk/biz"
 	"wtk/biz/user"
-	"wtk/cmd/api"
 	"wtk/ext/store/ram"
 	"wtk/ext/store/sqlite"
+	"wtk/ui/api"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 func run(args []string) error {
 	host := flag.String("host", "0.0.0.0", "host name to listen on")
 	port := flag.Int("port", 8000, "port to listen on")
-	static := flag.String("static", "./cmd/cli/", "static files folder")
+	static := flag.String("static", "./ui/cli/", "static files folder")
 	help := flag.Bool("help", false, "show command usage")
 	flag.Parse()
 

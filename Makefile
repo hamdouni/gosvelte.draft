@@ -12,10 +12,10 @@ test:
 
 install:
 	go mod tidy
-	cd cmd/cli && npm -s i
+	cd ui/cli && npm -s i
 
 start:
-	tmux send-keys 'goconvey' C-m \; split-window -h -l 66% \; send-keys 'watcher -run cmd/srv/*.go' C-m \; split-window -h \; send-keys 'cd cmd/cli && npm run dev' C-m \;
+	tmux send-keys 'goconvey' C-m \; split-window -h -l 66% \; send-keys 'watcher -run ui/ops/*.go' C-m \; split-window -h \; send-keys 'cd ui/cli && npm run dev' C-m \;
 
 stop:
 	echo "Stopping dev env"
@@ -28,11 +28,11 @@ clean:
 
 build-client:
 	echo "build client"
-	cd cmd/cli && npm -s run build
+	cd ui/cli && npm -s run build
 
 build-server:
 	echo "build server"
-	go build -o ./build/ cmd/srv/*.go
+	go build -o ./build/ ui/srv/*.go
 
 build: build-client build-server
 

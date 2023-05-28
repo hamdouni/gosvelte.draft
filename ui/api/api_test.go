@@ -19,8 +19,8 @@ import (
 	"wtk/biz"
 	"wtk/biz/secure"
 	"wtk/biz/user"
-	"wtk/cmd/api"
 	"wtk/ext/store/ram"
+	"wtk/ui/api"
 )
 
 func init() {

@@ -4,7 +4,7 @@ COPY . /src
 ENV CGO_ENABLED=0
 ENV GOARCH=amd64
 ENV GOOS=linux
-RUN go build -o ./build/ cmd/srv/*.go
+RUN go build -o ./build/ ui/ops/*.go
 
 FROM scratch
 COPY --from=build-go server /
