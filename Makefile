@@ -15,7 +15,7 @@ install:
 	cd ui/cli && npm -s i
 
 start:
-	tmux send-keys 'goconvey' C-m \; split-window -h -l 66% \; send-keys 'watcher -run ui/ops/*.go' C-m \; split-window -h \; send-keys 'cd ui/cli && npm run dev' C-m \;
+	tmux send-keys 'goconvey' C-m \; split-window -h -p 66 \; send-keys 'watcher -run ui/ops/*.go' C-m \; split-window -h \; send-keys 'cd ui/cli && npm run dev' C-m \;
 
 stop:
 	echo "Stopping dev env"
