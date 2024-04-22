@@ -16,7 +16,7 @@ install:
 
 start:
 	tmux send-keys 'goconvey' C-m \; \
-		split-window -h -l 66% \; send-keys 'watcher -run cmd/server/*.go' C-m \; \
+		split-window -h -l 66 \; send-keys 'watcher -run cmd/server/*.go' C-m \; \
 		split-window -h \; send-keys 'cd ui/web && npm run dev' C-m \;
 
 stop:
