@@ -1,9 +1,7 @@
 package biz
 
-import (
-	"wtk/biz/credential"
-)
+import "wtk/user"
 
 type Security interface {
-	credential.Security
+	user.Security
 }

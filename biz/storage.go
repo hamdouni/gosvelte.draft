@@ -1,9 +1,9 @@
 package biz
 
-import "wtk/biz/credential"
+import "wtk/user"
 
 type Storage interface {
-	credential.Storage
+	user.Storage
 	InitSchema() error
 	Close() error
 }

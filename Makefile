@@ -12,12 +12,12 @@ test:
 
 install:
 	go mod tidy
-	cd ui/web && npm -s i
+	cd internal/web && npm -s i
 
 start:
 	tmux send-keys 'goconvey' C-m \; \
-		split-window -h -l 66 \; send-keys 'watcher -run cmd/server/*.go' C-m \; \
-		split-window -h \; send-keys 'cd ui/web && npm run dev' C-m \;
+		split-window -h -l 66 \; send-keys 'watcher -run internal/cmd/server/*.go' C-m \; \
+		split-window -h \; send-keys 'cd internal/web && npm run dev' C-m \;
 
 stop:
 	echo "Stopping dev env"
@@ -30,11 +30,11 @@ clean:
 
 build-client:
 	echo "build client"
-	cd ui/web && npm -s run build
+	cd internal/web && npm -s run build
 
 build-server:
 	echo "build server"
-	go build -o ./build/ cmd/server/ 
+	go build -o ./build/ internal/cmd/server/ 
 
 build: build-client build-server
 

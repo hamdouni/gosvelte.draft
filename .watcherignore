@@ -5,5 +5,6 @@
 *.sh
 *.mod
 *.sum
+internal/web
 cmd/cli
 database.*

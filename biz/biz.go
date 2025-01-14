@@ -1,11 +1,9 @@
 package biz
 
-import (
-	"wtk/biz/credential"
-)
+import "wtk/user"
 
 func Initialize(sto Storage, sec Security) error {
-	credential.WithSecurity(sec)
-	credential.WithRepo(sto)
+	user.WithSecurity(sec)
+	user.WithRepo(sto)
 	return nil
 }
