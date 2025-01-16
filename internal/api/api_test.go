@@ -17,7 +17,7 @@ import (
 	"strings"
 	"testing"
 
-	"wtk/biz"
+	"wtk/app"
 	"wtk/internal/api"
 	"wtk/internal/secure"
 	"wtk/internal/store/ram"
@@ -27,7 +27,7 @@ import (
 func init() {
 	fakeStore, _ := ram.New()
 	fakeSecure, _ := secure.New()
-	biz.Initialize(&fakeStore, fakeSecure)
+	app.Initialize(&fakeStore, fakeSecure)
 	user.Add("FakeRealm", "samething", "samething", 1)
 	api.Routes(".")
 }

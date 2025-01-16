@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"wtk/biz"
+	"wtk/hello"
 	"wtk/internal/api/jayson"
 )
 
@@ -18,6 +18,6 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nom := r.Form.Get("nom")
-	message := biz.Hello(nom)
+	message := hello.Hello(nom)
 	jayson.Respond(w, http.StatusOK, message)
 }

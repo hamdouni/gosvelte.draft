@@ -1,7 +1,7 @@
 package user
 
-// Credential définie un utilisateur par son identifiant, son mot de passe et son rôle dans un royaume (realm) donné
-type Credential struct {
+// User définie un utilisateur par son identifiant, son mot de passe et son rôle dans un royaume (realm) donné
+type User struct {
 	Username string
 	Password string
 	Role     Role
@@ -20,7 +20,7 @@ const (
 )
 
 // New retourne un utilisateur validé
-func New(realm, username, password string, role Role) (*Credential, error) {
+func New(realm, username, password string, role Role) (*User, error) {
 	if len(username) < 4 {
 		return nil, ErrUsernameTooShort
 	}
@@ -31,7 +31,7 @@ func New(realm, username, password string, role Role) (*Credential, error) {
 		return nil, ErrUndefinedRole
 	}
 
-	u := &Credential{
+	u := &User{
 		Username: username,
 		Password: password,
 		Role:     role,

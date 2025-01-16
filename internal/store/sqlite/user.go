@@ -2,7 +2,7 @@ package sqlite
 
 import "wtk/user"
 
-func (store Store) Add(u user.Credential) error {
+func (store Store) Add(u user.User) error {
 	q := `INSERT INTO user (username, password, role, realm) VALUES(?,?,?,?)`
 	_, err := store.database.Exec(q, u.Username, u.Password, u.Role, u.Realm)
 	return err
@@ -27,7 +27,7 @@ func (store Store) ExistUsername(realm, username string) (exists bool) {
 	return exists
 }
 
-func (store Store) ListUsers(realm string) (users []user.Credential, err error) {
+func (store Store) ListUsers(realm string) (users []user.User, err error) {
 	q := `SELECT username, role FROM user WHERE realm=?`
 	rows, err := store.database.Query(q, realm)
 	if err != nil {
@@ -35,7 +35,7 @@ func (store Store) ListUsers(realm string) (users []user.Credential, err error) 
 	}
 	defer rows.Close()
 	for rows.Next() {
-		var u user.Credential
+		var u user.User
 		if err := rows.Scan(&u.Username, &u.Role); err != nil {
 			return users, err
 		}

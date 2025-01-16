@@ -3,8 +3,8 @@ package user
 type Storage interface {
 	GetPassword(realm, username string) (encryptedPassword string)
 	ExistUsername(realm, username string) bool
-	Add(user Credential) error
-	ListUsers(realm string) ([]Credential, error)
+	Add(user User) error
+	ListUsers(realm string) ([]User, error)
 }
 
 var store Storage
@@ -29,10 +29,10 @@ func (ds defaultStore) ExistUsername(realm, username string) bool {
 	panic("credential.ExistUsername not implemented")
 }
 
-func (ds defaultStore) Add(user Credential) error {
+func (ds defaultStore) Add(user User) error {
 	panic("credential.Add not implemented")
 }
 
-func (ds defaultStore) ListUsers(realm string) ([]Credential, error) {
+func (ds defaultStore) ListUsers(realm string) ([]User, error) {
 	panic("credential.ListUsers not implemented")
 }

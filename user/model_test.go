@@ -3,10 +3,10 @@ package user_test
 import (
 	"testing"
 
-	"wtk/biz"
-	"wtk/user"
+	"wtk/app"
 	"wtk/internal/secure"
 	"wtk/internal/store/ram"
+	"wtk/user"
 )
 
 func TestCreateCredential(t *testing.T) {
@@ -72,7 +72,7 @@ func TestDuplicateCredential(t *testing.T) {
 	}
 
 	// configure le métier avec le storage et la sécurité
-	biz.Initialize(&storage, security)
+	app.Initialize(&storage, security)
 
 	// ajoute un user de test
 	err = user.Add("FakeRealm", "test", "test", user.Administrator)

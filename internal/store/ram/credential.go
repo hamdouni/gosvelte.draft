@@ -6,9 +6,9 @@ func key(realm, username string) string {
 	return realm + ":" + username
 }
 
-func (rs *RAM) Add(u user.Credential) error {
+func (rs *RAM) Add(u user.User) error {
 	k := key(u.Realm, u.Username)
-	rs.users[k] = user.Credential{
+	rs.users[k] = user.User{
 		Username: u.Username,
 		Password: u.Password,
 		Role:     u.Role,
@@ -28,7 +28,7 @@ func (rs *RAM) ExistUsername(realm, username string) bool {
 	return exists
 }
 
-func (rs *RAM) ListUsers(realm string) (users []user.Credential, err error) {
+func (rs *RAM) ListUsers(realm string) (users []user.User, err error) {
 	for _, u := range rs.users {
 		if u.Realm == realm {
 			users = append(users, u)
